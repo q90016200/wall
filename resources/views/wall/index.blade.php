@@ -1,4 +1,3 @@
-<!-- 文件保存于 resources/views/layouts/child.blade.php -->
 
 @extends('layouts.app')
 
@@ -6,28 +5,75 @@
 
 
 @section('content')
+
+<link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+
     <div class="container">
-		<div class="row bg-info">
-			<div class="col-sm">
-			    <h2 >
-					wall
-				</h2>
+
+
+		<div class="row">
+			<div class="col bg-info">
+			    <h2 >wall</h2>
 		    </div>
+		</div>
+
+		<div class="row border p-2" >
+            <div class="col ">
+                <div class="row">
+                    <div class="col-auto mr-auto">
+                        <span class="oi oi-person"></span>
+                        <span class="ml-1">@guest guest @else {{ Auth::user()->name }}  @endguest</span>
+                    </div>
+                    <div class="col-auto">
+                        <a href="">
+                            <span class="oi oi-image"></span>
+                        </a>
+                    </div>    
+                </div>
+                
+                <div class="row mt-2">
+                    <div class="col">
+                        <form>
+                            <div class="form-group">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="分享內容"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                
+                {{-- 分享 --}}
+                <div class="card mb-3">
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+
+                {{-- 圖片 --}}
+
+
+                {{-- 送出 --}}
+                <div class="row justify-content-end">
+                    <button type="button" class="btn btn-info">送出</button>
+                </div>
+            </div>
 			
 		</div>
-		<div class="row border">
-			<div class="col-sm">
-				<div>
-					<img src="..." alt="..." class="img-thumbnail">
-					<span>aaa</span>
-				</div>
-				
 
-				<form action="">
-					
-				</form>
-			</div>
-		</div>
+
     	
     </div>
+
 @endsection
+
+@section('html_bottom')
+<script>
+    window.onload = function(){
+        autosize(document.querySelectorAll('textarea'));
+    }
+</script>
+@endsection
+
