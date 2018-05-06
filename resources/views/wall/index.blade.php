@@ -28,6 +28,7 @@
                         <a href="">
                             <span class="oi oi-image"></span>
                         </a>
+                        <input type="file">
                     </div>    
                 </div>
                 
@@ -53,12 +54,16 @@
                 </div>
 
                 {{-- 圖片 --}}
+                <div class="card" >
+                    <img class="card-img-top" src="..." alt="Card image cap">
+                </div>
 
 
                 {{-- 送出 --}}
-                <div class="row justify-content-end">
+                <div class="row justify-content-end mt-2">
                     <button type="button" class="btn btn-info">送出</button>
                 </div>
+
             </div>
 			
 		</div>
