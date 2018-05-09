@@ -23,7 +23,7 @@ class WallPostController extends Controller
      */
     public function create()
     {
-        //
+        //test
     }
 
     /**
