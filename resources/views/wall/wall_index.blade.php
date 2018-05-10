@@ -8,13 +8,11 @@
 
 <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
 
-
-
     <div class="bg-info p-3 my-3 rounded box-shadow">
         <h2 >wall</h2>
     </div>
 
-    <div class="my-3 p-3 bg-white rounded box-shadow">
+    <div class="my-3 p-3 bg-white rounded box-shadow" id="">
         <div class="d-flex justify-content-between bd-highlight mb-3">
             <div>
                 <span class="oi oi-person"></span>
@@ -35,12 +33,12 @@
        
         <form>
             <div class="form-group">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="分享內容"></textarea>
+                <textarea class="form-control" id="" rows="3" placeholder="分享內容"></textarea>
             </div>
         </form>
         
         {{-- 分享 --}}
-        <div class="card">
+        <div class="card mt-3">
             <img class="card-img-top" src="..." alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Card title</h5>
@@ -62,17 +60,16 @@
 
         
     </div>
+    
+    <div class="my-3 p-3 bg-white rounded box-shadow" id="wall_publish_div">
 
+    </div>
 
         
 
 @endsection
 
 @section('html_bottom')
-<script>
-    window.onload = function(){
-        autosize(document.querySelectorAll('textarea'));
-    }
-</script>
+    <script src="{{ asset('js/wall_index.js') }}" defer></script>
 @endsection
 

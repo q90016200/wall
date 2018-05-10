@@ -14,8 +14,6 @@ require('./bootstrap');
  */
 
 // require('./components/Example');
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
 
 window.autosize = require('autosize');
