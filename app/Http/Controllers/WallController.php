@@ -8,7 +8,7 @@ class WallController extends Controller
 {
     public function index(){
 
-        $view = view("wall.index");
+        $view = view("wall.wall_index");
 
 
         return $view;

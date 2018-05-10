@@ -13,7 +13,9 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Example');
+// require('./components/Example');
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 
 window.autosize = require('autosize');
