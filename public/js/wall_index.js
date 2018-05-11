@@ -19083,13 +19083,31 @@ var Wall_post_publish = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (Wall_post_publish.__proto__ || Object.getPrototypeOf(Wall_post_publish)).call(this, props));
 
-        _this.state = { photo_status: false };
+        _this.state = {
+            photo_status: false,
+            share_status: false,
+            textarea_value: ''
+        };
+
+        _this.handlePublishTextAreaChange = _this.handlePublishTextAreaChange.bind(_this);
         return _this;
     }
 
     _createClass(Wall_post_publish, [{
+        key: 'handlePublishTextAreaChange',
+        value: function handlePublishTextAreaChange(event) {
+            this.setState({
+                textarea_value: event.target.value,
+                share_status: true
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
+            var share_div = null;
+            if (this.state.share_status) {
+                share_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_share, null);
+            }
 
             if (this.state.photo_status) {
                 photo_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null);
@@ -19097,19 +19115,33 @@ var Wall_post_publish = function (_React$Component) {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                { className: 'd-flex justify-content-between bd-highlight mb-3' },
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_user, { name: this.props.name }),
-                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null),
+                null,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
-                    { className: '' },
+                    { className: 'd-flex justify-content-between bd-highlight mb-3' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_user, { name: this.props.name }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'a',
-                        { href: '' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'oi oi-image' })
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', className: 'visible' })
-                )
+                        'div',
+                        { className: '' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'a',
+                            { href: '' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'oi oi-image' })
+                        ),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', className: 'visible' })
+                    )
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'form',
+                    null,
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { className: 'form-control', value: this.state.textarea_value, onChange: this.handlePublishTextAreaChange, rows: '3', placeholder: '\u5206\u4EAB\u5167\u5BB9' })
+                    )
+                ),
+                share_div
             );
         }
     }]);
@@ -19121,7 +19153,6 @@ var Wall_post_publish = function (_React$Component) {
 
 
 function Wall_post_publish_user(props) {
-    props;
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         null,
@@ -19132,6 +19163,37 @@ function Wall_post_publish_user(props) {
             ' ',
             props.name,
             ' '
+        )
+    );
+}
+
+function Wall_post_publish_share(props) {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'card mt-3' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'card-img-top', src: '', alt: 'Card image cap' }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'card-body' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'h5',
+                { className: 'card-title' },
+                'Card title'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'p',
+                { className: 'card-text' },
+                'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.'
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'p',
+                { className: 'card-text' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'small',
+                    { className: 'text-muted' },
+                    'Last updated 3 mins ago'
+                )
+            )
         )
     );
 }
