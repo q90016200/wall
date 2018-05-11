@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
+
 class WallController extends Controller
 {
     public function index(){
@@ -14,7 +16,7 @@ class WallController extends Controller
         return $view;
     }
 
-        // 取得網址內的meta資訊
+    // 取得網址內的meta資訊
     public function get_url_preview(Request $request){
         $url = $request->input("url","");
 
@@ -295,16 +297,16 @@ class WallController extends Controller
                             $ud["link_url"] = $url;
                             $ud["link_updated"] = date("Y-m-d H:i:s");
 
-                            $_wpl = DB::connection("mmWall")->table("wall_preview_links")
-                                ->where("wall_preview_links.link_url",$url)
-                                ->take(1)
-                                ->get();
+                            // $_wpl = DB::connection("mmWall")->table("wall_preview_links")
+                            //     ->where("wall_preview_links.link_url",$url)
+                            //     ->take(1)
+                            //     ->get();
 
-                            if($_wpl){
-                                DB::connection("mmWall")->table("wall_preview_links")->where("wall_preview_links.link_id",$_wpl[0]->link_id)->update($ud);
-                            }else{
-                                DB::connection("mmWall")->table("wall_preview_links")->insert($ud);
-                            }
+                            // if($_wpl){
+                            //     DB::connection("mmWall")->table("wall_preview_links")->where("wall_preview_links.link_id",$_wpl[0]->link_id)->update($ud);
+                            // }else{
+                            //     DB::connection("mmWall")->table("wall_preview_links")->insert($ud);
+                            // }
                         }
                         
 
@@ -355,20 +357,20 @@ class WallController extends Controller
             }
         } 
 
-        $_q = DB::connection("mmWall")->table("wall_preview_links")
-            ->where("link_url",$surl)
-            ->take(1)
-            ->get();
+        // $_q = DB::connection("mmWall")->table("wall_preview_links")
+        //     ->where("link_url",$surl)
+        //     ->take(1)
+        //     ->get();
 
-        if($_q){
-            $data["link_url"] = $url;
-            $data["link_title"] = $_q[0]->link_title;
-            $data["link_description"] = $_q[0]->link_description;
-            $data["link_image"] = $_q[0]->link_image;
-            $data["link_image_width"] = $_q[0]->link_image_width;
-            $data["link_image_height"] = $_q[0]->link_image_height;
+        // if($_q){
+        //     $data["link_url"] = $url;
+        //     $data["link_title"] = $_q[0]->link_title;
+        //     $data["link_description"] = $_q[0]->link_description;
+        //     $data["link_image"] = $_q[0]->link_image;
+        //     $data["link_image_width"] = $_q[0]->link_image_width;
+        //     $data["link_image_height"] = $_q[0]->link_image_height;
 
-        }
+        // }
 
         return $data;
 

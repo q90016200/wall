@@ -19090,15 +19090,62 @@ var Wall_post_publish = function (_React$Component) {
         };
 
         _this.handlePublishTextAreaChange = _this.handlePublishTextAreaChange.bind(_this);
+        _this.handlePublishUploadIMGClick = _this.handlePublishUploadIMGClick.bind(_this);
+        _this.handlePublishFileChange = _this.handlePublishFileChange.bind(_this);
         return _this;
     }
+
+    // 紀錄發佈的文字
+
 
     _createClass(Wall_post_publish, [{
         key: 'handlePublishTextAreaChange',
         value: function handlePublishTextAreaChange(event) {
+
+            var str = event.target.value;
+
             this.setState({
-                textarea_value: event.target.value,
-                share_status: true
+                textarea_value: str
+            });
+
+            var find_url = wall_publish_find_url(str);
+
+            console.log(find_url);
+
+            if (find_url != null) {
+
+                axios({
+                    method: 'post',
+                    url: '/wall/get_preview',
+                    data: {
+                        url: find_url[0]
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                });
+
+                // this.setState({
+                //     share_status:true
+                // });
+            }
+        }
+
+        // 當點擊上傳團片圖示,觸發上傳上傳檔案
+
+    }, {
+        key: 'handlePublishUploadIMGClick',
+        value: function handlePublishUploadIMGClick(event) {
+            event.preventDefault();
+            document.getElementById('publish_upload_img_input').click();
+        }
+
+        // 當圖片上傳 input 有圖就顯示預覽
+
+    }, {
+        key: 'handlePublishFileChange',
+        value: function handlePublishFileChange(event) {
+            this.setState({
+                photo_status: true
             });
         }
     }, {
@@ -19126,10 +19173,10 @@ var Wall_post_publish = function (_React$Component) {
                         { className: '' },
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'a',
-                            { href: '' },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'oi oi-image' })
+                            { href: '', onClick: this.handlePublishUploadIMGClick },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'oi oi-image', onClick: this.handlePublishUploadIMGClickhandlePublishUploadIMGClick })
                         ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', className: 'visible' })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', id: 'publish_upload_img_input', className: 'invisible', onChange: this.handlePublishFileChange })
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -19138,7 +19185,7 @@ var Wall_post_publish = function (_React$Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'form-group' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { className: 'form-control', value: this.state.textarea_value, onChange: this.handlePublishTextAreaChange, rows: '3', placeholder: '\u5206\u4EAB\u5167\u5BB9' })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { className: 'form-control', value: this.state.textarea_value, onChange: this.handlePublishTextAreaChange, rows: '3', placeholder: '\u5206\u4EAB\u65B0\u6D88\u606F' })
                     )
                 ),
                 share_div
@@ -19149,9 +19196,10 @@ var Wall_post_publish = function (_React$Component) {
     return Wall_post_publish;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
+// 發布使用者顯示區塊
+
+
 /* harmony default export */ __webpack_exports__["a"] = (Wall_post_publish);
-
-
 function Wall_post_publish_user(props) {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
@@ -19167,6 +19215,7 @@ function Wall_post_publish_user(props) {
     );
 }
 
+// 預覽 分享網址
 function Wall_post_publish_share(props) {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
@@ -19196,6 +19245,24 @@ function Wall_post_publish_share(props) {
             )
         )
     );
+}
+
+// 預覽上傳圖片
+function Wall_post_publish_img(props) {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'card mt-3' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'card-img-top', src: '', alt: '' })
+    );
+}
+
+// 查看文字內是否有網址
+function wall_publish_find_url(str) {
+    var urlPattern = /([a-z]+\:\/+)([^\/\s]*)([a-z0-9\-@\^=%&;\/~\+]*)[\?]?([^ \#]*)#?([^ \#]*)/ig;
+
+    var ref = str.match(urlPattern);
+
+    return ref;
 }
 
 /***/ })
