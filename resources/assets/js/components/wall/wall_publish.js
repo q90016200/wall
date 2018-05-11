@@ -47,7 +47,7 @@ export default class Wall_post_publish extends React.Component {
                 </div>
                 <form>
                     <div className="form-group">
-                        <textarea className="form-control" value={this.state.textarea_value} onChange={this.handlePublishTextAreaChange} rows="3" placeholder="分享內容" />
+                        <textarea className="form-control" value={this.state.textarea_value} onChange={this.handlePublishTextAreaChange} rows="3" placeholder="分享新消息" />
                     </div>
                 </form>
                 {share_div}
