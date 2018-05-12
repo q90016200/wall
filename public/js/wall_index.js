@@ -19084,9 +19084,14 @@ var Wall_post_publish = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Wall_post_publish.__proto__ || Object.getPrototypeOf(Wall_post_publish)).call(this, props));
 
         _this.state = {
+            textarea_value: '',
             photo_status: false,
             share_status: false,
-            textarea_value: ''
+            share_div_img: null,
+            share_div_title: null,
+            share_div_description: null,
+            share_div_url: null
+
         };
 
         _this.handlePublishTextAreaChange = _this.handlePublishTextAreaChange.bind(_this);
@@ -19108,11 +19113,16 @@ var Wall_post_publish = function (_React$Component) {
                 textarea_value: str
             });
 
+            // 查看有網址就抓取預覽
+
             var find_url = wall_publish_find_url(str);
 
-            console.log(find_url);
+            // console.log(find_url);
+
 
             if (find_url != null) {
+
+                var class_tihs = this;
 
                 axios({
                     method: 'post',
@@ -19121,12 +19131,23 @@ var Wall_post_publish = function (_React$Component) {
                         url: find_url[0]
                     }
                 }).then(function (response) {
-                    console.log(response);
-                });
 
-                // this.setState({
-                //     share_status:true
-                // });
+                    var data = response.data;
+
+                    // response = JSON.parse(response);
+
+                    if (!data.error) {
+
+                        console.log(data.preview_data);
+                        class_tihs.setState({
+                            share_status: true,
+                            share_div_img: data.preview_data.link_image,
+                            share_div_title: data.preview_data.link_title,
+                            share_div_description: data.preview_data.link_description,
+                            share_div_url: data.preview_data.link_url
+                        });
+                    }
+                });
             }
         }
 
@@ -19153,7 +19174,7 @@ var Wall_post_publish = function (_React$Component) {
         value: function render() {
             var share_div = null;
             if (this.state.share_status) {
-                share_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_share, null);
+                share_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_share, { img: this.state.share_div_img, title: this.state.share_div_title, description: this.state.share_div_description, url: this.state.share_div_url });
             }
 
             if (this.state.photo_status) {
@@ -19220,19 +19241,19 @@ function Wall_post_publish_share(props) {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'card mt-3' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'card-img-top', src: '', alt: 'Card image cap' }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'card-img-top', src: props.img, alt: 'Card image cap' }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
             { className: 'card-body' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'h5',
                 { className: 'card-title' },
-                'Card title'
+                props.title
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'p',
                 { className: 'card-text' },
-                'This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.'
+                props.description
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'p',
@@ -19240,7 +19261,7 @@ function Wall_post_publish_share(props) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'small',
                     { className: 'text-muted' },
-                    'Last updated 3 mins ago'
+                    props.url
                 )
             )
         )

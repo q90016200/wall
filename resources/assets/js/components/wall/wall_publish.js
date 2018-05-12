@@ -6,9 +6,14 @@ export default class Wall_post_publish extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            textarea_value:'',
             photo_status:false,
             share_status:false,
-            textarea_value:''
+            share_div_img:null,
+            share_div_title:null,
+            share_div_description:null,
+            share_div_url:null
+            
         };
 
         this.handlePublishTextAreaChange = this.handlePublishTextAreaChange.bind(this);
@@ -25,14 +30,16 @@ export default class Wall_post_publish extends React.Component {
             textarea_value: str,
         });
 
+        // 查看有網址就抓取預覽
 
         let find_url = wall_publish_find_url(str);
 
-        console.log(find_url);
+        // console.log(find_url);
 
 
         if(find_url != null){
 
+            let class_tihs = this;
 
             axios({
                 method: 'post',
@@ -41,12 +48,27 @@ export default class Wall_post_publish extends React.Component {
                     url: find_url[0],
                 }
             }).then(function(response) {
-                console.log(response);
+
+                let data = response.data;
+
+                // response = JSON.parse(response);
+
+                if(!data.error){
+
+                    console.log(data.preview_data);
+                    class_tihs.setState({
+                        share_status:true,
+                        share_div_img:data.preview_data.link_image,
+                        share_div_title:data.preview_data.link_title,
+                        share_div_description:data.preview_data.link_description,
+                        share_div_url:data.preview_data.link_url
+                    });
+                }
+
+                
             });
 
-            // this.setState({
-            //     share_status:true
-            // });
+            
         }
 
     }
@@ -54,7 +76,7 @@ export default class Wall_post_publish extends React.Component {
     // 當點擊上傳團片圖示,觸發上傳上傳檔案
     handlePublishUploadIMGClick(event){
         event.preventDefault();
-        document.getElementById('publish_upload_img_input').click()
+        document.getElementById('publish_upload_img_input').click();
     }
 
     // 當圖片上傳 input 有圖就顯示預覽
@@ -68,7 +90,7 @@ export default class Wall_post_publish extends React.Component {
     render(){
         let share_div = null;
         if (this.state.share_status){
-            share_div = <Wall_post_publish_share />;  
+            share_div = <Wall_post_publish_share img={this.state.share_div_img} title={this.state.share_div_title}  description={this.state.share_div_description} url={this.state.share_div_url}  />;  
         }
 
         if (this.state.photo_status){
@@ -117,11 +139,11 @@ function Wall_post_publish_user(props) {
 function Wall_post_publish_share(props){
     return (
         <div className="card mt-3">
-            <img className="card-img-top" src="" alt="Card image cap" />
+            <img className="card-img-top" src={props.img} alt="Card image cap" />
             <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+                <h5 className="card-title">{props.title}</h5>
+                <p className="card-text">{props.description}</p>
+                <p className="card-text"><small className="text-muted">{props.url}</small></p>
             </div>
         </div>
     );

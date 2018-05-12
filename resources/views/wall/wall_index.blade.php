@@ -12,6 +12,10 @@
         <h2 >wall</h2>
     </div>
 
+    <div class="my-3 p-3 bg-white rounded box-shadow" id="wall_publish_div">
+
+    </div>
+
     <div class="my-3 p-3 bg-white rounded box-shadow" id="">
         <div class="d-flex justify-content-between bd-highlight mb-3">
             <div>
@@ -60,9 +64,7 @@
         
     </div>
     
-    <div class="my-3 p-3 bg-white rounded box-shadow" id="wall_publish_div">
-
-    </div>
+    
 
         
 
