@@ -13,7 +13,8 @@ export default class Wall_post_publish extends React.Component {
             share_div_description:null,
             share_div_url:null,
             photo_status:false,
-            photo_src:null
+            photo_src:null,
+            photo_input_val:''
             
         };
 
@@ -109,10 +110,13 @@ export default class Wall_post_publish extends React.Component {
 
     // 取消上傳圖片 (關閉圖片預覽)
     handlePublishUploadIMGCancel(event){
+
         this.setState({
             photo_src:null,
-            photo_status:false
+            photo_status:false,
+            photo_input_val:''
         });
+
     }
 
 
@@ -135,7 +139,7 @@ export default class Wall_post_publish extends React.Component {
                     <div></div>
 
                     <div className="">
-                        <input type="file" id="publish_upload_img_input" className="invisible" accept="image/*" onChange={this.handlePublishFileChange} />
+                        <input type="file" id="publish_upload_img_input" className="invisible" accept="image/*" onChange={this.handlePublishFileChange} value={this.state.photo_input_val} />
                         <a href="" onClick={this.handlePublishUploadIMGClick} >
                             <span className="oi oi-image" ></span>
                         </a>
@@ -184,7 +188,6 @@ function Wall_post_publish_share(props){
 function Wall_post_publish_img(props){
 
     function handleClick(e){
-        
         props.onCloseClick(e)
     }
 

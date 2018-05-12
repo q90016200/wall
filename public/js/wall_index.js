@@ -19091,7 +19091,8 @@ var Wall_post_publish = function (_React$Component) {
             share_div_description: null,
             share_div_url: null,
             photo_status: false,
-            photo_src: null
+            photo_src: null,
+            photo_input_val: ''
 
         };
 
@@ -19195,9 +19196,11 @@ var Wall_post_publish = function (_React$Component) {
     }, {
         key: 'handlePublishUploadIMGCancel',
         value: function handlePublishUploadIMGCancel(event) {
+
             this.setState({
                 photo_src: null,
-                photo_status: false
+                photo_status: false,
+                photo_input_val: ''
             });
         }
     }, {
@@ -19224,7 +19227,7 @@ var Wall_post_publish = function (_React$Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: '' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', id: 'publish_upload_img_input', className: 'invisible', accept: 'image/*', onChange: this.handlePublishFileChange }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', id: 'publish_upload_img_input', className: 'invisible', accept: 'image/*', onChange: this.handlePublishFileChange, value: this.state.photo_input_val }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'a',
                             { href: '', onClick: this.handlePublishUploadIMGClick },
@@ -19305,7 +19308,6 @@ function Wall_post_publish_share(props) {
 function Wall_post_publish_img(props) {
 
     function handleClick(e) {
-
         props.onCloseClick(e);
     }
 
