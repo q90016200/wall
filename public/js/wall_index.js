@@ -19085,17 +19085,20 @@ var Wall_post_publish = function (_React$Component) {
 
         _this.state = {
             textarea_value: '',
-            photo_status: false,
             share_status: false,
             share_div_img: null,
             share_div_title: null,
             share_div_description: null,
-            share_div_url: null
+            share_div_url: null,
+            photo_status: false,
+            photo_src: null
 
         };
 
         _this.handlePublishTextAreaChange = _this.handlePublishTextAreaChange.bind(_this);
         _this.handlePublishUploadIMGClick = _this.handlePublishUploadIMGClick.bind(_this);
+        _this.handlePublishUploadIMGCancel = _this.handlePublishUploadIMGCancel.bind(_this);
+
         _this.handlePublishFileChange = _this.handlePublishFileChange.bind(_this);
         return _this;
     }
@@ -19122,7 +19125,7 @@ var Wall_post_publish = function (_React$Component) {
 
             if (find_url != null) {
 
-                var class_tihs = this;
+                var class_this = this;
 
                 axios({
                     method: 'post',
@@ -19138,8 +19141,8 @@ var Wall_post_publish = function (_React$Component) {
 
                     if (!data.error) {
 
-                        console.log(data.preview_data);
-                        class_tihs.setState({
+                        // console.log(data.preview_data);
+                        class_this.setState({
                             share_status: true,
                             share_div_img: data.preview_data.link_image,
                             share_div_title: data.preview_data.link_title,
@@ -19165,20 +19168,49 @@ var Wall_post_publish = function (_React$Component) {
     }, {
         key: 'handlePublishFileChange',
         value: function handlePublishFileChange(event) {
+
+            // console.log(event.target.value);
+            // console.log(event.target.files[0]);
+
+            var class_this = this;
+
+            // 使用HTML5 File API, 來即時預覽image
+
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                // console.log(e);
+                // console.log(e.target.result);
+                class_this.setState({
+                    photo_src: e.target.result,
+                    photo_status: true
+                });
+            };
+
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // 取消上傳圖片 (關閉圖片預覽)
+
+    }, {
+        key: 'handlePublishUploadIMGCancel',
+        value: function handlePublishUploadIMGCancel(event) {
             this.setState({
-                photo_status: true
+                photo_src: null,
+                photo_status: false
             });
         }
     }, {
         key: 'render',
         value: function render() {
             var share_div = null;
+            var photo_div = null;
             if (this.state.share_status) {
                 share_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_share, { img: this.state.share_div_img, title: this.state.share_div_title, description: this.state.share_div_description, url: this.state.share_div_url });
             }
 
             if (this.state.photo_status) {
-                photo_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null);
+                photo_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_img, { img: this.state.photo_src, onCloseClick: this.handlePublishUploadIMGCancel });
             }
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -19192,12 +19224,12 @@ var Wall_post_publish = function (_React$Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: '' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', id: 'publish_upload_img_input', className: 'invisible', accept: 'image/*', onChange: this.handlePublishFileChange }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'a',
                             { href: '', onClick: this.handlePublishUploadIMGClick },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'oi oi-image', onClick: this.handlePublishUploadIMGClickhandlePublishUploadIMGClick })
-                        ),
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', id: 'publish_upload_img_input', className: 'invisible', onChange: this.handlePublishFileChange })
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'oi oi-image' })
+                        )
                     )
                 ),
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -19209,7 +19241,8 @@ var Wall_post_publish = function (_React$Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { className: 'form-control', value: this.state.textarea_value, onChange: this.handlePublishTextAreaChange, rows: '3', placeholder: '\u5206\u4EAB\u65B0\u6D88\u606F' })
                     )
                 ),
-                share_div
+                share_div,
+                photo_div
             );
         }
     }]);
@@ -19270,10 +19303,25 @@ function Wall_post_publish_share(props) {
 
 // 預覽上傳圖片
 function Wall_post_publish_img(props) {
+
+    function handleClick(e) {
+
+        props.onCloseClick(e);
+    }
+
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { className: 'card mt-3' },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'card-img-top', src: '', alt: '' })
+        { className: 'card mt-3 ' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            { type: 'button', className: 'close position-absolute ', 'aria-label': 'Close', onClick: handleClick },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { 'aria-hidden': 'true' },
+                '\xD7'
+            )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'card-img-top', src: props.img, alt: '' })
     );
 }
 

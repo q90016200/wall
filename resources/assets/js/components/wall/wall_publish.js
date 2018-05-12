@@ -7,17 +7,20 @@ export default class Wall_post_publish extends React.Component {
         super(props);
         this.state = {
             textarea_value:'',
-            photo_status:false,
             share_status:false,
             share_div_img:null,
             share_div_title:null,
             share_div_description:null,
-            share_div_url:null
+            share_div_url:null,
+            photo_status:false,
+            photo_src:null
             
         };
 
         this.handlePublishTextAreaChange = this.handlePublishTextAreaChange.bind(this);
         this.handlePublishUploadIMGClick = this.handlePublishUploadIMGClick.bind(this);
+        this.handlePublishUploadIMGCancel = this.handlePublishUploadIMGCancel.bind(this);
+        
         this.handlePublishFileChange = this.handlePublishFileChange.bind(this);
     }
 
@@ -39,7 +42,7 @@ export default class Wall_post_publish extends React.Component {
 
         if(find_url != null){
 
-            let class_tihs = this;
+            let class_this = this;
 
             axios({
                 method: 'post',
@@ -55,8 +58,8 @@ export default class Wall_post_publish extends React.Component {
 
                 if(!data.error){
 
-                    console.log(data.preview_data);
-                    class_tihs.setState({
+                    // console.log(data.preview_data);
+                    class_this.setState({
                         share_status:true,
                         share_div_img:data.preview_data.link_image,
                         share_div_title:data.preview_data.link_title,
@@ -81,20 +84,47 @@ export default class Wall_post_publish extends React.Component {
 
     // 當圖片上傳 input 有圖就顯示預覽
     handlePublishFileChange(event){
+
+        // console.log(event.target.value);
+        // console.log(event.target.files[0]);
+
+        let class_this = this;
+
+        // 使用HTML5 File API, 來即時預覽image
+
+        let reader = new FileReader();
+
+        reader.onload = function (e) {
+            // console.log(e);
+            // console.log(e.target.result);
+            class_this.setState({
+                photo_src:e.target.result,
+                photo_status:true
+            });
+        }
+
+        reader.readAsDataURL(event.target.files[0]);
+        
+    }
+
+    // 取消上傳圖片 (關閉圖片預覽)
+    handlePublishUploadIMGCancel(event){
         this.setState({
-            photo_status:true
+            photo_src:null,
+            photo_status:false
         });
     }
 
 
     render(){
         let share_div = null;
+        let photo_div = null;
         if (this.state.share_status){
             share_div = <Wall_post_publish_share img={this.state.share_div_img} title={this.state.share_div_title}  description={this.state.share_div_description} url={this.state.share_div_url}  />;  
         }
 
         if (this.state.photo_status){
-            photo_div = <div></div>;  
+            photo_div = <Wall_post_publish_img img={this.state.photo_src} onCloseClick={this.handlePublishUploadIMGCancel} />  
         }
 
         return(
@@ -105,10 +135,10 @@ export default class Wall_post_publish extends React.Component {
                     <div></div>
 
                     <div className="">
+                        <input type="file" id="publish_upload_img_input" className="invisible" accept="image/*" onChange={this.handlePublishFileChange} />
                         <a href="" onClick={this.handlePublishUploadIMGClick} >
-                            <span className="oi oi-image" onClick={this.handlePublishUploadIMGClickhandlePublishUploadIMGClick}></span>
+                            <span className="oi oi-image" ></span>
                         </a>
-                        <input type="file" id="publish_upload_img_input" className="invisible" onChange={this.handlePublishFileChange} />
                     </div>
                 </div>
                 <form>
@@ -117,6 +147,7 @@ export default class Wall_post_publish extends React.Component {
                     </div>
                 </form>
                 {share_div}
+                {photo_div}
 
             </div>
         );
@@ -151,9 +182,18 @@ function Wall_post_publish_share(props){
 
 // 預覽上傳圖片
 function Wall_post_publish_img(props){
+
+    function handleClick(e){
+        
+        props.onCloseClick(e)
+    }
+
     return (
-        <div className="card mt-3" >
-            <img className="card-img-top" src="" alt="" />
+        <div className="card mt-3 " >
+            <button type="button" className="close position-absolute " aria-label="Close" onClick={handleClick}>
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <img className="card-img-top" src={props.img} alt="" />
         </div>
     );
 }

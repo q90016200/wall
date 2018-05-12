@@ -6,6 +6,12 @@
 
 @section('content')
 
+<style>
+    button.close{
+        right: 5px;
+    }
+</style>
+
 <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
 
     <div class="bg-info p-3 my-3 rounded box-shadow">
