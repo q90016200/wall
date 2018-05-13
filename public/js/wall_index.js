@@ -19092,15 +19092,18 @@ var Wall_post_publish = function (_React$Component) {
             share_div_url: null,
             photo_status: false,
             photo_src: null,
-            photo_input_val: ''
-
+            photo_input_val: '',
+            photo_file: ''
         };
 
         _this.handlePublishTextAreaChange = _this.handlePublishTextAreaChange.bind(_this);
         _this.handlePublishUploadIMGClick = _this.handlePublishUploadIMGClick.bind(_this);
         _this.handlePublishUploadIMGCancel = _this.handlePublishUploadIMGCancel.bind(_this);
+        _this.handlePublishShareCancel = _this.handlePublishShareCancel.bind(_this);
 
         _this.handlePublishFileChange = _this.handlePublishFileChange.bind(_this);
+
+        _this.publishClick = _this.publishClick.bind(_this);
         return _this;
     }
 
@@ -19188,6 +19191,10 @@ var Wall_post_publish = function (_React$Component) {
                 });
             };
 
+            this.setState({
+                photo_file: event.target.files[0]
+            });
+
             reader.readAsDataURL(event.target.files[0]);
         }
 
@@ -19203,13 +19210,65 @@ var Wall_post_publish = function (_React$Component) {
                 photo_input_val: ''
             });
         }
+
+        // 取消分享網址預覽
+
+    }, {
+        key: 'handlePublishShareCancel',
+        value: function handlePublishShareCancel(event) {
+            this.setState({
+                share_status: false
+            });
+        }
+
+        // 發布
+
+    }, {
+        key: 'publishClick',
+        value: function publishClick(event) {
+
+            var textarea_value = this.state.textarea_value.trim();
+
+            // console.log(textarea_value.length)
+
+            if (textarea_value.length > 0) {
+
+                var request_data = new FormData();
+
+                request_data.append('post_content', textarea_value);
+
+                if (this.state.share_status) {
+                    request_data.append('post_preview_link', this.state.share_div_url);
+                }
+
+                if (this.state.photo_status) {
+                    request_data.append('post_img', this.state.photo_file);
+                    console.log(this.state.photo_file);
+                }
+
+                // console.log(request_data);
+
+                axios({
+                    method: 'post',
+                    url: '/wall/posts',
+                    data: request_data
+                }).then(function (response) {
+
+                    var data = response.data;
+
+                    console.log(data);
+                });
+            } else {
+                swal('', '請輸入分享內容', 'warning');
+            }
+        }
     }, {
         key: 'render',
         value: function render() {
             var share_div = null;
             var photo_div = null;
             if (this.state.share_status) {
-                share_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_share, { img: this.state.share_div_img, title: this.state.share_div_title, description: this.state.share_div_description, url: this.state.share_div_url });
+                share_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_share, { img: this.state.share_div_img, title: this.state.share_div_title, description: this.state.share_div_description, url: this.state.share_div_url, onCloseClick: this.handlePublishShareCancel });
             }
 
             if (this.state.photo_status) {
@@ -19245,7 +19304,16 @@ var Wall_post_publish = function (_React$Component) {
                     )
                 ),
                 share_div,
-                photo_div
+                photo_div,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'text-right mt-3' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'button',
+                        { type: 'button', className: 'btn btn-info', onClick: this.publishClick },
+                        '\u9001\u51FA'
+                    )
+                )
             );
         }
     }]);
@@ -19274,9 +19342,23 @@ function Wall_post_publish_user(props) {
 
 // 預覽 分享網址
 function Wall_post_publish_share(props) {
+
+    function handleClick(e) {
+        props.onCloseClick(e);
+    }
+
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { className: 'card mt-3' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            { type: 'button', className: 'close position-absolute ', 'aria-label': 'Close', onClick: handleClick },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'span',
+                { 'aria-hidden': 'true' },
+                '\xD7'
+            )
+        ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { className: 'card-img-top', src: props.img, alt: 'Card image cap' }),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'div',
@@ -19316,7 +19398,7 @@ function Wall_post_publish_img(props) {
         { className: 'card mt-3 ' },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
             'button',
-            { type: 'button', className: 'close position-absolute ', 'aria-label': 'Close', onClick: handleClick },
+            { type: 'button', className: 'close position-absolute', 'aria-label': 'Close', onClick: handleClick },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'span',
                 { 'aria-hidden': 'true' },

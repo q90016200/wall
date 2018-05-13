@@ -18,3 +18,4 @@ require('./bootstrap');
 
 window.autosize = require('autosize');
 window.axios = require('axios');
+window.swal = require('sweetalert');

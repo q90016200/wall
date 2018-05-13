@@ -23,3 +23,5 @@ Route::get('/', 'WallController@index');
 
 Route::post('/wall/get_preview', 'WallController@get_url_preview');
 
+Route::post('/wall/posts', 'WallPostController@store');
+

@@ -22,6 +22,7 @@
         "react-dom": "^16.2.0"
     },
     "dependencies": {
-        "autosize": "^4.0.2"
+        "autosize": "^4.0.2",
+        "sweetalert": "^2.1.0"
     }
 }

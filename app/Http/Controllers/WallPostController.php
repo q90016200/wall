@@ -34,7 +34,14 @@ class WallPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request->input();
+
+        $post_img = $request->file('post_img');
+        $post_img->move(public_path('img/wall/'),'test.jpg');
+
+        return $request->file('post_img');;
+
+
     }
 
     /**
