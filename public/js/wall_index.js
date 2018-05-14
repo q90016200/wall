@@ -19115,12 +19115,12 @@ var Wall_post_publish = function (_React$Component) {
 
     _createClass(Wall_post_publish, [{
         key: 'checkLogin',
-        value: function checkLogin(event) {
-            if (this.props.username == "guest") {
-                event.preventDefault();
-                swal("", "未登入", "warning");
-            }
-        }
+        value: function checkLogin(event) {}
+        // if(this.props.username == "guest"){
+        //     event.preventDefault();
+        //     swal("","未登入","warning");
+        // }
+
 
         // 紀錄發佈的文字
 
