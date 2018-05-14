@@ -60,13 +60,14 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 46);
+/******/ 	return __webpack_require__(__webpack_require__.s = 49);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */,
 /* 1 */,
-/* 2 */
+/* 2 */,
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75,12 +76,12 @@
 if (false) {
   module.exports = require('./cjs/react.production.min.js');
 } else {
-  module.exports = __webpack_require__(48);
+  module.exports = __webpack_require__(51);
 }
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -139,7 +140,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -153,7 +154,7 @@ module.exports = invariant;
 
 
 
-var emptyFunction = __webpack_require__(5);
+var emptyFunction = __webpack_require__(6);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -207,7 +208,7 @@ if (true) {
 module.exports = warning;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -249,7 +250,6 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 6 */,
 /* 7 */,
 /* 8 */,
 /* 9 */,
@@ -258,7 +258,9 @@ module.exports = emptyFunction;
 /* 12 */,
 /* 13 */,
 /* 14 */,
-/* 15 */
+/* 15 */,
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -355,7 +357,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -378,7 +380,7 @@ if (true) {
 module.exports = emptyObject;
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -392,9 +394,9 @@ module.exports = emptyObject;
 
 
 if (true) {
-  var invariant = __webpack_require__(3);
-  var warning = __webpack_require__(4);
-  var ReactPropTypesSecret = __webpack_require__(49);
+  var invariant = __webpack_require__(4);
+  var warning = __webpack_require__(5);
+  var ReactPropTypesSecret = __webpack_require__(52);
   var loggedTypeFailures = {};
 }
 
@@ -444,7 +446,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -484,13 +486,11 @@ if (false) {
   checkDCE();
   module.exports = require('./cjs/react-dom.production.min.js');
 } else {
-  module.exports = __webpack_require__(50);
+  module.exports = __webpack_require__(53);
 }
 
 
 /***/ }),
-/* 19 */,
-/* 20 */,
 /* 21 */,
 /* 22 */,
 /* 23 */,
@@ -516,23 +516,26 @@ if (false) {
 /* 43 */,
 /* 44 */,
 /* 45 */,
-/* 46 */
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(47);
+module.exports = __webpack_require__(50);
 
 
 /***/ }),
-/* 47 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wall_wall_publish_js__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wall_wall_publish_js__ = __webpack_require__(64);
 
 
 
@@ -545,10 +548,10 @@ window.onload = function () {
 	autosize(document.querySelectorAll('textarea'));
 };
 
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_wall_wall_publish_js__["a" /* default */], { name: 'guest' }), document.getElementById('wall_publish_div'));
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_wall_wall_publish_js__["a" /* default */], { username: user.username }), document.getElementById('wall_publish_div'));
 
 /***/ }),
-/* 48 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -569,12 +572,12 @@ if (true) {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(15);
-var invariant = __webpack_require__(3);
-var emptyObject = __webpack_require__(16);
-var warning = __webpack_require__(4);
-var emptyFunction = __webpack_require__(5);
-var checkPropTypes = __webpack_require__(17);
+var _assign = __webpack_require__(17);
+var invariant = __webpack_require__(4);
+var emptyObject = __webpack_require__(18);
+var warning = __webpack_require__(5);
+var emptyFunction = __webpack_require__(6);
+var checkPropTypes = __webpack_require__(19);
 
 // TODO: this is special because it gets imported during build.
 
@@ -1969,7 +1972,7 @@ module.exports = react;
 
 
 /***/ }),
-/* 49 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1988,7 +1991,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 50 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2009,19 +2012,19 @@ if (true) {
   (function() {
 'use strict';
 
-var invariant = __webpack_require__(3);
-var React = __webpack_require__(2);
-var warning = __webpack_require__(4);
-var ExecutionEnvironment = __webpack_require__(51);
-var _assign = __webpack_require__(15);
-var emptyFunction = __webpack_require__(5);
-var checkPropTypes = __webpack_require__(17);
-var getActiveElement = __webpack_require__(52);
-var shallowEqual = __webpack_require__(53);
-var containsNode = __webpack_require__(54);
-var emptyObject = __webpack_require__(16);
-var hyphenateStyleName = __webpack_require__(57);
-var camelizeStyleName = __webpack_require__(59);
+var invariant = __webpack_require__(4);
+var React = __webpack_require__(3);
+var warning = __webpack_require__(5);
+var ExecutionEnvironment = __webpack_require__(54);
+var _assign = __webpack_require__(17);
+var emptyFunction = __webpack_require__(6);
+var checkPropTypes = __webpack_require__(19);
+var getActiveElement = __webpack_require__(55);
+var shallowEqual = __webpack_require__(56);
+var containsNode = __webpack_require__(57);
+var emptyObject = __webpack_require__(18);
+var hyphenateStyleName = __webpack_require__(60);
+var camelizeStyleName = __webpack_require__(62);
 
 // Relying on the `invariant()` implementation lets us
 // have preserve the format and params in the www builds.
@@ -18649,7 +18652,7 @@ module.exports = reactDom;
 
 
 /***/ }),
-/* 51 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18688,7 +18691,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 52 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18730,7 +18733,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 53 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18801,7 +18804,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 54 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18816,7 +18819,7 @@ module.exports = shallowEqual;
  * 
  */
 
-var isTextNode = __webpack_require__(55);
+var isTextNode = __webpack_require__(58);
 
 /*eslint-disable no-bitwise */
 
@@ -18844,7 +18847,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 55 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18859,7 +18862,7 @@ module.exports = containsNode;
  * @typechecks
  */
 
-var isNode = __webpack_require__(56);
+var isNode = __webpack_require__(59);
 
 /**
  * @param {*} object The object to check.
@@ -18872,7 +18875,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 56 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18900,7 +18903,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 57 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18915,7 +18918,7 @@ module.exports = isNode;
 
 
 
-var hyphenate = __webpack_require__(58);
+var hyphenate = __webpack_require__(61);
 
 var msPattern = /^ms-/;
 
@@ -18942,7 +18945,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 58 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18978,7 +18981,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 59 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18993,7 +18996,7 @@ module.exports = hyphenate;
 
 
 
-var camelize = __webpack_require__(60);
+var camelize = __webpack_require__(63);
 
 var msPattern = /^-ms-/;
 
@@ -19021,7 +19024,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 60 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19056,13 +19059,13 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 61 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -19085,11 +19088,12 @@ var Wall_post_publish = function (_React$Component) {
 
         _this.state = {
             textarea_value: '',
-            share_status: false,
-            share_div_img: null,
-            share_div_title: null,
-            share_div_description: null,
-            share_div_url: null,
+            url_perview_status: false,
+            url_perview_get_status: true,
+            url_perview_img: null,
+            url_perview_title: null,
+            url_perview_description: null,
+            url_perview_url: null,
             photo_status: false,
             photo_src: null,
             photo_input_val: '',
@@ -19100,65 +19104,86 @@ var Wall_post_publish = function (_React$Component) {
         _this.handlePublishUploadIMGClick = _this.handlePublishUploadIMGClick.bind(_this);
         _this.handlePublishUploadIMGCancel = _this.handlePublishUploadIMGCancel.bind(_this);
         _this.handlePublishShareCancel = _this.handlePublishShareCancel.bind(_this);
-
         _this.handlePublishFileChange = _this.handlePublishFileChange.bind(_this);
-
         _this.publishClick = _this.publishClick.bind(_this);
+        _this.checkLogin = _this.checkLogin.bind(_this);
         return _this;
     }
 
-    // 紀錄發佈的文字
+    // 檢查登入
 
 
     _createClass(Wall_post_publish, [{
+        key: 'checkLogin',
+        value: function checkLogin(event) {
+            if (this.props.username == "guest") {
+                event.preventDefault();
+                swal("", "未登入", "warning");
+            }
+        }
+
+        // 紀錄發佈的文字
+
+    }, {
         key: 'handlePublishTextAreaChange',
         value: function handlePublishTextAreaChange(event) {
 
             var str = event.target.value;
+            var class_this = this;
 
             this.setState({
                 textarea_value: str
             });
 
             // 查看有網址就抓取預覽
+            if (this.state.url_perview_get_status) {
+                var find_url = wall_publish_find_url(str);
+                // console.log(find_url);
 
-            var find_url = wall_publish_find_url(str);
+                if (find_url != null) {
 
-            // console.log(find_url);
+                    this.setState({
+                        url_perview_get_status: false
+                    });
 
+                    axios({
+                        method: 'post',
+                        url: '/wall/get_preview',
+                        data: {
+                            url: find_url[0]
+                        }
+                    }).then(function (response) {
 
-            if (find_url != null) {
+                        var data = response.data;
 
-                var class_this = this;
+                        if (!data.error) {
 
-                axios({
-                    method: 'post',
-                    url: '/wall/get_preview',
-                    data: {
-                        url: find_url[0]
-                    }
-                }).then(function (response) {
-
-                    var data = response.data;
-
-                    // response = JSON.parse(response);
-
-                    if (!data.error) {
-
-                        // console.log(data.preview_data);
-                        class_this.setState({
-                            share_status: true,
-                            share_div_img: data.preview_data.link_image,
-                            share_div_title: data.preview_data.link_title,
-                            share_div_description: data.preview_data.link_description,
-                            share_div_url: data.preview_data.link_url
-                        });
-                    }
-                });
+                            // console.log(data.preview_data);
+                            class_this.setState({
+                                url_perview_status: true,
+                                url_perview_img: data.preview_data.link_image,
+                                url_perview_title: data.preview_data.link_title,
+                                url_perview_description: data.preview_data.link_description,
+                                url_perview_url: data.preview_data.link_url
+                            });
+                        }
+                    });
+                }
             }
         }
 
-        // 當點擊上傳團片圖示,觸發上傳上傳檔案
+        // 取消分享網址預覽
+
+    }, {
+        key: 'handlePublishShareCancel',
+        value: function handlePublishShareCancel(event) {
+            this.setState({
+                url_perview_status: false,
+                url_perview_get_status: true
+            });
+        }
+
+        // 當點擊上傳團片圖示,觸發上傳檔案
 
     }, {
         key: 'handlePublishUploadIMGClick',
@@ -19178,6 +19203,32 @@ var Wall_post_publish = function (_React$Component) {
 
             var class_this = this;
 
+            var files = event.target.files;
+
+            //檢查檔案格式
+            var uptypes = ["image/jpg", "image/jpeg", "image/pjpeg", "image/png"];
+
+            var fileType = files[0].type;
+
+            if (uptypes.indexOf(fileType) == -1) {
+                this.setState({
+                    photo_file: ""
+                });
+                return swal("", "很抱歉，圖片類型錯誤", "warning");
+            }
+
+            // 檢查檔案大小
+            if (files[0].size > 10 * 1024 * 1024) {
+                this.setState({
+                    photo_file: ""
+                });
+                return swal("", "很抱歉，上傳的圖片大小不可超過 10 MB", "warning");
+            }
+
+            this.setState({
+                photo_file: files[0]
+            });
+
             // 使用HTML5 File API, 來即時預覽image
 
             var reader = new FileReader();
@@ -19187,15 +19238,13 @@ var Wall_post_publish = function (_React$Component) {
                 // console.log(e.target.result);
                 class_this.setState({
                     photo_src: e.target.result,
-                    photo_status: true
+                    photo_status: true,
+                    url_perview_status: false,
+                    url_perview_get_status: false
                 });
             };
 
-            this.setState({
-                photo_file: event.target.files[0]
-            });
-
-            reader.readAsDataURL(event.target.files[0]);
+            reader.readAsDataURL(files[0]);
         }
 
         // 取消上傳圖片 (關閉圖片預覽)
@@ -19207,17 +19256,8 @@ var Wall_post_publish = function (_React$Component) {
             this.setState({
                 photo_src: null,
                 photo_status: false,
-                photo_input_val: ''
-            });
-        }
-
-        // 取消分享網址預覽
-
-    }, {
-        key: 'handlePublishShareCancel',
-        value: function handlePublishShareCancel(event) {
-            this.setState({
-                share_status: false
+                photo_input_val: '',
+                url_perview_get_status: true
             });
         }
 
@@ -19237,13 +19277,13 @@ var Wall_post_publish = function (_React$Component) {
 
                 request_data.append('post_content', textarea_value);
 
-                if (this.state.share_status) {
-                    request_data.append('post_preview_link', this.state.share_div_url);
+                if (this.state.url_perview_status) {
+                    request_data.append('post_preview_link', this.state.url_perview_url);
                 }
 
                 if (this.state.photo_status) {
                     request_data.append('post_img', this.state.photo_file);
-                    console.log(this.state.photo_file);
+                    // console.log(this.state.photo_file);
                 }
 
                 // console.log(request_data);
@@ -19265,10 +19305,10 @@ var Wall_post_publish = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var share_div = null;
+            var url_perview_div = null;
             var photo_div = null;
-            if (this.state.share_status) {
-                share_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_share, { img: this.state.share_div_img, title: this.state.share_div_title, description: this.state.share_div_description, url: this.state.share_div_url, onCloseClick: this.handlePublishShareCancel });
+            if (this.state.url_perview_status) {
+                url_perview_div = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_share, { img: this.state.url_perview_img, title: this.state.url_perview_title, description: this.state.url_perview_description, url: this.state.url_perview_url, onCloseClick: this.handlePublishShareCancel });
             }
 
             if (this.state.photo_status) {
@@ -19277,16 +19317,27 @@ var Wall_post_publish = function (_React$Component) {
 
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
-                null,
+                { onClick: this.checkLogin },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'd-flex justify-content-between bd-highlight mb-3' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Wall_post_publish_user, { name: this.props.name }),
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        null,
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'oi oi-person' }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'span',
+                            { className: 'ml-1' },
+                            ' ',
+                            this.props.username,
+                            ' '
+                        )
+                    ),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', null),
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: '' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', id: 'publish_upload_img_input', className: 'invisible', accept: 'image/*', onChange: this.handlePublishFileChange, value: this.state.photo_input_val }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', id: 'publish_upload_img_input', className: 'd-none', accept: 'image/*', onChange: this.handlePublishFileChange, value: this.state.photo_input_val }),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             'a',
                             { href: '', onClick: this.handlePublishUploadIMGClick },
@@ -19303,7 +19354,7 @@ var Wall_post_publish = function (_React$Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { className: 'form-control', value: this.state.textarea_value, onChange: this.handlePublishTextAreaChange, rows: '3', placeholder: '\u5206\u4EAB\u65B0\u6D88\u606F' })
                     )
                 ),
-                share_div,
+                url_perview_div,
                 photo_div,
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
@@ -19321,26 +19372,10 @@ var Wall_post_publish = function (_React$Component) {
     return Wall_post_publish;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
-// 發布使用者顯示區塊
+// 預覽 分享網址
 
 
 /* harmony default export */ __webpack_exports__["a"] = (Wall_post_publish);
-function Wall_post_publish_user(props) {
-    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        null,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'oi oi-person' }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'span',
-            { className: 'ml-1' },
-            ' ',
-            props.name,
-            ' '
-        )
-    );
-}
-
-// 預覽 分享網址
 function Wall_post_publish_share(props) {
 
     function handleClick(e) {
@@ -19411,6 +19446,10 @@ function Wall_post_publish_img(props) {
 
 // 查看文字內是否有網址
 function wall_publish_find_url(str) {
+    // 換行轉成空白 防誤判
+    str = str.replace(/\r\n|\n/g, " ");
+
+    // 找網址
     var urlPattern = /([a-z]+\:\/+)([^\/\s]*)([a-z0-9\-@\^=%&;\/~\+]*)[\?]?([^ \#]*)#?([^ \#]*)/ig;
 
     var ref = str.match(urlPattern);

@@ -3,6 +3,10 @@
 	{
 		"selected_items":
 		[
+			[
+				"prev",
+				"preventDefault"
+			]
 		]
 	},
 	"buffers":
@@ -11,7 +15,7 @@
 			"file": "app/Http/Controllers/WallController.php",
 			"settings":
 			{
-				"buffer_size": 13954,
+				"buffer_size": 13921,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -20,7 +24,7 @@
 			"file": "app/Http/Controllers/WallPostController.php",
 			"settings":
 			{
-				"buffer_size": 1515,
+				"buffer_size": 1699,
 				"line_ending": "Unix"
 			}
 		},
@@ -28,8 +32,16 @@
 			"file": "resources/views/wall/wall_index.blade.php",
 			"settings":
 			{
-				"buffer_size": 2069,
+				"buffer_size": 712,
 				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/views/layouts/app.blade.php",
+			"settings":
+			{
+				"buffer_size": 3318,
 				"line_ending": "Unix"
 			}
 		},
@@ -37,7 +49,16 @@
 			"file": "resources/assets/js/components/wall/wall_publish.js",
 			"settings":
 			{
-				"buffer_size": 2490,
+				"buffer_size": 9207,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/assets/js/wall/wall_index.js",
+			"settings":
+			{
+				"buffer_size": 397,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -140,6 +161,9 @@
 	"file_history":
 	[
 		"/C/Users/user/code/wall/package.json",
+		"/C/Users/user/code/wall/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/views/layout.blade.php",
+		"/C/Users/user/code/wall/resources/assets/js/app.js",
+		"/C/Users/user/code/wall/composer.json",
 		"/Users/q90016200/Code/laravel/public/js/app.js",
 		"/Users/q90016200/Code/laravel/routes/web.php",
 		"/Users/q90016200/Code/laravel/app/Http/Controllers/WallController.php",
@@ -148,7 +172,7 @@
 	],
 	"find":
 	{
-		"height": 28.0
+		"height": 37.0
 	},
 	"find_in_files":
 	{
@@ -162,6 +186,16 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"event.target.files[0]",
+			"url_perview_get_data_status",
+			"react",
+			"dev",
+			"publish_upload_img_input",
+			"share_",
+			"share_div_url",
+			"share_div_description",
+			"share_div_title",
+			"share_div_img",
 			"class",
 			"cross-env ",
 			"class"
@@ -191,20 +225,54 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13954,
+						"buffer_size": 13921,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								5,
-								5
+								0,
+								0
 							]
 						],
 						"settings":
 						{
 							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/Http/Controllers/WallPostController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1699,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"origin_encoding": "ASCII",
 							"remote_loading": false,
 							"synced": false,
 							"syntax": "Packages/PHP/PHP.sublime-syntax",
@@ -219,54 +287,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "app/Http/Controllers/WallPostController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1515,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								658,
-								658
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"origin_encoding": "ASCII",
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
 					"buffer": 2,
 					"file": "resources/views/wall/wall_index.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2069,
+						"buffer_size": 712,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1852,
-								1852
+								618,
+								618
 							]
 						],
 						"settings":
@@ -279,33 +313,67 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 644.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
-				}
-			]
-		},
-		{
-			"selected": 0,
-			"sheets":
-			[
+				},
 				{
 					"buffer": 3,
-					"file": "resources/assets/js/components/wall/wall_publish.js",
+					"file": "resources/views/layouts/app.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2490,
+						"buffer_size": 3318,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								555,
-								555
+								2237,
+								2249
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"origin_encoding": "ASCII",
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1069.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "resources/assets/js/components/wall/wall_publish.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9207,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								167,
+								167
 							]
 						],
 						"settings":
@@ -319,14 +387,46 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 138.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "resources/assets/js/wall/wall_index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 397,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								222,
+								222
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"origin_encoding": "ASCII",
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 6,
 					"file": "webpack.mix.js",
 					"semi_transient": false,
 					"settings":
@@ -354,7 +454,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -388,7 +488,7 @@
 		"cols":
 		[
 			0.0,
-			0.4765625,
+			0.451041666667,
 			1.0
 		],
 		"rows":
@@ -428,6 +528,34 @@
 		"selected_items":
 		[
 			[
+				"view\\layout",
+				"resources\\views\\layouts\\app.blade.php"
+			],
+			[
+				"view lay",
+				"vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\views\\layout.blade.php"
+			],
+			[
+				"asset app.j",
+				"resources\\assets\\js\\app.js"
+			],
+			[
+				"asset wall",
+				"resources\\assets\\js\\wall\\wall_index.js"
+			],
+			[
+				"pac",
+				"package.json"
+			],
+			[
+				"pack",
+				"package.json"
+			],
+			[
+				"comp",
+				"composer.json"
+			],
+			[
 				"web",
 				"webpack.mix.js"
 			],
@@ -460,7 +588,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},

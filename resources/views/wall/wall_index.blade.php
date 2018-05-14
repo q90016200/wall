@@ -26,6 +26,15 @@
 @endsection
 
 @section('html_bottom')
+    <script>
+        @guest
+        var user = {
+            username:"guest"
+        };
+        @else
+        var user = {{ Auth::user() }};
+        @endguest
+    </script>
     <script src="{{ asset('js/wall_index.js') }}" defer></script>
 @endsection
 
