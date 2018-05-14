@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機: localhost
--- 產生時間： 2018 年 05 月 14 日 13:31
+-- 產生時間： 2018 年 05 月 14 日 13:34
 -- 伺服器版本: 5.7.21-0ubuntu0.16.04.1
 -- PHP 版本： 7.1.15-1+ubuntu16.04.1+deb.sury.org+2
 
@@ -40,13 +40,6 @@ CREATE TABLE `users` (
   `updated_at` datetime NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
---
--- 資料表的匯出資料 `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `updated_at`, `remember_token`) VALUES
-(3, 'q90016200', 'q90016200@gmail.com', '$2y$10$fHQp82Ac4dd3ZuDQdh.xN.0WvcPrcdQLt3E52WFpXYYk2awH.omZa', '2018-03-31 08:59:19', '2018-03-31 08:59:19', '5XwUCU2PZEcnQ6DYelaRldUWDZcnYWikCo0mQcpTvwCMDbP4z2pfIqj10NaW');
 
 -- --------------------------------------------------------
 
@@ -155,16 +148,6 @@ CREATE TABLE `wall_preview_links` (
   `link_image_height` int(11) DEFAULT NULL,
   `link_updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- 資料表的匯出資料 `wall_preview_links`
---
-
-INSERT INTO `wall_preview_links` (`link_id`, `link_url`, `link_title`, `link_description`, `link_image`, `link_image_width`, `link_image_height`, `link_updated`) VALUES
-(1, 'https://www.moviemovie.com.tw/', '影劇圈圈 | 電影電視劇社群網', '「影劇圈圈」提供電影、電視劇相關新聞資訊，未來也將會建立更多電影、電視劇相關服務，包括電影電視劇討論區社群、電影電視劇資料庫、專屬於台灣觀眾的評價機制 等。', 'https://www.moviemovie.com.tw/img/470x246_moviemovie_logo.jpg', 470, 246, '2018-05-13 08:55:42'),
-(2, 'https://www.moviemovie.com.tw/db/program/13488', '復仇者聯盟 3：無限之戰 (2018)｜網友評價：4.7 顆星｜電影｜影劇圈圈', '2018-04-25 台灣上映｜輔12級｜動作、科幻｜2 時 30 分。網友短評：「羅素兄弟的敘事手法真的很強」、「第一次看完超級英雄爽片，散場時一片沉默...」', 'https://img.mvmv.com.tw/gallery/13488/photos_13488_1522318621.jpg.thumb.1000', 1000, 1480, '2018-05-12 04:18:11'),
-(3, 'https://www.mobile01.com/', 'Mobile01', '「全球華人最注目的社群網站是哪個？」這問題的答案非常簡單，就是Mobile01！', 'https://attach2.mobile01.com/images/mobile01-facebook.jpg', 640, 340, '2018-05-13 08:11:42'),
-(4, 'https://www.moviemovie.com.tw', '影劇圈圈 | 電影電視劇社群網', '「影劇圈圈」提供電影、電視劇相關新聞資訊，未來也將會建立更多電影、電視劇相關服務，包括電影電視劇討論區社群、電影電視劇資料庫、專屬於台灣觀眾的評價機制 等。', 'https://www.moviemovie.com.tw/img/470x246_moviemovie_logo.jpg', 470, 246, '2018-05-13 08:55:43');
 
 --
 -- 已匯出資料表的索引
