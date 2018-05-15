@@ -12,6 +12,6 @@ window.onload = function(){
 
 
 ReactDOM.render(
-	<Wall_post_publish username={user.username} />,
+	<Wall_post_publish username={user.name} />,
 	document.getElementById('wall_publish_div')
 );

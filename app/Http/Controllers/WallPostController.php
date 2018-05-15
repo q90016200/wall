@@ -5,7 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 class WallPostController extends Controller
-{
+{   
+
+    function __construct(){
+        
+    }
+
+
     /**
      * Display a listing of the resource.
      *

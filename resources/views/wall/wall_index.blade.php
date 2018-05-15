@@ -27,13 +27,7 @@
 
 @section('html_bottom')
     <script>
-        @guest
-        var user = {
-            username:"guest"
-        };
-        @else
-        var user = {{ Auth::user() }};
-        @endguest
+        var user = {!! json_encode($data['user']) !!}
     </script>
     <script src="{{ asset('js/wall_index.js') }}" defer></script>
 @endsection

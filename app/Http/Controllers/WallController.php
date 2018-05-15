@@ -5,12 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use DB;
+use Auth;
 
 class WallController extends Controller
-{
+{   
+    function __construct(){
+        // $this->user = $this->get_user_info();;
+    }
+
+
+    public function get_user_info(){
+        $user = array(
+            'uid' => 0,
+            'name'=>'guest'
+        );
+
+        if (Auth::check()) {
+            $auth = Auth::user();
+            $user['uid']  = $auth->id;
+            $user['name']  = $auth->name;
+
+        }
+
+        return $user;
+    }
+
     public function index(){
 
-        $view = view("wall.wall_index");
+        // return $auth->id;
+
+        $data = array();
+        $data["user"] = $this->get_user_info();
+
+        // dd($data);
+
+        $view = view("wall.wall_index")->with("data",$data);
 
 
         return $view;
