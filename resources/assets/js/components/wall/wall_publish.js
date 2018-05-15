@@ -30,10 +30,10 @@ export default class Wall_post_publish extends React.Component {
 
     // 檢查登入
     checkLogin(event){
-        // if(this.props.username == "guest"){
-        //     event.preventDefault();
-        //     swal("","未登入","warning");
-        // }
+        if(this.props.username == "guest"){
+            event.preventDefault();
+            swal("","未登入","warning");
+        }
     }
 
     // 紀錄發佈的文字
