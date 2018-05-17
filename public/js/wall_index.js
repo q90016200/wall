@@ -19097,7 +19097,8 @@ var Wall_post_publish = function (_React$Component) {
             photo_status: false,
             photo_src: null,
             photo_input_val: '',
-            photo_file: ''
+            photo_file: '',
+            publish_status: true
         };
 
         _this.handlePublishTextAreaChange = _this.handlePublishTextAreaChange.bind(_this);
@@ -19202,7 +19203,6 @@ var Wall_post_publish = function (_React$Component) {
             // console.log(event.target.files[0]);
 
             var class_this = this;
-
             var files = event.target.files;
 
             //檢查檔案格式
@@ -19267,11 +19267,17 @@ var Wall_post_publish = function (_React$Component) {
         key: 'publishClick',
         value: function publishClick(event) {
 
+            var class_this = this;
+
             var textarea_value = this.state.textarea_value.trim();
+            // console.log(textarea_value.length);
 
-            // console.log(textarea_value.length)
 
-            if (textarea_value.length > 0) {
+            if (this.state.publish_status && (textarea_value.length > 0 || this.state.url_perview_status || this.state.photo_status)) {
+
+                class_this.setState({
+                    publish_status: false
+                });
 
                 var request_data = new FormData();
 
@@ -19295,6 +19301,18 @@ var Wall_post_publish = function (_React$Component) {
                 }).then(function (response) {
 
                     var data = response.data;
+
+                    if (data.error == false) {
+                        // 恢復預設
+                        class_this.setState({
+                            textarea_value: '',
+                            url_perview_status: false,
+                            url_perview_get_status: true,
+                            photo_status: false,
+                            photo_file: '',
+                            publish_status: true
+                        });
+                    }
 
                     console.log(data);
                 });

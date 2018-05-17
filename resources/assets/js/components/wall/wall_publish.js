@@ -16,7 +16,8 @@ export default class Wall_post_publish extends React.Component {
             photo_status:false,
             photo_src:null,
             photo_input_val:'',
-            photo_file:''
+            photo_file:'',
+            publish_status:true
         };
 
         this.handlePublishTextAreaChange = this.handlePublishTextAreaChange.bind(this);
@@ -93,8 +94,6 @@ export default class Wall_post_publish extends React.Component {
         });
     }
 
-
-
     // 當點擊上傳團片圖示,觸發上傳檔案
     handlePublishUploadIMGClick(event){
         event.preventDefault();
@@ -108,8 +107,6 @@ export default class Wall_post_publish extends React.Component {
         // console.log(event.target.files[0]);
 
         let class_this = this;
-
-
         let files = event.target.files;
 
         //檢查檔案格式
@@ -173,22 +170,24 @@ export default class Wall_post_publish extends React.Component {
 
     }
 
-    
-
     // 發布
     publishClick(event){
 
+        let class_this = this;
 
         let textarea_value = this.state.textarea_value.trim();
+        // console.log(textarea_value.length);
 
-        // console.log(textarea_value.length)
 
-        if(textarea_value.length > 0 ){
+        if(this.state.publish_status &&(textarea_value.length > 0 || this.state.url_perview_status || this.state.photo_status)){
+
+            class_this.setState({
+                publish_status:false
+            });
 
             let request_data = new FormData();
 
             request_data.append('post_content',textarea_value);
-
 
             if(this.state.url_perview_status){
                 request_data.append('post_preview_link',this.state.url_perview_url);
@@ -209,9 +208,20 @@ export default class Wall_post_publish extends React.Component {
 
                 let data = response.data;
 
+                if(data.error == false){
+                    // 恢復預設
+                    class_this.setState({
+                        textarea_value:'',
+                        url_perview_status:false,
+                        url_perview_get_status:true,
+                        photo_status:false,
+                        photo_file:'',
+                        publish_status:true
+                    });
+                }
+
                 console.log(data);
             });
-
 
 
         }else{

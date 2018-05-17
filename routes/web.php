@@ -23,5 +23,6 @@ Route::get('/', 'WallController@index');
 
 Route::post('/wall/get_preview', 'WallController@get_url_preview');
 
-Route::post('/wall/posts', 'WallPostController@store');
+# 貼文
+Route::resource('/wall/posts', 'WallPostController',['only' => ['create','store','show','edit','destroy']]);
 

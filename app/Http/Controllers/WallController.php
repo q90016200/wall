@@ -24,7 +24,6 @@ class WallController extends Controller
             $auth = Auth::user();
             $user['uid']  = $auth->id;
             $user['name']  = $auth->name;
-
         }
 
         return $user;
