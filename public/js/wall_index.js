@@ -494,7 +494,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wall_wall_publish_js__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_wall_wall_post_publish_component_js__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_wall_wall_post_component_js__ = __webpack_require__(24);
 
 
@@ -505,11 +505,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // require('../components/wall/wall_publish.js');
 
-window.onload = function () {
-	autosize(document.querySelectorAll('textarea'));
+// 
+// window.onload = function(){
+//     autosize(document.querySelectorAll('textarea'));
+// }
+
+
+// 載入 發布 dom
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_wall_wall_post_publish_component_js__["a" /* default */], { username: user.name }), document.getElementById('wall_publish'));
+
+autosize(document.getElementById("publish_textarea"));
+
+var getPostLatestState = {
+	getTime: new Date().valueOf(),
+	page: 1
 };
 
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_wall_wall_publish_js__["a" /* default */], { username: user.name }), document.getElementById('wall_publish'));
+axios.get("/api/wall/posts/latest", {
+	params: {
+		t: getPostLatestState.getTime,
+		page: getPostLatestState.page
+	}
+}).then(function (response) {
+	console.log(response);
+});
 
 /***/ }),
 /* 10 */
@@ -19039,13 +19058,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var Wall_post_publish = function (_React$Component) {
-    _inherits(Wall_post_publish, _React$Component);
+var Wall_post_publish_component = function (_React$Component) {
+    _inherits(Wall_post_publish_component, _React$Component);
 
-    function Wall_post_publish(props) {
-        _classCallCheck(this, Wall_post_publish);
+    function Wall_post_publish_component(props) {
+        _classCallCheck(this, Wall_post_publish_component);
 
-        var _this = _possibleConstructorReturn(this, (Wall_post_publish.__proto__ || Object.getPrototypeOf(Wall_post_publish)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Wall_post_publish_component.__proto__ || Object.getPrototypeOf(Wall_post_publish_component)).call(this, props));
 
         _this.state = {
             textarea_value: '',
@@ -19075,7 +19094,7 @@ var Wall_post_publish = function (_React$Component) {
     // 檢查登入
 
 
-    _createClass(Wall_post_publish, [{
+    _createClass(Wall_post_publish_component, [{
         key: 'checkLogin',
         value: function checkLogin(event) {
             if (this.props.username == "guest") {
@@ -19329,7 +19348,7 @@ var Wall_post_publish = function (_React$Component) {
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'form-group' },
-                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { className: 'form-control', value: this.state.textarea_value, onChange: this.handlePublishTextAreaChange, rows: '3', placeholder: '\u5206\u4EAB\u65B0\u6D88\u606F' })
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { className: 'form-control', id: 'publish_textarea', value: this.state.textarea_value, onChange: this.handlePublishTextAreaChange, rows: '3', placeholder: '\u5206\u4EAB\u65B0\u6D88\u606F' })
                     )
                 ),
                 url_perview_div,
@@ -19347,13 +19366,13 @@ var Wall_post_publish = function (_React$Component) {
         }
     }]);
 
-    return Wall_post_publish;
+    return Wall_post_publish_component;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 // 預覽 分享網址
 
 
-/* harmony default export */ __webpack_exports__["a"] = (Wall_post_publish);
+/* harmony default export */ __webpack_exports__["a"] = (Wall_post_publish_component);
 function Wall_post_publish_share(props) {
 
     function handleClick(e) {

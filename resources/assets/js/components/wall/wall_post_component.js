@@ -15,6 +15,4 @@ export default class Wall_post_component extends React.Component {
 		)
 	} 
 
-
-
 }

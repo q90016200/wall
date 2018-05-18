@@ -340,4 +340,71 @@ class WallPostController extends Controller
         
     }
 
+    public function latest(){
+
+        $limit = 5;
+
+        $data["error"] = true;
+
+        // 取得 取得最新貼文的時間
+        $get_time = 0 ;
+        if(isset($_GET["t"])){
+            $get_time = $_GET["t"];
+        }
+
+        $page = 1;
+
+        if(isset($_GET["page"])){
+            $page = $_GET["page"];
+        }
+
+
+        $_p = DB::table("wall_posts");
+        
+        if($get_time > 0 ){
+            $_p = $_p->where("post_create_timestamp","<",$get_time);
+        }
+
+        $_p = $_p->where("post_status","publish");
+
+        # 取得貼文總數
+        $post_count = $_p->count();
+
+        $_p = $_p->orderBy("wall_posts.post_sort_time","desc")
+            ->skip(($page-1)*$limit)
+            ->take($limit)
+            ->get();
+
+        $data["page"] = $page;
+        $data["total_page"] = ceil($post_count / $limit);
+        $data["posts_data"] = array();
+
+        if($_p){
+            // return dd($_p);
+
+            $data["error"] = false;
+            
+
+            $pd = array();
+
+            foreach ($_p as $k => $v) {
+                // $pd[$k] = $this->export_post_data($v);
+            }
+
+
+        }
+
+
+        return response()->json($data);
+        
+        
+    }
+
+
+    private function export_post_data($v){
+        $user = app(WallController::class)->get_user_info();
+        $uid = $user["uid"];
+        
+    }
+
 }

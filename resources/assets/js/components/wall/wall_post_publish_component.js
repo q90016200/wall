@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-export default class Wall_post_publish extends React.Component {
+export default class Wall_post_publish_component extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -260,7 +260,7 @@ export default class Wall_post_publish extends React.Component {
 
                 <form>
                     <div className="form-group">
-                        <textarea className="form-control" value={this.state.textarea_value} onChange={this.handlePublishTextAreaChange} rows="3" placeholder="分享新消息" />
+                        <textarea className="form-control" id="publish_textarea" value={this.state.textarea_value} onChange={this.handlePublishTextAreaChange} rows="3" placeholder="分享新消息" />
                     </div>
                 </form>
 
