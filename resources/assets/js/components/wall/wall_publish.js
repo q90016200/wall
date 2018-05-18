@@ -243,16 +243,14 @@ export default class Wall_post_publish extends React.Component {
 
         return(
             <div onClick={this.checkLogin}>
-                <div className="d-flex justify-content-between bd-highlight mb-3">
+                <div className="row bd-highlight mb-3">
 
-                    <div>
+                    <div className="col-auto mr-auto">
                         <span className="oi oi-person"></span>
                         <span className="ml-1"> {this.props.username} </span>    
                     </div>
 
-                    <div></div>
-
-                    <div className="">
+                    <div className="col-auto">
                         <input type="file" id="publish_upload_img_input" className="d-none" accept="image/*" onChange={this.handlePublishFileChange} value={this.state.photo_input_val} />
                         <a href="" onClick={this.handlePublishUploadIMGClick} >
                             <span className="oi oi-image" ></span>
@@ -290,7 +288,7 @@ function Wall_post_publish_share(props){
     }
 
     return (
-        <div className="card mt-3">
+        <div className="card mt-3 ">
             <button type="button" className="close position-absolute " aria-label="Close" onClick={handleClick}>
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -332,6 +330,7 @@ function wall_publish_find_url(str){
     var ref = str.match(urlPattern);
 
     return ref;
+
 }
 
 
