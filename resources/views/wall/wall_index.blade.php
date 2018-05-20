@@ -23,7 +23,12 @@
 
     </div>
 
-    <div class="my-3 p-3 bg-white rounded border-bottom" id="wall_posts">
+    <div class="my-3 " id="wall_posts">
+        
+        
+    </div>
+
+    <div class="my-3 p-3 bg-white rounded border-bottom" >
         {{-- <div class="row">
             <div class="col">123</div>
             <div class="col">123</div>

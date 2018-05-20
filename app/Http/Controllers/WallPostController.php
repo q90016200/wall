@@ -388,11 +388,12 @@ class WallPostController extends Controller
             $pd = array();
 
             foreach ($_p as $k => $v) {
-                // $pd[$k] = $this->export_post_data($v);
+                $pd[$k] = $this->export_post_data($v);
             }
 
-
+            $data["posts_data"] = $pd;
         }
+
 
 
         return response()->json($data);
@@ -404,7 +405,85 @@ class WallPostController extends Controller
     private function export_post_data($v){
         $user = app(WallController::class)->get_user_info();
         $uid = $user["uid"];
-        
+
+        $data["post_id"] = $v->post_id;
+
+        $content = $v->post_content;
+        $content = htmlspecialchars($content);
+
+        $data["content"] = $content;
+
+        unset($content);
+
+        $data["create_date"] = date("Y/m/d H:i:s",($v->post_create_timestamp/1000));
+
+        if($v->post_modify_date != null){
+            $data["post_modify_date"] =  date("Y/m/d H:i:s",strtotime($v->post_modify_date));
+        }
+
+        # 貼文 like
+        $data["like_count"] = $v->post_like_count;
+        $data["is_liked"] = 0;
+
+        if(isset($v->like_status )){
+            if($data["like_count"] > 0 && $v->like_status != null && $v->like_status != "delete"){
+                $data["is_liked"] = 1;
+            }
+        }
+
+
+        # 貼文 link preview
+        if($v->post_preview_link != null){
+            
+            $data["preview"] = app(WallController::class)->get_preview_link_info($v->post_preview_link);
+        }
+
+        # 貼文 image
+        if($v->post_image_count > 0){
+
+            $post_image_arr = $this->getPostImage($v->post_id);
+
+            if(count($post_image_arr) > 0){
+                $data["images"] = $post_image_arr;
+            }
+
+        }
+
+
+        # 編輯&刪除 貼文 權限
+        $data["is_edit"] = 0;
+        if($uid == $v->post_author ){
+            $data["is_edit"] = 1;
+        }                
+
+        # 貼文狀態
+        $data["post_status"] = $v->post_status;
+
+        $data["user"] = app(WallController::class)->get_user_info($v->post_author);
+
+
+
+        return $data;
     }
+
+    // 取得貼文 image
+    private function getPostImage($post_id){
+        $data = array();
+
+        $_q = DB::table("wall_post_imgs")
+            ->where("img_post_id",$post_id)
+            ->get();
+        
+        if($_q){
+            foreach ($_q as $k => $v) {
+                $data[$k]["origin"] = "https://img.mvmv.com.tw/".$v->img_path;
+                $data[$k]["img_id"] = $v->img_id;                            
+            }
+        }
+
+
+        return $data;
+    }
+
 
 }

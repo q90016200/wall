@@ -26,13 +26,19 @@ let getPostLatestState = {
 	page:1
 }
 
-
+// 載入最新5篇
 axios.get("/api/wall/posts/latest",{
 	params: {
       t: getPostLatestState.getTime,
       page:getPostLatestState.page
     }
 }).then(function(response){
-	console.log(response);
+	console.log(response.data);
+
+	ReactDOM.render(
+		<Wall_post_component items={response.data.posts_data} />,
+		document.getElementById('wall_posts')
+	);
+
 })
 
