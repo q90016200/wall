@@ -287,17 +287,27 @@ function Wall_post_publish_share(props){
         props.onCloseClick(e)
     }
 
+    let shareImg = null;
+
+    if(props.img ){
+        shareImg = <img className="card-img-top" src={props.img} alt="Card image cap" />
+    }
+
+
     return (
         <div className="card mt-3 ">
             <button type="button" className="close position-absolute " aria-label="Close" onClick={handleClick}>
                 <span aria-hidden="true">&times;</span>
             </button>
-            <img className="card-img-top" src={props.img} alt="Card image cap" />
+            
+            {shareImg}
+
             <div className="card-body">
                 <h5 className="card-title">{props.title}</h5>
                 <p className="card-text">{props.description}</p>
                 <p className="card-text"><small className="text-muted">{props.url}</small></p>
             </div>
+
         </div>
     );
 }

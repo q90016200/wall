@@ -182,8 +182,8 @@ class WallController extends Controller
                         $data["preview_data"]["link_title"] = null;
                         $data["preview_data"]["link_description"] = null;
                         $data["preview_data"]["link_image"] = null;
-                        $data["preview_data"]["link_image_width"] = null;
-                        $data["preview_data"]["link_image_height"] = null;
+                        $data["preview_data"]["link_image_width"] = 0;
+                        $data["preview_data"]["link_image_height"] = 0;
 
 
                         $html = new \DOMDocument();

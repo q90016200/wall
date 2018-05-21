@@ -15,21 +15,24 @@ export default class Wall_post_component extends React.Component {
         // ));
     }
 
-
+    componentWillReceiveProps(nextProps){
+        // console.log(this.props);
+        this.setState(prevState => ({
+            items: prevState.items.concat(nextProps.items),
+        }));
+    }
 
     render(){
-
 
         return(
             <div className="">
                 {this.state.items.map(item => (
-                    <div className=" my-3 p-3 bg-white rounded border-bottom" key={item.post_id}>
+                    <div className=" my-3 p-3 bg-white rounded border-bottom" key={"post_"+item.post_id}>
                         <Wall_post_head name={item.user.name} time={item.create_date} post_id={item.post_id} />
 
                         <Wall_post_content item={item} />
                     </div>
                 ))}
-
             </div>
         )
     } 
@@ -82,15 +85,31 @@ class Wall_post_content extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-
+            content:this.props.item.content
         }
+    }
+
+    componentDidMount(){
+        let content = this.props.item.content;
+        // 轉超連結
+        
+        // console.log(content);
+
+        content = wrapPostContentURLs(content,true);
+
+        //替換所有的換行符
+        content = content.replace(/\r\n/g, "<br>");
+        content = content.replace(/\n/g, "<br>");
+
+        this.setState({
+            content: content
+        });
     }
 
     render(){
         return(
             <div className="my-3">
-                <div className="my-3">
-                    {this.props.item.content}
+                <div className="my-3" dangerouslySetInnerHTML={export_html(this.state.content)}>
                 </div>
             </div>
         )
@@ -98,6 +117,21 @@ class Wall_post_content extends React.Component {
 
 }
 
+// 輸出html
+function export_html(content) {
+  return {__html: content};
+}
 
+// find url in string
+var wrapPostContentURLs = function (text ,new_window) {
+    let url_pattern = /((https?|telnet|ftp):[\/\/[\.\-\_\/a-zA-Z0-9\~\?\%\#\=\@\:\&\;\*\\\-]+?)(?=[.:?\\-]*(?:[^\/\/[\.\-\_\/a-zA-Z0-9\~\?\%\#\=\@\:\&\;\*\\\-]|$))/;
+    let target = (new_window === true || new_window == null) ? '_blank' : '';
 
+    return text.replace(url_pattern, function (url) {
+        // let protocol_pattern = /^(?:(?:https?|ftp):\/\/)/i;
+        // let href = protocol_pattern.test(url) ? url : 'http://' + url;
+        let href = url;
+        return '<a href="' + href + '" target="' + target + '" >' + url + '</a>';
+    });
+};
 
