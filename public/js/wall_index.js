@@ -19581,16 +19581,24 @@ var Wall_post_head = function (_React$Component2) {
 
         var _this2 = _possibleConstructorReturn(this, (Wall_post_head.__proto__ || Object.getPrototypeOf(Wall_post_head)).call(this, props));
 
-        _this2.state = {};
+        _this2.state = {
+            isCopy: true
+        };
 
         _this2.copyLink = _this2.copyLink.bind(_this2);
-
+        _this2.copyLinkSpan = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createRef();
         return _this2;
     }
 
     _createClass(Wall_post_head, [{
         key: 'render',
         value: function render() {
+
+            var copyLinkSpan = null;
+            if (this.state.isCopy) {
+                copyLinkSpan = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { ref: this.copyLinkSpan });
+            }
+
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                 'div',
                 { className: 'row' },
@@ -19621,6 +19629,7 @@ var Wall_post_head = function (_React$Component2) {
                         { className: 'btn bg-white', type: 'button', id: 'post_action_men', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'false' },
                         '...'
                     ),
+                    copyLinkSpan,
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                         'div',
                         { className: 'dropdown-menu', 'aria-labelledby': 'post_action_men' },
@@ -19640,8 +19649,41 @@ var Wall_post_head = function (_React$Component2) {
         }
     }, {
         key: 'copyLink',
-        value: function copyLink(post_id) {
+        value: function copyLink(e, post_id) {
             console.log('copyLink:' + this.props.post_id);
+
+            this.setState({
+                isCopy: true
+            });
+
+            this.copyLinkSpan.current.textContent = "test copy 測試複製!";
+
+            console.log(this.copyLinkSpan.current.textContent);
+
+            // We will need a range object and a selection.
+            var range = document.createRange(),
+                selection = window.getSelection();
+
+            // Clear selection from any previous data.
+            selection.removeAllRanges();
+
+            // Make the range select the entire content of the contentHolder paragraph.
+            range.selectNodeContents(this.copyLinkSpan.current);
+
+            // Add that range to the selection.
+            selection.addRange(range);
+            console.log(selection);
+
+            // Copy the selection to clipboard.
+            document.execCommand('copy');
+
+            // This is just personal preference.
+            // I prefer to not show the the whole text area selected.
+            e.target.focus();
+
+            this.setState({
+                isCopy: false
+            });
         }
     }]);
 

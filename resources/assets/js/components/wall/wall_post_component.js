@@ -43,14 +43,20 @@ class Wall_post_head extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-
+            isCopy:true
         }
 
         this.copyLink = this.copyLink.bind(this);
-
+        this.copyLinkSpan = React.createRef();
     }
 
     render(){
+
+        let copyLinkSpan = null;
+        if(this.state.isCopy){
+            copyLinkSpan = <span ref={this.copyLinkSpan}></span>;
+        }
+
         return(
             <div className="row">
                 <div className="col-auto">
@@ -66,6 +72,7 @@ class Wall_post_head extends React.Component {
                     <button className="btn bg-white" type="button" id="post_action_men" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     ...
                     </button>
+                    {copyLinkSpan}
                     <div className="dropdown-menu" aria-labelledby="post_action_men">
                         <a className="dropdown-item" onClick={this.copyLink}>複製連結</a>
                         <a className="dropdown-item" >刪除</a>
@@ -75,8 +82,42 @@ class Wall_post_head extends React.Component {
         )
     }
 
-    copyLink(post_id){
+    copyLink(e,post_id){
         console.log(`copyLink:${this.props.post_id}`);
+
+        this.setState({
+            isCopy:true
+        });
+
+        this.copyLinkSpan.current.textContent ="test copy 測試複製!";
+
+        console.log(this.copyLinkSpan.current.textContent);
+
+        // We will need a range object and a selection.
+        var range = document.createRange(),
+            selection = window.getSelection();
+
+        // Clear selection from any previous data.
+        selection.removeAllRanges();
+
+        // Make the range select the entire content of the contentHolder paragraph.
+        range.selectNodeContents(this.copyLinkSpan.current);
+
+        // Add that range to the selection.
+        selection.addRange(range);
+        console.log(selection);
+
+        // Copy the selection to clipboard.
+        document.execCommand('copy');
+
+        // This is just personal preference.
+        // I prefer to not show the the whole text area selected.
+        e.target.focus();
+
+        this.setState({
+            isCopy:false
+        });
+
     }
 
 }
