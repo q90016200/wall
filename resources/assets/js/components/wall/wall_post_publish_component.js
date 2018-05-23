@@ -290,9 +290,8 @@ function Wall_post_publish_share(props){
     let shareImg = null;
 
     if(props.img ){
-        shareImg = <img className="card-img-top" src={props.img} alt="Card image cap" />
+        shareImg = <img className="card-img-top" src={props.img}/>
     }
-
 
     return (
         <div className="card mt-3 ">

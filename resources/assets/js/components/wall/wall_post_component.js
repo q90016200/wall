@@ -30,7 +30,12 @@ export default class Wall_post_component extends React.Component {
                     <div className=" my-3 p-3 bg-white rounded border-bottom" key={"post_"+item.post_id}>
                         <Wall_post_head name={item.user.name} time={item.create_date} post_id={item.post_id} />
 
-                        <Wall_post_content item={item} />
+                        <Wall_post_content content={item.content} />
+
+                        {typeof item.preview !="undefined" &&
+                            <Wall_post_link_preview item={item.preview} />
+                        }
+
                     </div>
                 ))}
             </div>
@@ -81,7 +86,7 @@ class Wall_post_head extends React.Component {
             </div>
         )
     }
-
+    // 複製連結功能
     copyLink(e,post_id){
         console.log(`copyLink:${this.props.post_id}`);
 
@@ -91,7 +96,7 @@ class Wall_post_head extends React.Component {
 
         this.copyLinkSpan.current.textContent ="test copy 測試複製!";
 
-        console.log(this.copyLinkSpan.current.textContent);
+        // console.log(this.copyLinkSpan.current.textContent);
 
         // We will need a range object and a selection.
         var range = document.createRange(),
@@ -105,7 +110,6 @@ class Wall_post_head extends React.Component {
 
         // Add that range to the selection.
         selection.addRange(range);
-        console.log(selection);
 
         // Copy the selection to clipboard.
         document.execCommand('copy');
@@ -126,12 +130,12 @@ class Wall_post_content extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            content:this.props.item.content
+            content:this.props.content
         }
     }
 
     componentDidMount(){
-        let content = this.props.item.content;
+        let content = this.props.content;
         // 轉超連結
         
         // console.log(content);
@@ -149,14 +153,53 @@ class Wall_post_content extends React.Component {
 
     render(){
         return(
-            <div className="my-3">
-                <div className="my-3" dangerouslySetInnerHTML={export_html(this.state.content)}>
-                </div>
-            </div>
+            <div className="my-3" dangerouslySetInnerHTML={export_html(this.state.content)}></div>
         )
     }
 
 }
+
+class Wall_post_link_preview extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            
+        }
+    }
+
+    render(){
+        const isYoutube = this.props.item.youtube;
+        let linkImg = null;
+        if(this.props.item.link_image ){
+            linkImg = <img className="card-img-top" src={this.props.item.link_image}/>
+        }
+
+        return(
+            <div>
+                {isYoutube ? (
+                    <div className="embed-responsive embed-responsive-16by9">
+                        <iframe className="embed-responsive-item" src={"https://www.youtube.com/embed/"+this.props.item.youtube}></iframe>
+                    </div>
+                ) : (
+
+                    <div className="card mt-3 ">
+                        {linkImg}
+                        <div className="card-body">
+                            <h5 className="card-title">{this.props.item.link_title}</h5>
+                            <p className="card-text">{this.props.item.link_description}</p>
+                            <p className="card-text"><small className="text-muted">{this.props.item.link_url}</small></p>
+                        </div>
+                    </div>
+
+                    
+                )}
+            </div>
+        )
+    }
+}
+
+
+
 
 // 輸出html
 function export_html(content) {
