@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import Wall_post_component from './wall_post_component.js';
+
 export default class Wall_post_publish_component extends React.Component {
     constructor(props) {
         super(props);
@@ -220,7 +222,11 @@ export default class Wall_post_publish_component extends React.Component {
                     });
                 }
 
-                console.log(data);
+                ReactDOM.render(
+                    <Wall_post_component items={data.posts_data} append="before" />,
+                    document.getElementById('wall_posts')
+                );
+                
             });
 
 

@@ -47,7 +47,7 @@ function getPostLatest(){
 			console.log(response.data);
 
 			ReactDOM.render(
-				<Wall_post_component items={response.data.posts_data} />,
+				<Wall_post_component items={response.data.posts_data} append="after" />,
 				document.getElementById('wall_posts')
 			);
 

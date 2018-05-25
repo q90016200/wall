@@ -45,7 +45,7 @@ class WallPostController extends Controller
         // return $request->file();
 
         // 目前使用者
-        $user = app(WallController::class)->get_user_info();
+        $user = app(UserController::class)->get_user_info();
         $uid = $user["uid"];
 
          // 發文內容
@@ -104,11 +104,13 @@ class WallPostController extends Controller
                     ->update($_piud);
             }
 
+            $data["posts_data"] = $this->getPostById($post_id);
+            $data["user"] = app(UserController::class)->get_user_info($uid); 
+
             $data["error"] = false;
         }
 
 
-        
 
         // return $request->file('post_img');
 
@@ -403,7 +405,7 @@ class WallPostController extends Controller
 
 
     private function export_post_data($v){
-        $user = app(WallController::class)->get_user_info();
+        $user = app(UserController::class)->get_user_info();
         $uid = $user["uid"];
 
         $data["post_id"] = $v->post_id;
@@ -459,8 +461,7 @@ class WallPostController extends Controller
         # 貼文狀態
         $data["post_status"] = $v->post_status;
 
-        $data["user"] = app(WallController::class)->get_user_info($v->post_author);
-
+        $data["user"] = app(UserController::class)->get_user_info($v->post_author);
 
 
         return $data;
@@ -484,6 +485,39 @@ class WallPostController extends Controller
 
         return $data;
     }
+
+    // 依照 post id 取得 post data
+    public function getPostById($post_id = 0){
+ 
+        $user = app(UserController::class)->get_user_info();
+        $uid = $user["uid"];
+
+        $_pq = DB::table("wall_posts")
+            ->select("wall_posts.post_id","wall_posts.post_author","wall_posts.post_content","wall_posts.post_like_count","wall_posts.post_comment_count","wall_posts.post_image_count","wall_posts.post_preview_link","wall_posts.post_create_timestamp","wall_posts.post_modify_date","wall_posts.post_top","wall_posts.post_status","wall_posts.post_category","wall_posts.post_category","post_tag_works","post_tag_actors");
+        
+        if($uid != 0){
+            // $_pq = $_pq->addSelect("wall_post_likes.like_status");
+            // $_pq = $_pq->leftJoin("wall_post_likes",function($join) use($uid,$post_id){
+            //     $join->on("wall_post_likes.like_post_id","=","wall_posts.post_id")
+            //         ->where("wall_post_likes.like_uid","=",$uid);
+            // });
+        }
+
+        
+        $_pq = $_pq->where("wall_posts.post_status","publish");
+        
+
+        $_pq = $_pq->where("wall_posts.post_id",$post_id)
+            ->get();
+
+        $pd = array();
+
+        if(count($_pq)){
+            array_push($pd, $this->export_post_data($_pq[0]));
+        }    
+
+        return $pd;
+    }   
 
 
 }

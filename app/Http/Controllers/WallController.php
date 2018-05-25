@@ -14,40 +14,12 @@ class WallController extends Controller
     }
 
 
-    public function get_user_info($uid = 0){
-
-        $user = array(
-            'uid' => 0,
-            'name'=>'guest'
-        );
-
-        if($uid == 0){
-            if (Auth::check()) {
-                $auth = Auth::user();
-                $user['uid']  = $auth->id;
-                $user['name']  = $auth->name;
-            }
-        }else{
-            $_uq = DB::table("users")
-                ->select("id","name")
-                ->where("users.id",$uid)
-                ->get();
-            if($_uq){
-                $user['uid']  = $_uq[0]->id;
-                $user['name']  = $_uq[0]->name;
-            }
-        }
-        
-
-        return $user;
-    }
-
     public function index(){
 
         // return $auth->id;
 
         $data = array();
-        $data["user"] = $this->get_user_info();
+        $data["user"] = app(UserController::class)->get_user_info();
 
         // dd($data);
 

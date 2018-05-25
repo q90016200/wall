@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import Wall_post_comment_component from './wall_post_comment_component.js';
+import Wall_post_comment_publish_component from './wall_post_comment_publish_component.js';
+
 export default class Wall_post_component extends React.Component {
     constructor(props) {
         super(props);
@@ -16,10 +19,17 @@ export default class Wall_post_component extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-        // console.log(this.props);
-        this.setState(prevState => ({
-            items: prevState.items.concat(nextProps.items),
-        }));
+
+        if(nextProps.append == "after"){
+            this.setState(prevState => ({
+                items: prevState.items.concat(nextProps.items),
+            }));
+        }else if(nextProps.append == "before"){
+            this.setState(prevState => ({
+                items: nextProps.items.concat(prevState.items),
+            }));
+        }
+
     }
 
     render(){
@@ -35,6 +45,10 @@ export default class Wall_post_component extends React.Component {
                         {typeof item.preview !="undefined" &&
                             <Wall_post_link_preview item={item.preview} />
                         }
+
+                        <Wall_post_comment_component />
+
+                        <Wall_post_comment_publish_component test="test" />
 
                     </div>
                 ))}
@@ -190,6 +204,7 @@ class Wall_post_link_preview extends React.Component {
                             <p className="card-text"><small className="text-muted">{this.props.item.link_url}</small></p>
                         </div>
                     </div>
+
 
                     
                 )}
