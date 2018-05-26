@@ -25,4 +25,6 @@ Route::post('/wall/get_preview', 'WallController@get_url_preview');
 
 # 貼文
 Route::resource('/wall/posts', 'WallPostController',['only' => ['create','store','show','edit','destroy']]);
+# 留言
+Route::resource('/wall/comments', 'WallCommentController',['only' => ['store','destroy']]);
 

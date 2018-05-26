@@ -5,14 +5,14 @@ export default class Wall_post_comment_publish_component extends React.Component
     constructor(props) {
         super(props);
         this.state = {
-            items:props.items
+            postId:this.props.post_id,
+            publishStatus:true,
+            commentInputVal:''
         }
 
-        // console.log(this.state.items);
-
-        // this.state.items.map(item => (
-        //     console.log(item)
-        // ));
+        this.commentPublish = this.commentPublish.bind(this);
+        this.commentInputChange = this.commentInputChange.bind(this);
+        
     }
 
     render(){
@@ -20,13 +20,46 @@ export default class Wall_post_comment_publish_component extends React.Component
         return(
             <div className="border-top  mt-3 pt-3 ">
                 <div className="input-group mb-3 ">
-                    <input type="text" className="form-control" placeholder="留言..." aria-label="留言..." aria-describedby="basic-addon2" />
+                    <input type="text" className="form-control" placeholder="留言..." aria-label="留言..." aria-describedby="basic-addon2" value={this.state.commentInputVal} onChange={this.commentInputChange} />
                     <div className="input-group-append">
-                        <button className="btn btn-outline-secondary" type="button">送出</button>
+                        <button className="btn btn-outline-secondary" type="button" onClick={this.commentPublish}>送出</button>
                     </div>
                 </div>
             </div>
             
         )
     }
+
+    commentInputChange(event){
+        let str = event.target.value;
+        let ts = this;
+
+        this.setState({
+            commentInputVal:str
+        });
+
+    }
+
+    // 發布留言
+    commentPublish(){
+
+        let ts = this;
+
+        if(this.state.publishStatus && this.state.commentInputVal.length > 0){
+
+            ts.setState({
+                publishStatus:false
+            });
+
+            axios.post("/wall/comments",{
+                postId:this.state.postId,
+                content:this.state.commentInputVal
+            }).then(function(response){
+                console.log(response);
+            });
+
+        }
+    }
+
+
 }

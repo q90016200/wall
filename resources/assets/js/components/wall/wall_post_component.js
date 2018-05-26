@@ -48,7 +48,7 @@ export default class Wall_post_component extends React.Component {
 
                         <Wall_post_comment_component />
 
-                        <Wall_post_comment_publish_component test="test" />
+                        <Wall_post_comment_publish_component post_id={item.post_id} />
 
                     </div>
                 ))}
