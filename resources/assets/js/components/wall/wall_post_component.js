@@ -42,11 +42,11 @@ export default class Wall_post_component extends React.Component {
 
                         <Wall_post_content content={item.content} />
 
-                        {typeof item.preview !="undefined" &&
+                        {typeof item.preview != "undefined" &&
                             <Wall_post_link_preview item={item.preview} />
                         }
 
-                        <Wall_post_comment_component />
+                        <Wall_post_comment_component item={item.comment_data} />
 
                         <Wall_post_comment_publish_component post_id={item.post_id} />
 

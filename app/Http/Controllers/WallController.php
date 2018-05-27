@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 
+use App\Models\WallComment;
+
 class WallController extends Controller
 {   
     function __construct(){
@@ -20,6 +22,7 @@ class WallController extends Controller
 
         $data = array();
         $data["user"] = app(UserController::class)->get_user_info();
+
 
         // dd($data);
 

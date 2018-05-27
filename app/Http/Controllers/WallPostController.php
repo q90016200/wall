@@ -393,7 +393,7 @@ class WallPostController extends Controller
                 $pd[$k] = $this->export_post_data($v);
             }
 
-            $data["posts_data"] = $pd;
+            $data["posts"] = $pd;
         }
 
 
@@ -402,7 +402,6 @@ class WallPostController extends Controller
         
         
     }
-
 
     private function export_post_data($v){
         $user = app(UserController::class)->get_user_info();
@@ -451,7 +450,6 @@ class WallPostController extends Controller
 
         }
 
-
         # 編輯&刪除 貼文 權限
         $data["is_edit"] = 0;
         if($uid == $v->post_author ){
@@ -462,6 +460,8 @@ class WallPostController extends Controller
         $data["post_status"] = $v->post_status;
 
         $data["user"] = app(UserController::class)->get_user_info($v->post_author);
+
+        $data["comment_data"] = app(WallCommentController::class)->latest($v->post_id,3);
 
 
         return $data;

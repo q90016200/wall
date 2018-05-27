@@ -5,20 +5,51 @@ export default class Wall_post_comment_component extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            items:props.items
+            comments:this.props.item.comments
         }
 
-        // console.log(this.state.items);
-
-        // this.state.items.map(item => (
-        //     console.log(item)
-        // ));
+        // console.log(Object.keys(this.state.comments).length);
+        
     }
 
     render(){
 
+        let outsideDivClass = "p-3";
+
+        if(Object.keys(this.state.comments).length > 0){
+            outsideDivClass += " border-top";
+        }
+
+
         return(
-        	<div></div>
+        	<div className={outsideDivClass} >
+                {this.state.comments.map(item => (
+                    <div key={"comment_"+item.comment_id} className="my-3">
+                        <div className="row" >
+                            <div className="col-auto">
+                                <img src="/img/avatar.jpg" alt="..." className="rounded-circle" style={{width: 40+'px', height: 40+'px'}} />
+                            </div>
+
+                            <div className="col-auto mr-auto">
+                                <div>{item.user.name}</div>
+                                <div className="row" >
+                                    <div className="col-auto">
+                                        {item.content}
+                                    </div>
+                                    <div className="col-auto">
+                                        {item.created_at.date}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                    
+                ))}
+                   
+            </div>
         )
     }
 }

@@ -44,10 +44,10 @@ function getPostLatest(){
 		      page:getPostLatestState.page
 		    }
 		}).then(function(response){
-			console.log(response.data);
+			// console.log(response.data);
 
 			ReactDOM.render(
-				<Wall_post_component items={response.data.posts_data} append="after" />,
+				<Wall_post_component items={response.data.posts} append="after" />,
 				document.getElementById('wall_posts')
 			);
 
