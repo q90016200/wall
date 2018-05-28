@@ -379,7 +379,7 @@ class WallPostController extends Controller
 
         $data["page"] = $page;
         $data["total_page"] = ceil($post_count / $limit);
-        $data["posts_data"] = array();
+        $data["posts"] = array();
 
         if($_p){
             // return dd($_p);

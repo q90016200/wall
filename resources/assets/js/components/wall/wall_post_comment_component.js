@@ -5,12 +5,18 @@ export default class Wall_post_comment_component extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            comments:this.props.item.comments
+            comments:props.items
         }
 
         // console.log(Object.keys(this.state.comments).length);
         
     }
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        return null;
+    }
+
+
 
     render(){
 
@@ -20,9 +26,8 @@ export default class Wall_post_comment_component extends React.Component {
             outsideDivClass += " border-top";
         }
 
-
         return(
-        	<div className={outsideDivClass} >
+        	<div className={outsideDivClass}>
                 {this.state.comments.map(item => (
                     <div key={"comment_"+item.comment_id} className="my-3">
                         <div className="row" >
@@ -40,15 +45,10 @@ export default class Wall_post_comment_component extends React.Component {
                                         {item.created_at.date}
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
-                        
-
                     </div>
-                    
                 ))}
-                   
             </div>
         )
     }

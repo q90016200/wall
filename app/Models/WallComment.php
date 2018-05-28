@@ -10,5 +10,5 @@ class WallComment extends Model
 	protected $primaryKey = 'comment_id';
 
 
-
+	protected $dates = ['deleted_at'];
 }

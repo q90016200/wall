@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import Wall_post_comment_component from './wall_post_comment_component.js';
+
 export default class Wall_post_comment_publish_component extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            postId:this.props.post_id,
+            post_id:this.props.post_id,
             publishStatus:true,
             commentInputVal:''
         }
@@ -52,7 +54,7 @@ export default class Wall_post_comment_publish_component extends React.Component
             });
 
             axios.post("/wall/comments",{
-                post_id:this.state.postId,
+                post_id:this.state.post_id,
                 content:this.state.commentInputVal
             }).then(function(response){
 
@@ -60,14 +62,17 @@ export default class Wall_post_comment_publish_component extends React.Component
                     publishStatus:true,
                     commentInputVal:''
                 });
-
-
-                console.log(response);
+                
                 let data = response.data;
-                if(data.error != false){
-                    
-                }
 
+                if(data.error == false){
+                    // console.log(document.getElementById('wall_post_comment_' + ts.state.post_id));
+
+                    // ReactDOM.render(
+                    //     <Wall_post_comment_component items={data.comments}  />,
+                    //     document.getElementById('wall_post_comment_' + ts.state.post_id)
+                    // );
+                }
 
             });
 

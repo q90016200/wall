@@ -13,24 +13,42 @@ export default class Wall_post_component extends React.Component {
 
         // console.log(this.state.items);
 
-        // this.state.items.map(item => (
-        //     console.log(item)
-        // ));
+        let item = this.state.items;
+
+        console.log(item[0].comment_data.comments[0]);
+        item[0].comment_data.comments[0].content = "我是修改後的文字";
+
     }
 
-    componentWillReceiveProps(nextProps){
-
-        if(nextProps.append == "after"){
-            this.setState(prevState => ({
-                items: prevState.items.concat(nextProps.items),
-            }));
-        }else if(nextProps.append == "before"){
-            this.setState(prevState => ({
-                items: nextProps.items.concat(prevState.items),
-            }));
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.items !== prevState.items){
+            if(nextProps.append == "after"){
+                return {
+                    items: prevState.items.concat(nextProps.items),
+                };
+            }else if(nextProps.append == "before"){
+                return {
+                    items: nextProps.items.concat(prevState.items),
+                };
+            }
         }
 
+        return null;
     }
+
+    // componentWillReceiveProps(nextProps){
+
+    //     if(nextProps.append == "after"){
+    //         this.setState(prevState => ({
+    //             items: prevState.items.concat(nextProps.items),
+    //         }));
+    //     }else if(nextProps.append == "before"){
+    //         this.setState(prevState => ({
+    //             items: nextProps.items.concat(prevState.items),
+    //         }));
+    //     }
+
+    // }
 
     render(){
 
@@ -46,7 +64,9 @@ export default class Wall_post_component extends React.Component {
                             <Wall_post_link_preview item={item.preview} />
                         }
 
-                        <Wall_post_comment_component item={item.comment_data} />
+                        
+                        <Wall_post_comment_component items={item.comment_data.comments}  />
+                        
 
                         <Wall_post_comment_publish_component post_id={item.post_id} />
 

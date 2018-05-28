@@ -26,7 +26,7 @@ class UserController extends Controller
                 ->select("id","name")
                 ->where("users.id",$uid)
                 ->get();
-            if($_uq){
+            if(count($_uq)){
                 $user['uid']  = $_uq[0]->id;
                 $user['name']  = $_uq[0]->name;
             }

@@ -97,7 +97,7 @@ class WallCommentController extends Controller
     		$comment = \App\Models\WallComment::where('comment_id', '=', $commnet_id)
     			->get();
 
-    		$data = $this->export_comment($comment[0]);
+            array_push($data, $this->export_comment($comment[0]));
 
 
     	}
