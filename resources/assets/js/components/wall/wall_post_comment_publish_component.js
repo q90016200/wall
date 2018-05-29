@@ -43,7 +43,7 @@ export default class Wall_post_comment_publish_component extends React.Component
     }
 
     // 發布留言
-    commentPublish(){
+    commentPublish(e){
 
         let ts = this;
 
@@ -72,11 +72,17 @@ export default class Wall_post_comment_publish_component extends React.Component
                     //     <Wall_post_comment_component items={data.comments}  />,
                     //     document.getElementById('wall_post_comment_' + ts.state.post_id)
                     // );
+
+                    ts.props.onPublish(e,ts.props.itemNum,data.comments);
                 }
 
             });
 
         }
+
+
+
+
     }
 
 

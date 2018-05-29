@@ -13,6 +13,16 @@ export default class Wall_post_comment_component extends React.Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
+
+        // console.log("nextProps");
+        // console.log(nextProps);
+
+        if(nextProps.items !== prevState.comments){
+            return {
+                comments: nextProps.items,
+            }
+        }
+
         return null;
     }
 

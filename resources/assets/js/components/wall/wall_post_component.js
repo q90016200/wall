@@ -8,15 +8,17 @@ export default class Wall_post_component extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items:props.items
+            items:props.items,
         }
 
         // console.log(this.state.items);
 
-        let item = this.state.items;
+        // let item = this.state.items;
 
-        console.log(item[0].comment_data.comments[0]);
-        item[0].comment_data.comments[0].content = "我是修改後的文字";
+        // console.log(item[0].comment_data.comments[0]);
+        // item[0].comment_data.comments[0].content = "我是修改後的文字";
+
+        this.commentPublish = this.commentPublish.bind(this);
 
     }
 
@@ -50,11 +52,14 @@ export default class Wall_post_component extends React.Component {
 
     // }
 
-    render(){
+    componentDidMount(){
 
+    }
+
+    render(){
         return(
             <div className="">
-                {this.state.items.map(item => (
+                {this.state.items.map((item,index) => (
                     <div className=" my-3 p-3 bg-white rounded border-bottom" key={"post_"+item.post_id}>
                         <Wall_post_head name={item.user.name} time={item.create_date} post_id={item.post_id} />
 
@@ -63,18 +68,40 @@ export default class Wall_post_component extends React.Component {
                         {typeof item.preview != "undefined" &&
                             <Wall_post_link_preview item={item.preview} />
                         }
-
                         
-                        <Wall_post_comment_component items={item.comment_data.comments}  />
+                        <Wall_post_comment_component items={item.comment_data.comments}   />
                         
 
-                        <Wall_post_comment_publish_component post_id={item.post_id} />
+                        <Wall_post_comment_publish_component post_id={item.post_id} itemNum={index} onPublish={this.commentPublish}/>
 
                     </div>
                 ))}
             </div>
         )
     } 
+
+    commentPublish(event,itemNum,comments){
+        let prevItem = this.state.items;
+
+        let prevComments = prevItem[itemNum].comment_data.comments;
+        let newComments = prevComments.concat(comments);
+
+        let newItem = this.state.items;
+
+        console.log(newComments);
+
+        newItem[0].comment_data.comments = newComments;
+
+
+        
+        this.setState({
+            items:newItem,
+            append:null
+        });
+
+
+
+    }
 
 }
 
