@@ -33,4 +33,11 @@ Homestead.json
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
+
+
+yarn.lock
+wall.sublime-project
+wall.sublime-workspace
+yarn-error.log
+
 >>>>>>> 1515573589310fb930218998296b2c896a44a64c
