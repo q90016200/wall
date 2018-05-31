@@ -52,7 +52,7 @@ export default class Wall_post_comment_component extends React.Component {
                                         {item.content}
                                     </div>
                                     <div className="col-auto">
-                                        {item.created_at.date}
+                                        {moment(item.created_at.date).format('YYYY-MM-DD HH:m:s')}
                                     </div>
                                 </div>
                             </div>

@@ -88,18 +88,14 @@ export default class Wall_post_component extends React.Component {
 
         let newItem = this.state.items;
 
-        console.log(newComments);
+        // console.log(newComments);
 
         newItem[0].comment_data.comments = newComments;
-
-
         
         this.setState({
             items:newItem,
             append:null
         });
-
-
 
     }
 
