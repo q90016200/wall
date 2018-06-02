@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth,DB;
+use Auth,DB,Log;
 
 class WallPostController extends Controller
 {   
@@ -397,7 +397,6 @@ class WallPostController extends Controller
         }
 
 
-
         return response()->json($data);
         
         
@@ -452,6 +451,8 @@ class WallPostController extends Controller
 
         # 編輯&刪除 貼文 權限
         $data["is_edit"] = 0;
+
+
         if($uid == $v->post_author ){
             $data["is_edit"] = 1;
         }                

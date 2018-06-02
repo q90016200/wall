@@ -19,6 +19,7 @@ export default class Wall_post_component extends React.Component {
         // item[0].comment_data.comments[0].content = "我是修改後的文字";
 
         this.commentPublish = this.commentPublish.bind(this);
+        this.commentRemove = this.commentRemove.bind(this);
 
     }
 
@@ -69,7 +70,7 @@ export default class Wall_post_component extends React.Component {
                             <Wall_post_link_preview item={item.preview} />
                         }
                         
-                        <Wall_post_comment_component items={item.comment_data.comments}   />
+                        <Wall_post_comment_component items={item.comment_data.comments} onRemove={this.commentRemove}  />
                         
 
                         <Wall_post_comment_publish_component post_id={item.post_id} itemNum={index} onPublish={this.commentPublish}/>
@@ -79,7 +80,7 @@ export default class Wall_post_component extends React.Component {
             </div>
         )
     } 
-
+    // 發布留言
     commentPublish(event,itemNum,comments){
         let prevItem = this.state.items;
 
@@ -97,6 +98,10 @@ export default class Wall_post_component extends React.Component {
             append:null
         });
 
+    }
+    // 刪除留言
+    commentRemove(event,commentId){
+        console.log(`removeComment:${commentId}`);
     }
 
 }

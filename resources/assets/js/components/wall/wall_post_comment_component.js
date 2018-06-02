@@ -5,10 +5,13 @@ export default class Wall_post_comment_component extends React.Component {
 	constructor(props) {
         super(props);
         this.state = {
-            comments:props.items
+            comments:props.items,
+            commentRemove:true
         }
 
         // console.log(Object.keys(this.state.comments).length);
+
+        this.commentRemove = this.commentRemove.bind(this);
         
     }
 
@@ -42,7 +45,7 @@ export default class Wall_post_comment_component extends React.Component {
                     <div key={"comment_"+item.comment_id} className="my-3">
                         <div className="row" >
                             <div className="col-auto">
-                                <img src="/img/avatar.jpg" alt="..." className="rounded-circle" style={{width: 40+'px', height: 40+'px'}} />
+                                <img src="/img/avatar.jpg" className="rounded-circle" style={{width: 40+'px', height: 40+'px'}} />
                             </div>
 
                             <div className="col-auto mr-auto">
@@ -52,7 +55,12 @@ export default class Wall_post_comment_component extends React.Component {
                                         {item.content}
                                     </div>
                                     <div className="col-auto">
-                                        {moment(item.created_at.date).format('YYYY-MM-DD HH:m:s')}
+                                        {moment(item.created_at.date).format('YYYY-MM-DD HH:m')}
+                                        {item.is_edit &&
+                                            <button type="button" className="close position-absolute" aria-label="Close" onClick={(event)=>this.commentRemove(event,item.comment_id)}>
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -62,4 +70,47 @@ export default class Wall_post_comment_component extends React.Component {
             </div>
         )
     }
+
+    commentRemove(event,comment_id){
+        let ts = this;
+        if(this.state.commentRemove){
+            ts.setState({
+                commentRemove:false
+            });
+
+            swal({
+                title: "確定刪除此留言?",
+                text: "",
+                icon: "warning",
+                buttons:["取消","刪除"],
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.delete('/wall/comments/'+comment_id).then(function(response){
+                        let data = response.data;
+                        // console.log(data);
+
+                        swal("刪除留言成功", {
+                            icon: "success",
+                        }).then(()=>{
+                            ts.setState({
+                                commentRemove:true
+                            });
+                            // 互叫父組件重新渲染留言
+                            ts.props.onRemove(event,comment_id);
+                        });
+
+
+                    })
+
+                    
+                }
+            });
+
+        }
+
+    }
+
+
 }

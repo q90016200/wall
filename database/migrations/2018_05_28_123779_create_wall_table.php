@@ -13,7 +13,6 @@ class CreateWallTable extends Migration
      */
     public function up()
     {
-        Schema::drop('wall_post_comments');
         Schema::create('wall_post_comments', function (Blueprint $table) {
             $table->bigIncrements('comment_id');
             $table->unsignedBigInteger('comment_post_id')->index();

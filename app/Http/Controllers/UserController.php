@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use DB,Auth;
+use DB,Auth,Log;
+
 
 class UserController extends Controller
 {
@@ -16,8 +17,10 @@ class UserController extends Controller
         );
 
         if($uid == 0){
-            if (Auth::check()) {
-                $auth = Auth::user();
+
+            $auth = Auth::user();
+
+            if ($auth != null) {
                 $user['uid']  = $auth->id;
                 $user['name']  = $auth->name;
             }

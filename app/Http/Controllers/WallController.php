@@ -18,7 +18,11 @@ class WallController extends Controller
 
     public function index(){
 
-        // return $auth->id;
+        // return Auth::id();
+
+        // $user = Auth::user();
+
+        // dd($user) ;
 
         $data = array();
         $data["user"] = app(UserController::class)->get_user_info();

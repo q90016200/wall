@@ -37,6 +37,31 @@ class WallCommentController extends Controller
 
     }
 
+    public function destroy($comment_id){
+
+    	$data["error"] = true;
+
+    	$user = app(UserController::class)->get_user_info();
+        $uid = $user["uid"];
+
+        // 先判斷是否有權限
+    	$comment = \App\Models\WallComment::where("comment_status","publish")
+        		->where("comment_id",$comment_id)
+        		->where("comment_author",$uid)
+        		->get();
+
+       	if(count($comment) > 0){
+       		\App\Models\WallComment::where("comment_status","publish")
+        		->where("comment_id",$comment_id)
+        		->where("comment_author",$uid)->delete();
+       		$data["error"] = false;
+       	}
+        		
+        return response()->json($data);
+    }
+
+
+
     public function latest($post_id,$limit = 0,$skip = 0){
 
     	$data = array();
@@ -83,7 +108,17 @@ class WallCommentController extends Controller
     	$data["content"] = $v->comment_content;
     	$data["created_at"] = $v->created_at;
     	$data["comment_status"] = $v->comment_status;
-    	$data["user"] = app(UserController::class)->get_user_info($v->comment_author);
+
+
+    	$user = app(UserController::class)->get_user_info($v->comment_author);
+
+    	$data["is_edit"] = 0;
+    	if($user["uid"] == $v->comment_author){
+    		$data["is_edit"] = 1;
+    	}
+
+
+    	$data["user"] = $user;
 
 
     	return $data;

@@ -68,11 +68,6 @@ export default class Wall_post_comment_publish_component extends React.Component
                 if(data.error == false){
                     // console.log(document.getElementById('wall_post_comment_' + ts.state.post_id));
 
-                    // ReactDOM.render(
-                    //     <Wall_post_comment_component items={data.comments}  />,
-                    //     document.getElementById('wall_post_comment_' + ts.state.post_id)
-                    // );
-
                     ts.props.onPublish(e,ts.props.itemNum,data.comments);
                 }
 

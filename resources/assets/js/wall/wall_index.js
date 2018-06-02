@@ -38,7 +38,7 @@ function getPostLatest(){
 		getPostLatestState.status = false;
 
 		// 載入最新5篇
-		axios.get("/api/wall/posts/latest",{
+		axios.get("/wall/posts",{
 			params: {
 		      t: getPostLatestState.getTime,
 		      page:getPostLatestState.page
