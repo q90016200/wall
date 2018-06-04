@@ -70,7 +70,7 @@ export default class Wall_post_component extends React.Component {
                             <Wall_post_link_preview item={item.preview} />
                         }
                         
-                        <Wall_post_comment_component items={item.comment_data.comments} onRemove={this.commentRemove}  />
+                        <Wall_post_comment_component items={item.comment_data.comments} itemNum={index} onRemove={this.commentRemove}  />
                         
 
                         <Wall_post_comment_publish_component post_id={item.post_id} itemNum={index} onPublish={this.commentPublish}/>
@@ -100,8 +100,35 @@ export default class Wall_post_component extends React.Component {
 
     }
     // 刪除留言
-    commentRemove(event,commentId){
-        console.log(`removeComment:${commentId}`);
+    commentRemove(event,itemNum,comment_id){
+
+        // console.log(`itemNum:${itemNum}`);
+        // console.log(`comment_id:${comment_id}`);
+
+        let prevItem = this.state.items;
+
+        let prevComments = prevItem[itemNum].comment_data.comments;
+
+        let newComments = new Array() ;
+
+        for (var i = 0; i < prevComments.length; i++) {
+            if(prevComments[i].comment_id != comment_id){
+                newComments.push(prevComments[i]);
+            }
+        }
+
+        // console.log(newComments);
+
+        let newItem = this.state.items;
+        newItem[0].comment_data.comments = newComments;
+
+
+        this.setState({
+            items:newItem,
+            append:null
+        });
+
+
     }
 
 }

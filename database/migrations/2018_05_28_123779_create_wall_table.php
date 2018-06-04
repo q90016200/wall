@@ -18,8 +18,8 @@ class CreateWallTable extends Migration
             $table->unsignedBigInteger('comment_post_id')->index();
             $table->unsignedBigInteger('comment_author')->index();
             $table->string('comment_content', 500);
-            $table->dateTime('created_at');
-            $table->dateTime('updated_at');
+            $table->timestamps('created_at');
+            $table->timestamps('updated_at');
             // $table->ipAddress('comment_ip');
             $table->integer('comment_like_count')->default(0);
             //相當於為軟刪除添加一個可空的 deleted_at 字段

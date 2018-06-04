@@ -110,7 +110,7 @@ class WallCommentController extends Controller
     	$data["comment_status"] = $v->comment_status;
 
 
-    	$user = app(UserController::class)->get_user_info($v->comment_author);
+    	$user = app(UserController::class)->get_user_info();
 
     	$data["is_edit"] = 0;
     	if($user["uid"] == $v->comment_author){

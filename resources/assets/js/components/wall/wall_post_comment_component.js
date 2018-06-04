@@ -57,7 +57,7 @@ export default class Wall_post_comment_component extends React.Component {
                                     <div className="col-auto">
                                         {moment(item.created_at.date).format('YYYY-MM-DD HH:m')}
                                         {item.is_edit &&
-                                            <button type="button" className="close position-absolute" aria-label="Close" onClick={(event)=>this.commentRemove(event,item.comment_id)}>
+                                            <button type="button" className="close position-absolute" aria-label="Close" onClick={(event)=>this.commentRemove(event,this.props.itemNum,item.comment_id)}>
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         }
@@ -71,7 +71,7 @@ export default class Wall_post_comment_component extends React.Component {
         )
     }
 
-    commentRemove(event,comment_id){
+    commentRemove(event,itemNum,comment_id){
         let ts = this;
         if(this.state.commentRemove){
             ts.setState({
@@ -91,14 +91,15 @@ export default class Wall_post_comment_component extends React.Component {
                         let data = response.data;
                         // console.log(data);
 
+                        // 互叫父組件重新渲染留言
+                        ts.props.onRemove(event,itemNum,comment_id);
+
                         swal("刪除留言成功", {
                             icon: "success",
                         }).then(()=>{
                             ts.setState({
                                 commentRemove:true
                             });
-                            // 互叫父組件重新渲染留言
-                            ts.props.onRemove(event,comment_id);
                         });
 
 
