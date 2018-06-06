@@ -8,7 +8,12 @@ export default class Wall_post_component extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            items:props.items,
+            // items:props.items,
+            items: [],
+            loadPost: true,
+            loadPostFirst:true,
+            loadPage:1,
+            loadTime:new Date().valueOf(),
         }
 
         // console.log(this.state.items);
@@ -39,22 +44,13 @@ export default class Wall_post_component extends React.Component {
         return null;
     }
 
-    // componentWillReceiveProps(nextProps){
-
-    //     if(nextProps.append == "after"){
-    //         this.setState(prevState => ({
-    //             items: prevState.items.concat(nextProps.items),
-    //         }));
-    //     }else if(nextProps.append == "before"){
-    //         this.setState(prevState => ({
-    //             items: nextProps.items.concat(prevState.items),
-    //         }));
-    //     }
-
-    // }
-
     componentDidMount(){
+        // dom 加載後取得 post
+        this.getPost();
+    }
 
+    componentWillUnmount() {
+       
     }
 
     render(){
@@ -80,6 +76,76 @@ export default class Wall_post_component extends React.Component {
             </div>
         )
     } 
+
+    // 取得 post
+    getPost(){
+
+        let ts = this;
+
+        if(this.state.loadPost){
+
+            ts.setState({
+                loadPost:false
+            });
+
+            // 載入最新5篇
+            axios.get("/wall/posts",{
+                params: {
+                  t: this.state.loadTime,
+                  page:this.state.loadPage
+                }
+            }).then(function(response){
+                // console.log(response.data);
+                let data = response.data;
+
+                ts.setState({
+                    items:ts.state.items.concat(data.posts)
+                });
+
+                if( ts.state.loadPage < data.total_page){
+                    ts.setState({
+                        loadPost:true,
+                    });
+                }
+
+                setTimeout(function(){
+                    if(ts.state.loadPostFirst){
+                        ts.setState({
+                            loadPostFirst:false,
+                        });
+                        ts.scrollLoadPost();
+                    }
+                    
+                })
+            });
+        }
+        
+    }
+
+    // 監聽scroll 來觸發取得 post
+    scrollLoadPost(){
+
+        let ts = this;
+
+        window.addEventListener('scroll', function (e) {
+            if (ts.state.loadPost) {
+
+                var wh = window.innerHeight;;
+                var wstop = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
+
+                var el_wall_content = document.getElementsByClassName('container')[0];
+
+                if (wh + wstop > el_wall_content.clientHeight * 0.85) {
+                    ts.setState({
+                        loadPage:(ts.state.loadPage + 1)
+                    });
+                    ts.getPost();
+                }
+            }
+        });
+    }
+
+
     // 發布留言
     commentPublish(event,itemNum,comments){
         let prevItem = this.state.items;
@@ -91,7 +157,7 @@ export default class Wall_post_component extends React.Component {
 
         // console.log(newComments);
 
-        newItem[0].comment_data.comments = newComments;
+        newItem[itemNum].comment_data.comments = newComments;
         
         this.setState({
             items:newItem,
@@ -120,8 +186,7 @@ export default class Wall_post_component extends React.Component {
         // console.log(newComments);
 
         let newItem = this.state.items;
-        newItem[0].comment_data.comments = newComments;
-
+        newItem[itemNum].comment_data.comments = newComments;
 
         this.setState({
             items:newItem,
@@ -132,6 +197,12 @@ export default class Wall_post_component extends React.Component {
     }
 
 }
+
+// Prop 預設值，若對應 props 沒傳入值將會使用 default 值 null
+Wall_post_component.defaultProps = {
+    append: null,
+}
+
 
 class Wall_post_head extends React.Component {
     constructor(props){
@@ -279,8 +350,6 @@ class Wall_post_link_preview extends React.Component {
                             <p className="card-text"><small className="text-muted">{this.props.item.link_url}</small></p>
                         </div>
                     </div>
-
-
                     
                 )}
             </div>

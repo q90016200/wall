@@ -73,6 +73,9 @@ export default class Wall_post_comment_component extends React.Component {
 
     commentRemove(event,itemNum,comment_id){
         let ts = this;
+
+        // console.log(event.target);
+
         if(this.state.commentRemove){
             ts.setState({
                 commentRemove:false

@@ -31,6 +31,10 @@ export default class Wall_post_publish_component extends React.Component {
         this.checkLogin = this.checkLogin.bind(this);
     }
 
+    componentDidMount(){
+        autosize(document.getElementById("publish_textarea"));
+    }
+
     // 檢查登入
     checkLogin(event){
         if(this.props.username == "guest"){
