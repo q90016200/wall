@@ -29,6 +29,8 @@ Route::resource('/wall/posts', 'WallPostController',['only' => ['create','store'
 Route::get("/wall/posts","WallPostController@latest");
 
 
-# 留言
-Route::resource('/wall/comments', 'WallCommentController',['only' => ['store','destroy']]);
+# 留言 (新增、刪除)
+Route::resource('/wall/posts/{post_id}/comments', 'WallCommentController',['only' => ['store','destroy']]);
+# 抓取 post 內 留言
+Route::get('/wall/posts/{post_id}/comments', 'WallCommentController@getCommentByPostId');
 

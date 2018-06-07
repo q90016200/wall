@@ -24,7 +24,6 @@ class CreateWallTable extends Migration
             $table->integer('comment_like_count')->default(0);
             //相當於為軟刪除添加一個可空的 deleted_at 字段
             $table->softDeletes(); 
-            $table->string('comment_status', 20)->index();
         });
     }
 

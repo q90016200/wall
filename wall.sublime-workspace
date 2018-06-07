@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"con",
+				"concat"
+			],
+			[
 				"item",
 				"itemNum"
 			],
@@ -14,10 +18,6 @@
 			[
 				"comm",
 				"comment_data"
-			],
-			[
-				"con",
-				"content"
 			],
 			[
 				"class",
@@ -110,30 +110,18 @@
 			"file": "resources/assets/js/wall/wall_index.js",
 			"settings":
 			{
-				"buffer_size": 1922,
+				"buffer_size": 531,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"contents": "import React, { Component } from 'react';\nimport ReactDOM from 'react-dom';\n\nimport Wall_post_comment_component from './wall_post_comment_component.js';\nimport Wall_post_comment_publish_component from './wall_post_comment_publish_component.js';\n\nexport default class Wall_post_component extends React.Component {\n    constructor(props) {\n        super(props);\n        this.state = {\n            items:props.items,\n        }\n\n        // console.log(this.state.items);\n\n        // let item = this.state.items;\n\n        // console.log(item[0].comment_data.comments[0]);\n        // item[0].comment_data.comments[0].content = \"我是修改後的文字\";\n\n        this.commentPublish = this.commentPublish.bind(this);\n        this.commentRemove = this.commentRemove.bind(this);\n\n    }\n\n    static getDerivedStateFromProps(nextProps, prevState){\n        if(nextProps.items !== prevState.items){\n            if(nextProps.append == \"after\"){\n                return {\n                    items: prevState.items.concat(nextProps.items),\n                };\n            }else if(nextProps.append == \"before\"){\n                return {\n                    items: nextProps.items.concat(prevState.items),\n                };\n            }\n        }\n\n        return null;\n    }\n\n    // \n    componentDidMount(){\n        \n    }\n\n    componentWillUnmount() {\n       \n    }\n\n    render(){\n        return(\n            <div className=\"\">\n                {this.state.items.map((item,index) => (\n                    <div className=\" my-3 p-3 bg-white rounded border-bottom\" key={\"post_\"+item.post_id}>\n                        <Wall_post_head name={item.user.name} time={item.create_date} post_id={item.post_id} />\n\n                        <Wall_post_content content={item.content} />\n\n                        {typeof item.preview != \"undefined\" &&\n                            <Wall_post_link_preview item={item.preview} />\n                        }\n                        \n                        <Wall_post_comment_component items={item.comment_data.comments} itemNum={index} onRemove={this.commentRemove}  />\n                        \n\n                        <Wall_post_comment_publish_component post_id={item.post_id} itemNum={index} onPublish={this.commentPublish}/>\n\n                    </div>\n                ))}\n            </div>\n        )\n    } \n    // 發布留言\n    commentPublish(event,itemNum,comments){\n        let prevItem = this.state.items;\n\n        let prevComments = prevItem[itemNum].comment_data.comments;\n        let newComments = prevComments.concat(comments);\n\n        let newItem = this.state.items;\n\n        // console.log(newComments);\n\n        newItem[0].comment_data.comments = newComments;\n        \n        this.setState({\n            items:newItem,\n            append:null\n        });\n\n    }\n    // 刪除留言\n    commentRemove(event,itemNum,comment_id){\n\n        // console.log(`itemNum:${itemNum}`);\n        // console.log(`comment_id:${comment_id}`);\n\n        let prevItem = this.state.items;\n\n        let prevComments = prevItem[itemNum].comment_data.comments;\n\n        let newComments = new Array() ;\n\n        for (var i = 0; i < prevComments.length; i++) {\n            if(prevComments[i].comment_id != comment_id){\n                newComments.push(prevComments[i]);\n            }\n        }\n\n        // console.log(newComments);\n\n        let newItem = this.state.items;\n        newItem[0].comment_data.comments = newComments;\n\n\n        this.setState({\n            items:newItem,\n            append:null\n        });\n\n\n    }\n\n}\n\n// Prop 預設值，若對應 props 沒傳入值將會使用 default 值 null\nWall_post_component.defaultProps = {\n    append: null,\n}\n\n\nclass Wall_post_head extends React.Component {\n    constructor(props){\n        super(props);\n        this.state = {\n            isCopy:true\n        }\n\n        this.copyLink = this.copyLink.bind(this);\n        this.copyLinkSpan = React.createRef();\n    }\n\n    render(){\n\n        let copyLinkSpan = null;\n        if(this.state.isCopy){\n            copyLinkSpan = <span ref={this.copyLinkSpan}></span>;\n        }\n\n        return(\n            <div className=\"row\">\n                <div className=\"col-auto\">\n                    <img src=\"/img/avatar.jpg\" alt=\"...\" className=\"rounded-circle\" style={{width: 40+'px', height: 40+'px'}} />\n                </div>\n\n                <div className=\"col-auto mr-auto\">\n                    <div>{this.props.name}</div>\n                    <div>{this.props.time}</div>\n                </div>\n                \n                <div className=\"col-auto\">\n                    <button className=\"btn bg-white\" type=\"button\" id=\"post_action_men\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">\n                    ...\n                    </button>\n                    {copyLinkSpan}\n                    <div className=\"dropdown-menu\" aria-labelledby=\"post_action_men\">\n                        <a className=\"dropdown-item\" onClick={this.copyLink}>複製連結</a>\n                        <a className=\"dropdown-item\" >刪除</a>\n                    </div>\n                </div>\n            </div>\n        )\n    }\n    // 複製連結功能\n    copyLink(e,post_id){\n        console.log(`copyLink:${this.props.post_id}`);\n\n        this.setState({\n            isCopy:true\n        });\n\n        this.copyLinkSpan.current.textContent =\"test copy 測試複製!\";\n\n        // console.log(this.copyLinkSpan.current.textContent);\n\n        // We will need a range object and a selection.\n        var range = document.createRange(),\n            selection = window.getSelection();\n\n        // Clear selection from any previous data.\n        selection.removeAllRanges();\n\n        // Make the range select the entire content of the contentHolder paragraph.\n        range.selectNodeContents(this.copyLinkSpan.current);\n\n        // Add that range to the selection.\n        selection.addRange(range);\n\n        // Copy the selection to clipboard.\n        document.execCommand('copy');\n\n        // This is just personal preference.\n        // I prefer to not show the the whole text area selected.\n        e.target.focus();\n\n        this.setState({\n            isCopy:false\n        });\n\n    }\n\n}\n\nclass Wall_post_content extends React.Component {\n    constructor(props){\n        super(props);\n        this.state = {\n            content:this.props.content\n        }\n    }\n\n    componentDidMount(){\n        let content = this.props.content;\n        // 轉超連結\n        \n        // console.log(content);\n\n        content = wrapPostContentURLs(content,true);\n\n        //替換所有的換行符\n        content = content.replace(/\\r\\n/g, \"<br>\");\n        content = content.replace(/\\n/g, \"<br>\");\n\n        this.setState({\n            content: content\n        });\n    }\n\n    render(){\n        return(\n            <div className=\"my-3\" dangerouslySetInnerHTML={export_html(this.state.content)}></div>\n        )\n    }\n\n}\n\nclass Wall_post_link_preview extends React.Component {\n    constructor(props){\n        super(props);\n        this.state = {\n            \n        }\n    }\n\n    render(){\n        const isYoutube = this.props.item.youtube;\n        let linkImg = null;\n        if(this.props.item.link_image ){\n            linkImg = <img className=\"card-img-top\" src={this.props.item.link_image}/>\n        }\n\n        return(\n            <div>\n                {isYoutube ? (\n                    <div className=\"embed-responsive embed-responsive-16by9\">\n                        <iframe className=\"embed-responsive-item\" src={\"https://www.youtube.com/embed/\"+this.props.item.youtube}></iframe>\n                    </div>\n                ) : (\n\n                    <div className=\"card mt-3 \">\n                        {linkImg}\n                        <div className=\"card-body\">\n                            <h5 className=\"card-title\">{this.props.item.link_title}</h5>\n                            <p className=\"card-text\">{this.props.item.link_description}</p>\n                            <p className=\"card-text\"><small className=\"text-muted\">{this.props.item.link_url}</small></p>\n                        </div>\n                    </div>\n                    \n                )}\n            </div>\n        )\n    }\n}\n\n\n\n\n// 輸出html\nfunction export_html(content) {\n  return {__html: content};\n}\n\n// find url in string\nvar wrapPostContentURLs = function (text ,new_window) {\n    let url_pattern = /((https?|telnet|ftp):[\\/\\/[\\.\\-\\_\\/a-zA-Z0-9\\~\\?\\%\\#\\=\\@\\:\\&\\;\\*\\\\\\-]+?)(?=[.:?\\\\-]*(?:[^\\/\\/[\\.\\-\\_\\/a-zA-Z0-9\\~\\?\\%\\#\\=\\@\\:\\&\\;\\*\\\\\\-]|$))/;\n    let target = (new_window === true || new_window == null) ? '_blank' : '';\n\n    return text.replace(url_pattern, function (url) {\n        // let protocol_pattern = /^(?:(?:https?|ftp):\\/\\/)/i;\n        // let href = protocol_pattern.test(url) ? url : 'http://' + url;\n        let href = url;\n        return '<a href=\"' + href + '\" target=\"' + target + '\" >' + url + '</a>';\n    });\n};\n\n",
 			"file": "resources/assets/js/components/wall/wall_post_component.js",
-			"file_size": 9302,
-			"file_write_time": 131726463835669440,
 			"settings":
 			{
-				"buffer_size": 8809,
+				"buffer_size": 10821,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/C/Users/user/Downloads/20180605/20180605/wall.html",
-			"settings":
-			{
-				"buffer_size": 71520,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
 			}
 		},
 		{
@@ -149,7 +137,7 @@
 			"file": "resources/assets/js/components/wall/wall_post_publish_component.js",
 			"settings":
 			{
-				"buffer_size": 10189,
+				"buffer_size": 10284,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -263,6 +251,7 @@
 	],
 	"file_history":
 	[
+		"/C/Users/user/Downloads/20180605/20180605/wall.html",
 		"/C/Users/user/code/wall/resources/assets/js/components/wall/wall_post_comment_component.js",
 		"/C/Users/user/code/wall/database/migrations/2018_05_28_123779_create_wall_table.php",
 		"/C/Users/user/code/wall/database/migrations/2018_05_28_123769_create_wall_table.php",
@@ -302,6 +291,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"loadPost",
+			"LoadPost",
+			"loadPost",
+			"LoadPost",
+			"loadPost",
+			"LoadPost",
+			"firstGet",
 			"this.copyLinkSpan",
 			"ref=",
 			"itemNum",
@@ -423,7 +419,7 @@
 						"translation.y": 115.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 13,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
@@ -457,7 +453,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -491,7 +487,7 @@
 						"translation.y": 7498.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -522,10 +518,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2323.0,
+						"translation.y": 2415.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -559,7 +555,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -591,7 +587,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -623,7 +619,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
@@ -656,13 +652,13 @@
 						"translation.y": 299.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 10,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -671,15 +667,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1922,
+						"buffer_size": 531,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1142,
-								1142
+								440,
+								440
 							]
 						],
 						"settings":
@@ -691,10 +687,10 @@
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 792.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -703,20 +699,21 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 8809,
+						"buffer_size": 10821,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2579,
-								2579
+								3986,
+								3986
 							]
 						],
 						"settings":
 						{
 							"incomplete_sync": null,
+							"origin_encoding": "UTF-8",
 							"remote_loading": false,
 							"synced": false,
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
@@ -724,46 +721,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1449.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "/C/Users/user/Downloads/20180605/20180605/wall.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 71520,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								71115,
-								71115
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2553.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 10,
 					"file": "resources/assets/js/components/wall/wall_post_comment_publish_component.js",
 					"semi_transient": false,
 					"settings":
@@ -792,24 +757,24 @@
 						"translation.y": 103.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 11,
 					"file": "resources/assets/js/components/wall/wall_post_publish_component.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10189,
+						"buffer_size": 10284,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6631,
-								6631
+								1275,
+								1275
 							]
 						],
 						"settings":
@@ -823,14 +788,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5140.0,
+						"translation.y": 69.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 12,
 					"file": "resources/views/layouts/master.blade.php",
 					"semi_transient": false,
 					"settings":
@@ -894,7 +859,7 @@
 		"cols":
 		[
 			0.0,
-			0.431873885918,
+			0.415831105169,
 			1.0
 		],
 		"rows":
@@ -1018,7 +983,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},

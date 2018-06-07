@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import Wall_post_comment_component from './wall_post_comment_component.js';
-import Wall_post_comment_publish_component from './wall_post_comment_publish_component.js';
 
 export default class Wall_post_component extends React.Component {
     constructor(props) {
@@ -11,7 +10,6 @@ export default class Wall_post_component extends React.Component {
             // items:props.items,
             items: [],
             loadPost: true,
-            loadPostFirst:true,
             loadPage:1,
             loadTime:new Date().valueOf(),
         }
@@ -23,8 +21,8 @@ export default class Wall_post_component extends React.Component {
         // console.log(item[0].comment_data.comments[0]);
         // item[0].comment_data.comments[0].content = "我是修改後的文字";
 
-        this.commentPublish = this.commentPublish.bind(this);
-        this.commentRemove = this.commentRemove.bind(this);
+
+        this.handleScroll = this.handleScroll.bind(this);
 
     }
 
@@ -47,10 +45,13 @@ export default class Wall_post_component extends React.Component {
     componentDidMount(){
         // dom 加載後取得 post
         this.getPost();
+
+        window.addEventListener('scroll', this.handleScroll);
     }
 
     componentWillUnmount() {
-       
+       // 取消監聽scroll load post
+       window.removeEventListener('scroll', this.handleScroll);
     }
 
     render(){
@@ -66,10 +67,7 @@ export default class Wall_post_component extends React.Component {
                             <Wall_post_link_preview item={item.preview} />
                         }
                         
-                        <Wall_post_comment_component items={item.comment_data.comments} itemNum={index} onRemove={this.commentRemove}  />
-                        
-
-                        <Wall_post_comment_publish_component post_id={item.post_id} itemNum={index} onPublish={this.commentPublish}/>
+                        <Wall_post_comment_component post_id={item.post_id} comment_count={item.comment_count} />
 
                     </div>
                 ))}
@@ -108,93 +106,37 @@ export default class Wall_post_component extends React.Component {
                     });
                 }
 
-                setTimeout(function(){
-                    if(ts.state.loadPostFirst){
-                        ts.setState({
-                            loadPostFirst:false,
-                        });
-                        ts.scrollLoadPost();
-                    }
-                    
-                })
             });
         }
         
     }
 
     // 監聽scroll 來觸發取得 post
-    scrollLoadPost(){
+    handleScroll(e){
 
         let ts = this;
 
-        window.addEventListener('scroll', function (e) {
-            if (ts.state.loadPost) {
+        // console.log("scrollLoadPost");
 
-                var wh = window.innerHeight;;
-                var wstop = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
+        if (ts.state.loadPost) {
 
-                var el_wall_content = document.getElementsByClassName('container')[0];
+            let wh = window.innerHeight;;
+            let wstop = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
 
-                if (wh + wstop > el_wall_content.clientHeight * 0.85) {
-                    ts.setState({
-                        loadPage:(ts.state.loadPage + 1)
-                    });
-                    ts.getPost();
-                }
-            }
-        });
-    }
+            let el_wall_content = document.getElementById("wall_posts");
 
+            // console.log(`w1:${(wh + wstop)}`);
+            // console.log(`w2:${(el_wall_content.clientHeight * 0.85)}`);
 
-    // 發布留言
-    commentPublish(event,itemNum,comments){
-        let prevItem = this.state.items;
-
-        let prevComments = prevItem[itemNum].comment_data.comments;
-        let newComments = prevComments.concat(comments);
-
-        let newItem = this.state.items;
-
-        // console.log(newComments);
-
-        newItem[itemNum].comment_data.comments = newComments;
-        
-        this.setState({
-            items:newItem,
-            append:null
-        });
-
-    }
-    // 刪除留言
-    commentRemove(event,itemNum,comment_id){
-
-        // console.log(`itemNum:${itemNum}`);
-        // console.log(`comment_id:${comment_id}`);
-
-        let prevItem = this.state.items;
-
-        let prevComments = prevItem[itemNum].comment_data.comments;
-
-        let newComments = new Array() ;
-
-        for (var i = 0; i < prevComments.length; i++) {
-            if(prevComments[i].comment_id != comment_id){
-                newComments.push(prevComments[i]);
+            if (wh + wstop > el_wall_content.clientHeight * 0.85) {
+                ts.setState({
+                    loadPage:(ts.state.loadPage + 1)
+                });
+                ts.getPost();
             }
         }
-
-        // console.log(newComments);
-
-        let newItem = this.state.items;
-        newItem[itemNum].comment_data.comments = newComments;
-
-        this.setState({
-            items:newItem,
-            append:null
-        });
-
-
     }
+
 
 }
 

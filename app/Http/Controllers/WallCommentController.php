@@ -22,7 +22,6 @@ class WallCommentController extends Controller
 	    	$WallComment->comment_post_id = $request->post_id;
 	    	$WallComment->comment_content = $request->content;
 	    	$WallComment->comment_author = $uid;
-	    	$WallComment->comment_status = "publish";
 	    	$WallComment->save();
 
 	    	$data["comments"] = $this->getCommentById($WallComment->comment_id);
@@ -37,7 +36,7 @@ class WallCommentController extends Controller
 
     }
 
-    public function destroy($comment_id){
+    public function destroy($post_id,$comment_id){
 
     	$data["error"] = true;
 
@@ -45,14 +44,12 @@ class WallCommentController extends Controller
         $uid = $user["uid"];
 
         // 先判斷是否有權限
-    	$comment = \App\Models\WallComment::where("comment_status","publish")
-        		->where("comment_id",$comment_id)
+    	$comment = WallComment::where("comment_id",$comment_id)
         		->where("comment_author",$uid)
         		->get();
 
        	if(count($comment) > 0){
-       		\App\Models\WallComment::where("comment_status","publish")
-        		->where("comment_id",$comment_id)
+       		WallComment::where("comment_id",$comment_id)
         		->where("comment_author",$uid)->delete();
        		$data["error"] = false;
        	}
@@ -61,8 +58,30 @@ class WallCommentController extends Controller
     }
 
 
+    // 更新 post 內的 comment數
+    public function update_post_comment_count($post_id = 0){
 
-    public function latest($post_id,$limit = 0,$skip = 0){
+        if($post_id == 0){
+            return false;
+        }
+
+        $comment_count = WallComment::where("comment_post_id",$post_id)
+                ->where("comment_post_id",$post_id)
+                ->count(); 
+
+
+        $ud = array();
+        $ud["post_comment_count"] = $comment_count;
+
+        $_pcq = DB::table("wall_posts")
+            ->where("wall_posts.post_id",$post_id)
+            ->update($ud);
+
+
+    }
+
+    // 依照 貼文 id 來查詢出所有 comment
+    public function getCommentByPostId($post_id,$limit = 0,$skip = 0){
 
     	$data = array();
 
@@ -70,8 +89,7 @@ class WallCommentController extends Controller
         $data["comments"] = array();
 
         if($post_id){
-        	$comments = \App\Models\WallComment::where("comment_status","publish")
-        		->where("comment_post_id",$post_id);
+        	$comments = WallComment::where("comment_post_id",$post_id);
 
         	$data["total"] = $comments->count();
 
@@ -107,7 +125,6 @@ class WallCommentController extends Controller
     	$data["comment_id"] = $v->comment_id;
     	$data["content"] = $v->comment_content;
     	$data["created_at"] = $v->created_at;
-    	$data["comment_status"] = $v->comment_status;
 
 
     	$user = app(UserController::class)->get_user_info();
@@ -129,11 +146,11 @@ class WallCommentController extends Controller
     	$data = array();
 
     	if($commnet_id){
-    		$comment = \App\Models\WallComment::where('comment_id', '=', $commnet_id)
-    			->get();
+
+            $comment = WallComment::where('comment_id', '=', $commnet_id)
+                ->get();
 
             array_push($data, $this->export_comment($comment[0]));
-
 
     	}
     	
