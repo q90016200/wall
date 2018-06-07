@@ -155,10 +155,11 @@ class Wall_post_head extends React.Component {
 
         this.copyLink = this.copyLink.bind(this);
         this.copyLinkSpan = React.createRef();
+        this.postRemove = this.postRemove.bind(this);
     }
 
     render(){
-
+        let ts = this;
         let copyLinkSpan = null;
         if(this.state.isCopy){
             copyLinkSpan = <span ref={this.copyLinkSpan}></span>;
@@ -181,8 +182,8 @@ class Wall_post_head extends React.Component {
                     </button>
                     {copyLinkSpan}
                     <div className="dropdown-menu" aria-labelledby="post_action_men">
-                        <a className="dropdown-item" onClick={this.copyLink}>複製連結</a>
-                        <a className="dropdown-item" >刪除</a>
+                        <a className="dropdown-item" onClick={(event)=>this.copyLink(event,this.props.post_id)}>複製連結</a>
+                        <a className="dropdown-item" onClick={function(event){ts.postRemove(event,ts.props.post_id)}}>刪除</a>
                     </div>
                 </div>
             </div>
@@ -190,7 +191,7 @@ class Wall_post_head extends React.Component {
     }
     // 複製連結功能
     copyLink(e,post_id){
-        console.log(`copyLink:${this.props.post_id}`);
+        console.log(`post_id:${post_id}`);
 
         this.setState({
             isCopy:true
@@ -224,6 +225,11 @@ class Wall_post_head extends React.Component {
             isCopy:false
         });
 
+    }
+
+    // 刪除貼文
+    postRemove(e,post_id){
+        console.log(post_id);
     }
 
 }

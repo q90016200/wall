@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\WallComment;
+use DB;
 
 class WallCommentController extends Controller
 {
@@ -25,6 +26,9 @@ class WallCommentController extends Controller
 	    	$WallComment->save();
 
 	    	$data["comments"] = $this->getCommentById($WallComment->comment_id);
+
+	    	// 更新post count
+	    	$this->update_post_comment_count($request->post_id);
 
 	    	$data["error"] = false;
         }
@@ -51,6 +55,11 @@ class WallCommentController extends Controller
        	if(count($comment) > 0){
        		WallComment::where("comment_id",$comment_id)
         		->where("comment_author",$uid)->delete();
+
+        	// 更新post count
+	    	$this->update_post_comment_count($post_id);
+
+
        		$data["error"] = false;
        	}
         		

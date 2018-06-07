@@ -462,8 +462,7 @@ class WallPostController extends Controller
 
         $data["user"] = app(UserController::class)->get_user_info($v->post_author);
 
-        // $data["comment_data"] = app(WallCommentController::class)->getCommentByPostId($v->post_id,3);
-        $data["comment_data"] = app(WallCommentController::class)->getCommentByPostId($v->post_id);
+       
 
         $data["comment_count"] = $v->post_comment_count;
 
