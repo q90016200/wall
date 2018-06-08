@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"po",
+				"post_id"
+			],
+			[
 				"con",
 				"concat"
 			],
@@ -36,6 +40,15 @@
 	"buffers":
 	[
 		{
+			"file": "routes/web.php",
+			"settings":
+			{
+				"buffer_size": 1050,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "app/Http/Controllers/WallController.php",
 			"settings":
 			{
@@ -45,19 +58,10 @@
 			}
 		},
 		{
-			"file": "app/Http/Controllers/UserController.php",
-			"settings":
-			{
-				"buffer_size": 793,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "app/Http/Controllers/WallPostController.php",
 			"settings":
 			{
-				"buffer_size": 13111,
+				"buffer_size": 13288,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -66,33 +70,7 @@
 			"file": "app/Http/Controllers/WallCommentController.php",
 			"settings":
 			{
-				"buffer_size": 3072,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "database/migrations/2014_10_12_000000_create_users_table.php",
-			"settings":
-			{
-				"buffer_size": 770,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/Models/WallComment.php",
-			"settings":
-			{
-				"buffer_size": 293,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "routes/web.php",
-			"settings":
-			{
-				"buffer_size": 921,
+				"buffer_size": 3363,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -119,16 +97,7 @@
 			"file": "resources/assets/js/components/wall/wall_post_component.js",
 			"settings":
 			{
-				"buffer_size": 10821,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "resources/assets/js/components/wall/wall_post_comment_publish_component.js",
-			"settings":
-			{
-				"buffer_size": 2243,
+				"buffer_size": 9132,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -143,10 +112,10 @@
 			}
 		},
 		{
-			"file": "resources/views/layouts/master.blade.php",
+			"file": "resources/assets/js/components/wall/wall_post_comment_component.js",
 			"settings":
 			{
-				"buffer_size": 3062,
+				"buffer_size": 7128,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -251,6 +220,18 @@
 	],
 	"file_history":
 	[
+		"/C/Users/user/code/wall/resources/assets/js/components/wall/wall_post_comment_publish_component.js",
+		"/C/Users/user/code/wall/app/Models/WallComment.php",
+		"/C/Users/user/code/wall/database/migrations/2018_05_28_123780_create_wall_table.php",
+		"/C/Users/user/code/wall/webpack.mix.js",
+		"/C/Users/user/AppData/Local/Temp/scp50207/Data/www.moviemovie.com.tw/resources/views/event/event_ad_336.blade.php",
+		"/C/Users/user/AppData/Local/Temp/scp50738/Data/www.moviemovie.com.tw/resources/views/event/event_ad_sky_mobi.blade.php",
+		"/C/Users/user/AppData/Local/Temp/scp59437/tmp/optipng.log",
+		"/C/Users/user/AppData/Local/Temp/scp01509/tmp/debug.log",
+		"/C/Users/user/AppData/Local/Temp/scp59101/tmp/cron_optimized_imgs.log",
+		"/C/Users/user/AppData/Local/Temp/scp58422/var/log/letsencrypt/letsencrypt.log",
+		"/C/Users/user/code/wall/resources/views/layouts/master.blade.php",
+		"/C/Users/user/code/wall/app/Http/Controllers/UserController.php",
 		"/C/Users/user/Downloads/20180605/20180605/wall.html",
 		"/C/Users/user/code/wall/resources/assets/js/components/wall/wall_post_comment_component.js",
 		"/C/Users/user/code/wall/database/migrations/2018_05_28_123779_create_wall_table.php",
@@ -261,7 +242,6 @@
 		"/C/Users/user/code/wall/database/migrations/2018_05_28_123747_create_wall_table.php",
 		"/C/Users/user/code/wall/resources/assets/js/components/wall/wall_publish.js",
 		"/C/Users/user/code/wall/resources/views/layouts/app.blade.php",
-		"/C/Users/user/code/wall/webpack.mix.js",
 		"/C/Users/user/code/wall/public/css/app.css",
 		"/C/Users/user/code/wall/.env",
 		"/C/Users/user/code/wall/routes/api.php",
@@ -291,6 +271,26 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"commentPublish",
+			"Wall_post_comment_component",
+			"commentRemove",
+			"commentRemoveStatus",
+			"comment_remove",
+			"status",
+			"connection(\"mmWall\")->",
+			"update_post_comment_count",
+			"commentRemove",
+			"onPublish",
+			"'",
+			"\"",
+			"/wall/comments",
+			"latest",
+			"var",
+			"wh",
+			"this.scrollLoadPost(this)",
+			"comment_count",
+			"post_comment_count",
+			"n store",
 			"loadPost",
 			"LoadPost",
 			"loadPost",
@@ -391,6 +391,38 @@
 			[
 				{
 					"buffer": 0,
+					"file": "routes/web.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1050,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								580,
+								580
+							]
+						],
+						"settings":
+						{
+							"incomplete_sync": null,
+							"origin_encoding": "ASCII",
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 345.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
 					"file": "app/Http/Controllers/WallController.php",
 					"semi_transient": false,
 					"settings":
@@ -416,44 +448,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 115.0,
+						"translation.y": 23.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/Http/Controllers/UserController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 793,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								491,
-								491
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"origin_encoding": "ASCII",
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
@@ -462,15 +460,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13111,
+						"buffer_size": 13288,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8382,
-								8382
+								13285,
+								13285
 							]
 						],
 						"settings":
@@ -484,10 +482,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 7498.0,
+						"translation.y": 12374.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -496,19 +494,20 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3072,
+						"buffer_size": 3363,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2995,
-								2995
+								1014,
+								1014
 							]
 						],
 						"settings":
 						{
+							"history_list_is_closing": true,
 							"incomplete_sync": null,
 							"origin_encoding": "ASCII",
 							"remote_loading": false,
@@ -518,112 +517,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2415.0,
+						"translation.y": 593.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "database/migrations/2014_10_12_000000_create_users_table.php",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 770,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"origin_encoding": "ASCII",
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "app/Models/WallComment.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 293,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"origin_encoding": "ASCII",
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "routes/web.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 921,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"origin_encoding": "ASCII",
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
 					"file": "resources/views/wall/wall_index.blade.php",
 					"semi_transient": false,
 					"settings":
@@ -635,8 +536,8 @@
 						"selection":
 						[
 							[
-								473,
-								473
+								413,
+								413
 							]
 						],
 						"settings":
@@ -652,17 +553,17 @@
 						"translation.y": 299.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 1,
+			"selected": 3,
 			"sheets":
 			[
 				{
-					"buffer": 8,
+					"buffer": 5,
 					"file": "resources/assets/js/wall/wall_index.js",
 					"semi_transient": false,
 					"settings":
@@ -674,8 +575,8 @@
 						"selection":
 						[
 							[
-								440,
-								440
+								77,
+								77
 							]
 						],
 						"settings":
@@ -690,24 +591,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 6,
 					"file": "resources/assets/js/components/wall/wall_post_component.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10821,
+						"buffer_size": 9132,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3986,
-								3986
+								452,
+								452
 							]
 						],
 						"settings":
@@ -721,47 +622,14 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2553.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
-					"file": "resources/assets/js/components/wall/wall_post_comment_publish_component.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2243,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								599,
-								599
-							]
-						],
-						"settings":
-						{
-							"incomplete_sync": null,
-							"remote_loading": false,
-							"synced": false,
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 103.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
+					"buffer": 7,
 					"file": "resources/assets/js/components/wall/wall_post_publish_component.js",
 					"semi_transient": false,
 					"settings":
@@ -773,8 +641,8 @@
 						"selection":
 						[
 							[
-								1275,
-								1275
+								283,
+								283
 							]
 						],
 						"settings":
@@ -788,44 +656,43 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 69.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
-					"file": "resources/views/layouts/master.blade.php",
+					"buffer": 8,
+					"file": "resources/assets/js/components/wall/wall_post_comment_component.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3062,
+						"buffer_size": 7128,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								789,
-								789
+								4795,
+								4795
 							]
 						],
 						"settings":
 						{
 							"incomplete_sync": null,
-							"origin_encoding": "ASCII",
 							"remote_loading": false,
 							"synced": false,
-							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax",
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 115.0,
+						"translation.y": 2300.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -859,7 +726,7 @@
 		"cols":
 		[
 			0.0,
-			0.415831105169,
+			0.474119875222,
 			1.0
 		],
 		"rows":
@@ -899,16 +766,20 @@
 		"selected_items":
 		[
 			[
+				"web",
+				"webpack.mix.js"
+			],
+			[
+				"wall_post",
+				"resources\\assets\\js\\components\\wall\\wall_post_comment_component.js"
+			],
+			[
 				"wallco",
 				"app\\Http\\Controllers\\WallCommentController.php"
 			],
 			[
 				"wall_pu",
 				"resources\\assets\\js\\components\\wall\\wall_post_publish_component.js"
-			],
-			[
-				"wall_post",
-				"resources\\assets\\js\\components\\wall\\wall_post_component.js"
 			],
 			[
 				"route web",
@@ -921,10 +792,6 @@
 			[
 				".env",
 				".env"
-			],
-			[
-				"web",
-				"webpack.mix.js"
 			],
 			[
 				"pac",
@@ -983,7 +850,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},
@@ -991,7 +858,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 50.0,
+	"side_bar_width": 155.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -19,6 +19,10 @@
         <h2 >wall</h2>
     </div>
 
+    <div id="spa">
+        
+    </div>
+
     <div class="my-3 p-3 bg-white rounded border-bottom" id="wall_publish">
         {{-- react code --}}
     </div>

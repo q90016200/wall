@@ -192,6 +192,7 @@ class Wall_post_head extends React.Component {
     // 複製連結功能
     copyLink(e,post_id){
         console.log(`post_id:${post_id}`);
+        // console.log(e.target);
 
         this.setState({
             isCopy:true
@@ -229,7 +230,14 @@ class Wall_post_head extends React.Component {
 
     // 刪除貼文
     postRemove(e,post_id){
-        console.log(post_id);
+        // console.log(post_id);
+        // console.log(e.target);
+
+        axios.delete(`/wall/posts/${post_id}`).then((response)=>{
+            console.log(response);
+        })
+
+
     }
 
 }
