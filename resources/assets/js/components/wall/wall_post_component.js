@@ -23,6 +23,7 @@ export default class Wall_post_component extends React.Component {
 
 
         this.handleScroll = this.handleScroll.bind(this);
+        this.postRemove = this.postRemove.bind(this);
 
     }
 
@@ -59,7 +60,7 @@ export default class Wall_post_component extends React.Component {
             <div className="">
                 {this.state.items.map((item,index) => (
                     <div className=" my-3 p-3 bg-white rounded border-bottom" key={"post_"+item.post_id}>
-                        <Wall_post_head name={item.user.name} time={item.create_date.date} post_id={item.post_id} />
+                        <Wall_post_head name={item.user.name} time={item.create_date.date} post_id={item.post_id} onRemove={this.postRemove} />
 
                         <Wall_post_content content={item.content} />
 
@@ -137,6 +138,30 @@ export default class Wall_post_component extends React.Component {
         }
     }
 
+    // 刪除貼文
+    postRemove(event,post_id){
+        let ts = this;
+
+        axios.delete(`/wall/posts/${post_id}`).then((response)=>{
+
+            // 要回到父層才能變更items
+            let prevPosts = ts.state.items;
+            let newPosts = new Array();
+
+            for (var i = 0; i < prevPosts.length; i++) {
+                if(prevPosts[i].post_id != post_id){
+                    newPosts.push(prevPosts[i]);
+                }
+            }
+
+            ts.setState({
+                items:newPosts
+            })
+
+            swal("","刪除貼文成功！","success");
+        });
+    }
+
 
 }
 
@@ -155,7 +180,6 @@ class Wall_post_head extends React.Component {
 
         this.copyLink = this.copyLink.bind(this);
         this.copyLinkSpan = React.createRef();
-        this.postRemove = this.postRemove.bind(this);
     }
 
     render(){
@@ -183,7 +207,7 @@ class Wall_post_head extends React.Component {
                     {copyLinkSpan}
                     <div className="dropdown-menu" aria-labelledby="post_action_men">
                         <a className="dropdown-item" onClick={(event)=>this.copyLink(event,this.props.post_id)}>複製連結</a>
-                        <a className="dropdown-item" onClick={function(event){ts.postRemove(event,ts.props.post_id)}}>刪除</a>
+                        <a className="dropdown-item" onClick={function(event){ts.props.onRemove(event,ts.props.post_id)}}>刪除</a>
                     </div>
                 </div>
             </div>
@@ -228,36 +252,7 @@ class Wall_post_head extends React.Component {
 
     }
 
-    // 刪除貼文
-    postRemove(e,post_id){
-        // console.log(post_id);
-        // console.log(e.target);
-
-        let ts = this;
-
-        axios.delete(`/wall/posts/${post_id}`).then((response)=>{
-
-            // 要回到父層才能變更items
-            let prevPosts = ts.state.items;
-            let newPosts = new Array();
-
-            console.log(prevPosts);
-
-            for (var i = 0; i < prevPosts.length; i++) {
-                if(prevPosts[i].post_id != post_id){
-                    newPosts.push(prevPosts[i]);
-                }
-            }
-
-            ts.setState({
-                items:newPosts
-            })
-
-            swal("刪除貼文成功！","success");
-        })
-
-
-    }
+  
 
 }
 
