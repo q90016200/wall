@@ -55,7 +55,7 @@ export default class Wall_post_comment_component extends React.Component {
                                         {item.content}
                                     </div>
                                     <div className="col-auto">
-                                        {moment(item.created_at.date).format('YYYY-MM-DD HH:m')}
+                                        {moment(item.created_at.date).fromNow()}
                                         {item.is_edit &&
                                             <button type="button" className="close position-absolute" aria-label="Close" onClick={(event)=>this.commentRemove(event,index,item.comment_id)}>
                                                 <span aria-hidden="true">&times;</span>
@@ -115,7 +115,7 @@ export default class Wall_post_comment_component extends React.Component {
                         // console.log(data);
 
                         if(data.error == false){
-                             let prevComments = ts.state.comments;
+                            let prevComments = ts.state.comments;
                             let newComments = new Array();
                             for (var i = 0; i < prevComments.length; i++) {
                                 if(prevComments[i].comment_id != comment_id){

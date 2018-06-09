@@ -59,7 +59,7 @@ export default class Wall_post_component extends React.Component {
             <div className="">
                 {this.state.items.map((item,index) => (
                     <div className=" my-3 p-3 bg-white rounded border-bottom" key={"post_"+item.post_id}>
-                        <Wall_post_head name={item.user.name} time={item.create_date} post_id={item.post_id} />
+                        <Wall_post_head name={item.user.name} time={item.create_date.date} post_id={item.post_id} />
 
                         <Wall_post_content content={item.content} />
 
@@ -173,7 +173,7 @@ class Wall_post_head extends React.Component {
 
                 <div className="col-auto mr-auto">
                     <div>{this.props.name}</div>
-                    <div>{this.props.time}</div>
+                    <div>{moment(this.props.time).fromNow()}</div>
                 </div>
                 
                 <div className="col-auto">
@@ -233,8 +233,27 @@ class Wall_post_head extends React.Component {
         // console.log(post_id);
         // console.log(e.target);
 
+        let ts = this;
+
         axios.delete(`/wall/posts/${post_id}`).then((response)=>{
-            console.log(response);
+
+            // 要回到父層才能變更items
+            let prevPosts = ts.state.items;
+            let newPosts = new Array();
+
+            console.log(prevPosts);
+
+            for (var i = 0; i < prevPosts.length; i++) {
+                if(prevPosts[i].post_id != post_id){
+                    newPosts.push(prevPosts[i]);
+                }
+            }
+
+            ts.setState({
+                items:newPosts
+            })
+
+            swal("刪除貼文成功！","success");
         })
 
 

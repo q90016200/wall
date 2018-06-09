@@ -10,6 +10,10 @@ import {
 import Wall_post_publish_component from '../components/wall/wall_post_publish_component.js';
 import Wall_post_component from '../components/wall/wall_post_component.js';
 
+
+moment.locale("zh-tw");
+
+
 // 載入 發布 dom
 ReactDOM.render(
     <Wall_post_publish_component username={user.name} />,

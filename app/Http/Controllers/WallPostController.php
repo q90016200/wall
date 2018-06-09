@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth,DB,Log;
 
+use App\Models\WallPost;
+
 class WallPostController extends Controller
 {   
 
@@ -70,23 +72,26 @@ class WallPostController extends Controller
                 }
             }
 
-            $_itd = array();
-            $_itd["post_author"] = $uid;
-            $_itd["post_content"] = $post_content;
-            $_itd["post_create_date"] = date("Y-m-d H:i:s");
-            $_itd["post_create_timestamp"] = number_format(microtime(true)*1000,0,'.','');
-            $_itd["post_sort_time"] = $_itd["post_create_timestamp"];
+            $post = new WallPost;
+
+            
+            $post->post_author = $uid;
+            $post->post_content = $post_content;
+            
 
             # 沒有上傳圖片才能存預覽網址
             if(!$post_image_exist && !$post_image_status){
                 $preview_link = $request->input("post_preview_link","");
 
                 if($preview_link != ""){
-                    $_itd["post_preview_link"] = $preview_link;
+                    $post->post_preview_link = $preview_link;
                 }
             }
 
-            $post_id = DB::table("wall_posts")->insertGetId($_itd);
+            // $post_id = DB::table("wall_posts")->insertGetId($_itd);
+
+            $post->save();
+            $post_id = $post->post_id;
 
             // 檢查檔案 ok 才上傳圖片
             if($post_image_exist && $post_image_status){
@@ -161,7 +166,28 @@ class WallPostController extends Controller
      */
     public function destroy($post_id)
     {
-       return "destroy:{$post_id}";
+        // return "destroy:{$post_id}";
+
+        $data["error"] = true;
+
+        $user = app(UserController::class)->get_user_info();
+        $uid = $user["uid"];
+
+        // 先判斷是否有權限
+        $post = WallPost::where("post_id",$post_id)
+                ->where("post_author",$uid)
+                ->get();
+        if(count($post) > 0){
+            WallPost::where("post_id",$post_id)
+                ->where("post_author",$uid)->delete();
+
+            $data["error"] = false;
+        }
+
+        return response()->json($data);
+
+    
+
     }
 
     // 檢查 post 新增 img 格式
@@ -352,7 +378,9 @@ class WallPostController extends Controller
         $get_time = 0 ;
         if(isset($_GET["t"])){
             $get_time = $_GET["t"];
+            $get_time = date("Y-m-d H:i:s",$get_time/1000);
         }
+
 
         $page = 1;
 
@@ -361,21 +389,24 @@ class WallPostController extends Controller
         }
 
 
-        $_p = DB::table("wall_posts");
+        // $_p = DB::table("wall_posts");
         
-        if($get_time > 0 ){
-            $_p = $_p->where("post_create_timestamp","<",$get_time);
-        }
+        // if($get_time > 0 ){
+        //     $_p = $_p->where("created_at","<",$get_time);
+        // }
 
-        $_p = $_p->where("post_status","publish");
+
+        $_p = WallPost::where("created_at","<",$get_time);
+
 
         # 取得貼文總數
         $post_count = $_p->count();
 
-        $_p = $_p->orderBy("wall_posts.post_sort_time","desc")
+        $_p = $_p->orderBy("wall_posts.created_at","desc")
             ->skip(($page-1)*$limit)
             ->take($limit)
             ->get();
+
 
         $data["page"] = $page;
         $data["total_page"] = ceil($post_count / $limit);
@@ -415,10 +446,10 @@ class WallPostController extends Controller
 
         unset($content);
 
-        $data["create_date"] = date("Y/m/d H:i:s",($v->post_create_timestamp/1000));
+        $data["create_date"] = $v->created_at;
 
-        if($v->post_modify_date != null){
-            $data["post_modify_date"] =  date("Y/m/d H:i:s",strtotime($v->post_modify_date));
+        if($v->updated_at != null){
+            $data["updated_at"] =  date("Y/m/d H:i:s",strtotime($v->updated_at));
         }
 
         # 貼文 like
@@ -457,8 +488,7 @@ class WallPostController extends Controller
             $data["is_edit"] = 1;
         }                
 
-        # 貼文狀態
-        $data["post_status"] = $v->post_status;
+
 
         $data["user"] = app(UserController::class)->get_user_info($v->post_author);
 
@@ -496,7 +526,7 @@ class WallPostController extends Controller
         $uid = $user["uid"];
 
         $_pq = DB::table("wall_posts")
-            ->select("wall_posts.post_id","wall_posts.post_author","wall_posts.post_content","wall_posts.post_like_count","wall_posts.post_comment_count","wall_posts.post_image_count","wall_posts.post_preview_link","wall_posts.post_create_timestamp","wall_posts.post_modify_date","wall_posts.post_top","wall_posts.post_status","wall_posts.post_category","wall_posts.post_category","post_tag_works","post_tag_actors");
+            ->select("wall_posts.post_id","wall_posts.post_author","wall_posts.post_content","wall_posts.post_like_count","wall_posts.post_comment_count","wall_posts.post_image_count","wall_posts.post_preview_link","wall_posts.created_at","wall_posts.updated_at");
         
         if($uid != 0){
             // $_pq = $_pq->addSelect("wall_post_likes.like_status");
@@ -507,7 +537,7 @@ class WallPostController extends Controller
         }
 
         
-        $_pq = $_pq->where("wall_posts.post_status","publish");
+
         
 
         $_pq = $_pq->where("wall_posts.post_id",$post_id)
