@@ -5,67 +5,54 @@ import {
     BrowserRouter as Router,
     Route,
     Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 import Wall_post_publish_component from '../components/wall/wall_post_publish_component.js';
 import Wall_post_component from '../components/wall/wall_post_component.js';
 
 
+
+// 設定 moment 語系
 moment.locale("zh-tw");
+// <Wall_post_publish_component username={user.name} />
 
+class Index extends React.Component {
+    constructor(props) {
+        super(props);
 
-// 載入 發布 dom
-ReactDOM.render(
-    <Wall_post_publish_component username={user.name} />,
-    document.getElementById('wall_publish')
-);
-// 載入 post dom
-ReactDOM.render(
-    <Wall_post_component />,
-    document.getElementById('wall_posts')
-);
-
-class BasicExample extends React.Component {
+    }
 
     render(){
-        return (
+        return(
+            
             <Router>
                 <div>
-                <ul>
-                    <li><Link to="/">首頁</Link></li>
-                    <li>
-                        <Link to="/about">About</Link>
-                    </li>
-                </ul>
+                    <ul>
+                        <li><Link to="/">首頁</Link></li>
+                        <li>
+                            <Link to="/test">About</Link>
+                        </li>
+                    </ul>
 
-                <hr/>
+                    <hr/>
+            
+                    <Route exact path="/" render={() => (
+                        <div>
+                            <Wall_post_publish_component username={user.name} />
+                            <Wall_post_component />
+                        </div>
+                    )}/>  
+                </div>    
 
-                <Route exact path="/" component={Home}/>
-                <Route exact path="/about" component={About}/>
-
-                </div>
             </Router>
+       
         )
     }
-    
 }
 
-const Home = () => (
-    <div>
-        <h2>首頁</h2>
-    </div>
-)
-
-const About = () => (
-    <div>
-        <h2>About</h2>
-    </div>
-)
-// 載入 spa demo
+// 載入 
 ReactDOM.render(
-    <BasicExample />,
-    document.getElementById('spa')
+    <Index />,
+    document.getElementById('content')
 );
-
-
 

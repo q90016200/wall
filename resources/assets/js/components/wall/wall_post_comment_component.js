@@ -56,7 +56,7 @@ export default class Wall_post_comment_component extends React.Component {
                                     </div>
                                     <div className="col-auto">
                                         {moment(item.created_at.date).fromNow()}
-                                        {item.is_edit &&
+                                        {item.is_edit == 1 &&
                                             <button type="button" className="close position-absolute" aria-label="Close" onClick={(event)=>this.commentRemove(event,index,item.comment_id)}>
                                                 <span aria-hidden="true">&times;</span>
                                             </button>

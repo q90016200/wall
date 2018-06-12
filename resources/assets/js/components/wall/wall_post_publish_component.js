@@ -252,7 +252,7 @@ export default class Wall_post_publish_component extends React.Component {
         }
 
         return(
-            <div onClick={this.checkLogin}>
+            <div className="my-3 p-3 bg-white rounded border-bottom" onClick={this.checkLogin}>
                 <div className="row bd-highlight mb-3">
 
                     <div className="col-auto mr-auto">

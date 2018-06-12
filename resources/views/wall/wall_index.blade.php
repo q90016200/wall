@@ -23,14 +23,11 @@
         
     </div>
 
-    <div class="my-3 p-3 bg-white rounded border-bottom" id="wall_publish">
-        {{-- react code --}}
+    <div id="content">
+        
     </div>
 
-
-    <div class="my-3 " id="wall_posts">
-        {{-- react code --}}
-    </div>
+    
         
 
 @endsection

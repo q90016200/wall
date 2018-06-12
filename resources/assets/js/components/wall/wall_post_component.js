@@ -45,7 +45,10 @@ export default class Wall_post_component extends React.Component {
 
     componentDidMount(){
         // dom 加載後取得 post
-        this.getPost();
+        if(this.state.items.length == 0){
+            this.getPost();
+        }
+        
 
         window.addEventListener('scroll', this.handleScroll);
     }
@@ -57,7 +60,7 @@ export default class Wall_post_component extends React.Component {
 
     render(){
         return(
-            <div className="">
+            <div className="my-3 ">
                 {this.state.items.map((item,index) => (
                     <div className=" my-3 p-3 bg-white rounded border-bottom" key={"post_"+item.post_id}>
                         <Wall_post_head name={item.user.name} time={item.create_date.date} post_id={item.post_id} onRemove={this.postRemove} />
