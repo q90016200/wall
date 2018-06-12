@@ -283,6 +283,7 @@ export default class Wall_post_publish_component extends React.Component {
                 </div>
 
             </div>
+            
         );
     }
     

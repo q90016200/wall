@@ -19,7 +19,6 @@ moment.locale("zh-tw");
 class Index extends React.Component {
     constructor(props) {
         super(props);
-
     }
 
     render(){
@@ -27,22 +26,19 @@ class Index extends React.Component {
             
             <Router>
                 <div>
-                    <ul>
-                        <li><Link to="/">首頁</Link></li>
-                        <li>
-                            <Link to="/test">About</Link>
-                        </li>
-                    </ul>
-
-                    <hr/>
-            
                     <Route exact path="/" render={() => (
                         <div>
                             <Wall_post_publish_component username={user.name} />
-                            <Wall_post_component />
+                            <Wall_post_component items={[]} />
                         </div>
-                    )}/>  
-                </div>    
+                    )} /> 
+
+                    <Route path="/posts/:id" render={({match}) => ( 
+                        <div>
+                            <h3>ID: {match.params.id}</h3>
+                        </div>
+                    )} /> 
+                </div>
 
             </Router>
        

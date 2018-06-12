@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
+import {
+    BrowserRouter as Router,
+    Route,
+    Link
+} from 'react-router-dom';
 import Wall_post_comment_component from './wall_post_comment_component.js';
 
 export default class Wall_post_component extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // items:props.items,
-            items: [],
+            items:props.items,
+            // items: [],
             loadPost: true,
             loadPage:1,
             loadTime:new Date().valueOf(),
@@ -48,7 +52,6 @@ export default class Wall_post_component extends React.Component {
         if(this.state.items.length == 0){
             this.getPost();
         }
-        
 
         window.addEventListener('scroll', this.handleScroll);
     }
@@ -200,7 +203,11 @@ class Wall_post_head extends React.Component {
 
                 <div className="col-auto mr-auto">
                     <div>{this.props.name}</div>
-                    <div>{moment(this.props.time).fromNow()}</div>
+                    <div>
+                        <Link to={`/posts/${this.props.post_id}`}>
+                            {moment(this.props.time).fromNow()}
+                        </Link>
+                    </div>
                 </div>
                 
                 <div className="col-auto">
