@@ -14,11 +14,17 @@ import Wall_post_component from '../components/wall/wall_post_component.js';
 
 // 設定 moment 語系
 moment.locale("zh-tw");
-// <Wall_post_publish_component username={user.name} />
 
 class Index extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+        	items:[],
+        	append:null,
+        }
+
+        this.uploadItems = this.uploadItems.bind(this);
+        
     }
 
     render(){
@@ -28,15 +34,13 @@ class Index extends React.Component {
                 <div>
                     <Route exact path="/" render={() => (
                         <div>
-                            <Wall_post_publish_component username={user.name} />
-                            <Wall_post_component items={[]} />
+                            <Wall_post_publish_component username={user.name} onPublish={this.uploadItems} />
+                            <Wall_post_component items={this.state.items} append={this.state.append} />
                         </div>
                     )} /> 
 
                     <Route path="/posts/:id" render={({match}) => ( 
-                        <div>
-                            <h3>ID: {match.params.id}</h3>
-                        </div>
+                    	<Wall_post_component items={[]} post_id={match.params.id} />
                     )} /> 
                 </div>
 
@@ -44,6 +48,18 @@ class Index extends React.Component {
        
         )
     }
+
+    uploadItems(items,type){
+
+    	let ts = this;
+
+    	this.setState({
+    		items: ts.state.items.concat(items),
+    		append:"before"
+    	});
+    }
+
+
 }
 
 // 載入 

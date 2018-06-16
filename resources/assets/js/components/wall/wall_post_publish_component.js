@@ -226,10 +226,14 @@ export default class Wall_post_publish_component extends React.Component {
                     });
                 }
 
-                ReactDOM.render(
-                    <Wall_post_component items={data.posts_data} append="before" />,
-                    document.getElementById('wall_posts')
-                );
+                // ReactDOM.render(
+                //     <Wall_post_component items={data.posts_data} append="before" />,
+                //     document.getElementById('wall_posts')
+                // );
+
+                class_this.props.onPublish(data.posts_data,"before");
+
+
                 
             });
 

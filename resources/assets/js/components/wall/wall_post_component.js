@@ -32,6 +32,9 @@ export default class Wall_post_component extends React.Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState){
+
+        console.log(nextProps);
+
         if(nextProps.items !== prevState.items){
             if(nextProps.append == "after"){
                 return {
@@ -93,12 +96,20 @@ export default class Wall_post_component extends React.Component {
                 loadPost:false
             });
 
+
+            let get_params = {
+                t: this.state.loadTime,
+                page:this.state.loadPage
+            }
+
+            if(this.props.post_id){
+               get_params.post_id =  this.props.post_id;
+            }
+
+
             // 載入最新5篇
             axios.get("/wall/posts",{
-                params: {
-                  t: this.state.loadTime,
-                  page:this.state.loadPage
-                }
+                params: get_params
             }).then(function(response){
                 // console.log(response.data);
                 let data = response.data;

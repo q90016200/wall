@@ -388,16 +388,34 @@ class WallPostController extends Controller
             $page = $_GET["page"];
         }
 
+        $specified_uid = 0;
 
-        // $_p = DB::table("wall_posts");
-        
-        // if($get_time > 0 ){
-        //     $_p = $_p->where("created_at","<",$get_time);
-        // }
+        if(isset($_GET["uid"])){
+            $specified_uid = $_GET["uid"];
+        }
+
+        $specified_post_id = 0;
+
+        if(isset($_GET["post_id"])){
+            $specified_post_id = $_GET["post_id"];
+        }
+
 
 
         $_p = WallPost::where("created_at","<",$get_time);
 
+
+        # 指定使用者貼文
+        if($specified_uid != 0){
+
+        }
+
+
+        # 指定貼文
+        if($specified_post_id != 0){
+            $_p = $_p->where("post_id",$specified_post_id);
+        }   
+        
 
         # 取得貼文總數
         $post_count = $_p->count();
@@ -413,7 +431,6 @@ class WallPostController extends Controller
         $data["posts"] = array();
 
         if($_p){
-            // return dd($_p);
 
             $data["error"] = false;
             
@@ -535,8 +552,6 @@ class WallPostController extends Controller
             //         ->where("wall_post_likes.like_uid","=",$uid);
             // });
         }
-
-        
 
         
 
