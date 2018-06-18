@@ -231,7 +231,7 @@ export default class Wall_post_publish_component extends React.Component {
                 //     document.getElementById('wall_posts')
                 // );
 
-                class_this.props.onPublish(data.posts_data,"before");
+                class_this.props.onUpdate(data.posts_data,"add_before");
 
 
                 

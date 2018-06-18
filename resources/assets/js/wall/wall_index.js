@@ -34,8 +34,8 @@ class Index extends React.Component {
                 <div>
                     <Route exact path="/" render={() => (
                         <div>
-                            <Wall_post_publish_component username={user.name} onPublish={this.uploadItems} />
-                            <Wall_post_component items={this.state.items} append={this.state.append} />
+                            <Wall_post_publish_component username={user.name} onUpdate={this.uploadItems} />
+                            <Wall_post_component items={this.state.items} append={this.state.append} onUpdate={this.uploadItems} />
                         </div>
                     )} /> 
 
@@ -52,11 +52,23 @@ class Index extends React.Component {
     uploadItems(items,type){
 
     	let ts = this;
-
-    	this.setState({
-    		items: ts.state.items.concat(items),
-    		append:"before"
-    	});
+    	if(type == "add_before"){
+    		
+	    	this.setState({
+	    		items: items.concat(ts.state.items),
+	    		append:"add_after"
+	    	});
+    	}else if(type == "add_after"){
+    		this.setState({
+	    		items: ts.state.items.concat(items),
+	    		append:"add_before"
+	    	});
+    	}else if(type == "remove"){
+    		this.setState({
+	    		items: items,
+	    		append:"remove"
+	    	});
+    	}
     }
 
 

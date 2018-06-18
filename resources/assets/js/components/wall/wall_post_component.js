@@ -33,16 +33,27 @@ export default class Wall_post_component extends React.Component {
 
     static getDerivedStateFromProps(nextProps, prevState){
 
-        console.log(nextProps);
+        // console.log(nextProps);
 
         if(nextProps.items !== prevState.items){
-            if(nextProps.append == "after"){
+            if(nextProps.append == "add_after"){
+                // return {
+                //     items: prevState.items.concat(nextProps.items),
+                // };
+
                 return {
-                    items: prevState.items.concat(nextProps.items),
+                    items: nextProps.items
                 };
-            }else if(nextProps.append == "before"){
+            }else if(nextProps.append == "add_before"){
+                // return {
+                //     items: nextProps.items.concat(prevState.items),
+                // };
                 return {
-                    items: nextProps.items.concat(prevState.items),
+                    items: nextProps.items
+                };
+            }else if(nextProps.append == "remove"){
+                return {
+                    items: nextProps.items
                 };
             }
         }
@@ -114,10 +125,14 @@ export default class Wall_post_component extends React.Component {
                 // console.log(response.data);
                 let data = response.data;
 
-                ts.setState({
-                    items:ts.state.items.concat(data.posts)
-                });
-
+                if(typeof ts.props.onUpdate == "undefined"){
+                    ts.setState({
+                        items:ts.state.items.concat(data.posts)
+                    });
+                }else{
+                    ts.props.onUpdate(data.posts,"add_after");
+                }
+                
                 if( ts.state.loadPage < data.total_page){
                     ts.setState({
                         loadPost:true,
@@ -138,10 +153,10 @@ export default class Wall_post_component extends React.Component {
 
         if (ts.state.loadPost) {
 
-            let wh = window.innerHeight;;
+            let wh = window.innerHeight;
             let wstop = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop;
 
-            let el_wall_content = document.getElementById("wall_posts");
+            let el_wall_content = document.getElementById("content");
 
             // console.log(`w1:${(wh + wstop)}`);
             // console.log(`w2:${(el_wall_content.clientHeight * 0.85)}`);
@@ -171,9 +186,15 @@ export default class Wall_post_component extends React.Component {
                 }
             }
 
-            ts.setState({
-                items:newPosts
-            })
+
+            if(typeof ts.props.onUpdate == "undefined"){
+                ts.setState({
+                    items:newPosts
+                });
+            }else{
+                ts.props.onUpdate(newPosts,"remove");
+            }
+
 
             swal("","刪除貼文成功！","success");
         });
