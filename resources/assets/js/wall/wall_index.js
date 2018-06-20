@@ -20,6 +20,9 @@ class Index extends React.Component {
         super(props);
         this.state = {
         	items:[],
+            indexLoad:true,
+            indexLoadTime:new Date().valueOf(),
+            indexPage:1,
         	append:null,
         }
 
@@ -35,7 +38,7 @@ class Index extends React.Component {
                     <Route exact path="/" render={() => (
                         <div>
                             <Wall_post_publish_component username={user.name} onUpdate={this.uploadItems} />
-                            <Wall_post_component items={this.state.items} append={this.state.append} onUpdate={this.uploadItems} />
+                            <Wall_post_component items={this.state.items} append={this.state.append} load={this.state.indexLoad} loadTime={this.state.indexLoadTime} page={this.state.indexPage} onUpdate={this.uploadItems} />
                         </div>
                     )} /> 
 
@@ -53,15 +56,14 @@ class Index extends React.Component {
 
     	let ts = this;
     	if(type == "add_before"){
-    		
 	    	this.setState({
 	    		items: items.concat(ts.state.items),
-	    		append:"add_after"
+	    		append:"add"
 	    	});
     	}else if(type == "add_after"){
     		this.setState({
 	    		items: ts.state.items.concat(items),
-	    		append:"add_before"
+	    		append:"add"
 	    	});
     	}else if(type == "remove"){
     		this.setState({
@@ -69,6 +71,13 @@ class Index extends React.Component {
 	    		append:"remove"
 	    	});
     	}
+    }
+
+    uploadPage(page,status){
+        this.setState({
+            indexLoad: status,
+            indexPage:page
+        });
     }
 
 

@@ -381,7 +381,6 @@ class WallPostController extends Controller
             $get_time = date("Y-m-d H:i:s",$get_time/1000);
         }
 
-
         $page = 1;
 
         if(isset($_GET["page"])){

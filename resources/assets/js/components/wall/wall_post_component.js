@@ -13,12 +13,13 @@ export default class Wall_post_component extends React.Component {
         this.state = {
             items:props.items,
             // items: [],
-            loadPost: true,
-            loadPage:1,
-            loadTime:new Date().valueOf(),
+            loadPost: (this.props.load !== undefined) ? this.props.load : true,
+            loadPage: (this.props.page !== undefined) ? this.props.page : 1,
+            loadTime: (this.props.loadTime !== undefined) ? this.props.loadTime : new Date().valueOf(),
+
         }
 
-        // console.log(this.state.items);
+        console.log(this.state);
 
         // let item = this.state.items;
 
@@ -36,18 +37,7 @@ export default class Wall_post_component extends React.Component {
         // console.log(nextProps);
 
         if(nextProps.items !== prevState.items){
-            if(nextProps.append == "add_after"){
-                // return {
-                //     items: prevState.items.concat(nextProps.items),
-                // };
-
-                return {
-                    items: nextProps.items
-                };
-            }else if(nextProps.append == "add_before"){
-                // return {
-                //     items: nextProps.items.concat(prevState.items),
-                // };
+            if(nextProps.append == "add"){
                 return {
                     items: nextProps.items
                 };
