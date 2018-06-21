@@ -27,6 +27,7 @@ class Index extends React.Component {
         }
 
         this.uploadItems = this.uploadItems.bind(this);
+        this.uploadPage = this.uploadPage.bind(this);
         
     }
 
@@ -38,7 +39,7 @@ class Index extends React.Component {
                     <Route exact path="/" render={() => (
                         <div>
                             <Wall_post_publish_component username={user.name} onUpdate={this.uploadItems} />
-                            <Wall_post_component items={this.state.items} append={this.state.append} load={this.state.indexLoad} loadTime={this.state.indexLoadTime} page={this.state.indexPage} onUpdate={this.uploadItems} />
+                            <Wall_post_component items={this.state.items} append={this.state.append} load={this.state.indexLoad} loadTime={this.state.indexLoadTime} page={this.state.indexPage} onUpdate={this.uploadItems} onUploadPage={this.uploadPage} />
                         </div>
                     )} /> 
 
@@ -76,7 +77,8 @@ class Index extends React.Component {
     uploadPage(page,status){
         this.setState({
             indexLoad: status,
-            indexPage:page
+            indexPage:page,
+            append:"upload_page"
         });
     }
 

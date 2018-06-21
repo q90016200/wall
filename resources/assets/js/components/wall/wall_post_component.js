@@ -19,7 +19,7 @@ export default class Wall_post_component extends React.Component {
 
         }
 
-        console.log(this.state);
+        // console.log(this.state);
 
         // let item = this.state.items;
 
@@ -47,6 +47,14 @@ export default class Wall_post_component extends React.Component {
                 };
             }
         }
+
+        // if(nextProps.append == "upload_page"){
+        //     return {
+        //         loadPage: nextProps.loadPage,
+        //         loadPost: nextProps.load,
+        //         loadPage: nextProps.loadPage,
+        //     };
+        // }
 
         return null;
     }
@@ -97,6 +105,9 @@ export default class Wall_post_component extends React.Component {
                 loadPost:false
             });
 
+            if(typeof ts.props.onUploadPage != "undefined"){
+                ts.props.onUploadPage(ts.state.loadPage,false);
+            }
 
             let get_params = {
                 t: this.state.loadTime,
@@ -127,6 +138,11 @@ export default class Wall_post_component extends React.Component {
                     ts.setState({
                         loadPost:true,
                     });
+
+                    if(typeof ts.props.onUploadPage != "undefined"){
+                        ts.props.onUploadPage(ts.state.loadPage,true);
+                    }
+
                 }
 
             });
