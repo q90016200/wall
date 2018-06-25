@@ -29,6 +29,23 @@ class WallPostsTable extends Migration
             //相當於為軟刪除添加一個可空的 deleted_at 字段
             $table->softDeletes(); 
         });
+
+        Schema::create('wall_preview_links', function (Blueprint $table) {
+            $table->bigIncrements('link_id');
+            
+            $table->string('link_url',2083);
+            $table->string('link_title',255)->nullable($value = true)->default(null);
+            $table->string('link_description',255)->nullable($value = true)->default(null);
+            $table->string('link_image',255)->nullable($value = true)->default(null);
+            $table->integer('link_image_width')->nullable($value = true)->default(null);
+            $table->integer('link_image_height')->nullable($value = true)->default(null);
+
+            $table->timestamp('link_updated');
+            
+        });
+
+
+
     }
 
     /**

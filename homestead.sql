@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機: localhost
--- 產生時間： 2018 年 05 月 29 日 08:13
+-- 產生時間： 2018 年 06 月 25 日 04:59
 -- 伺服器版本: 5.7.22-0ubuntu18.04.1
 -- PHP 版本： 7.2.4-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -21,18 +21,8 @@ SET time_zone = "+00:00";
 --
 -- 資料庫： `homestead`
 --
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS `homestead` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
+USE `homestead`;
 
 -- --------------------------------------------------------
 
@@ -40,6 +30,7 @@ CREATE TABLE `migrations` (
 -- 資料表結構 `password_resets`
 --
 
+DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -52,6 +43,7 @@ CREATE TABLE `password_resets` (
 -- 資料表結構 `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -62,31 +54,50 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表的匯出資料 `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(4, 'q90016200', 'q90016200@gmail.com', '$2y$10$UlHtfxDg0OnubCDhDH8Y5.AQpWhaYnaH7xfRU7fwgz9aJ9KWYisU.', '6DYjr2kXqj22HLKp1CxrudcGAq1zP0Uc6zpXQbJmeM58oSRsqOYXlG16wkiV', '2018-05-28 13:00:23', '2018-05-28 13:00:23');
+
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `wall_posts`
 --
 
+DROP TABLE IF EXISTS `wall_posts`;
 CREATE TABLE `wall_posts` (
   `post_id` bigint(20) UNSIGNED NOT NULL,
-  `post_author` bigint(20) NOT NULL,
+  `post_author` bigint(20) UNSIGNED NOT NULL,
   `post_content` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `post_like_count` int(11) NOT NULL DEFAULT '0',
   `post_comment_count` int(11) NOT NULL DEFAULT '0',
   `post_image_count` int(11) NOT NULL DEFAULT '0',
+  `post_like_count` int(11) NOT NULL DEFAULT '0',
   `post_preview_link` varchar(2083) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `post_create_date` datetime DEFAULT NULL,
-  `post_create_timestamp` bigint(20) UNSIGNED NOT NULL COMMENT 'millisecond',
-  `post_sort_time` bigint(20) UNSIGNED NOT NULL COMMENT 'millisecond',
-  `post_modify_date` datetime DEFAULT NULL,
-  `post_ip` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `post_category` text COLLATE utf8mb4_unicode_ci COMMENT '文章類型',
-  `post_tag_works` text COLLATE utf8mb4_unicode_ci,
-  `post_tag_actors` text COLLATE utf8mb4_unicode_ci,
-  `post_top` tinyint(1) NOT NULL DEFAULT '0',
-  `post_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'publish' COMMENT 'publish ; delete'
+  `post_ip` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 資料表的匯出資料 `wall_posts`
+--
+
+INSERT INTO `wall_posts` (`post_id`, `post_author`, `post_content`, `post_comment_count`, `post_image_count`, `post_like_count`, `post_preview_link`, `post_ip`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 4, '123', 1, 0, 0, NULL, NULL, '2018-06-11 17:20:38', '2018-06-11 17:20:38', NULL),
+(2, 4, '1', 0, 0, 0, NULL, NULL, '2018-06-20 16:51:24', '2018-06-20 16:51:24', NULL),
+(3, 4, '2', 0, 0, 0, NULL, NULL, '2018-06-20 16:51:25', '2018-06-20 16:51:25', NULL),
+(4, 4, '3', 0, 0, 0, NULL, NULL, '2018-06-20 16:51:26', '2018-06-20 16:51:26', NULL),
+(5, 4, '4', 0, 0, 0, NULL, NULL, '2018-06-20 16:51:27', '2018-06-20 16:51:27', NULL),
+(6, 4, '5', 0, 0, 0, NULL, NULL, '2018-06-20 16:51:28', '2018-06-20 16:51:28', NULL),
+(7, 4, '6', 0, 0, 0, NULL, NULL, '2018-06-20 17:01:24', '2018-06-20 17:01:24', NULL),
+(8, 4, '7', 0, 0, 0, NULL, NULL, '2018-06-20 17:01:25', '2018-06-20 17:01:25', NULL),
+(9, 4, '8', 0, 0, 0, NULL, NULL, '2018-06-20 17:01:28', '2018-06-20 17:01:28', NULL),
+(10, 4, '9', 0, 0, 0, NULL, NULL, '2018-06-20 17:01:30', '2018-06-20 17:01:30', NULL),
+(11, 4, '10', 0, 0, 0, NULL, NULL, '2018-06-20 17:01:31', '2018-06-20 17:01:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -94,17 +105,24 @@ CREATE TABLE `wall_posts` (
 -- 資料表結構 `wall_post_comments`
 --
 
+DROP TABLE IF EXISTS `wall_post_comments`;
 CREATE TABLE `wall_post_comments` (
   `comment_id` bigint(20) UNSIGNED NOT NULL,
   `comment_post_id` bigint(20) UNSIGNED NOT NULL,
   `comment_author` bigint(20) UNSIGNED NOT NULL,
   `comment_content` varchar(500) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   `comment_like_count` int(11) NOT NULL DEFAULT '0',
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `comment_status` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 資料表的匯出資料 `wall_post_comments`
+--
+
+INSERT INTO `wall_post_comments` (`comment_id`, `comment_post_id`, `comment_author`, `comment_content`, `created_at`, `updated_at`, `comment_like_count`, `deleted_at`) VALUES
+(1, 1, 4, '123', '2018-06-11 17:20:41', '2018-06-11 17:20:41', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -112,6 +130,7 @@ CREATE TABLE `wall_post_comments` (
 -- 資料表結構 `wall_post_comment_likes`
 --
 
+DROP TABLE IF EXISTS `wall_post_comment_likes`;
 CREATE TABLE `wall_post_comment_likes` (
   `like_id` bigint(20) NOT NULL,
   `like_comment_id` bigint(20) UNSIGNED NOT NULL,
@@ -126,11 +145,19 @@ CREATE TABLE `wall_post_comment_likes` (
 -- 資料表結構 `wall_post_imgs`
 --
 
+DROP TABLE IF EXISTS `wall_post_imgs`;
 CREATE TABLE `wall_post_imgs` (
   `img_id` bigint(20) UNSIGNED NOT NULL,
   `img_post_id` bigint(20) DEFAULT NULL,
   `img_path` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 資料表的匯出資料 `wall_post_imgs`
+--
+
+INSERT INTO `wall_post_imgs` (`img_id`, `img_post_id`, `img_path`) VALUES
+(1, 7, 'wall/posts/7/7_5afd3a70016ca.jpg');
 
 -- --------------------------------------------------------
 
@@ -138,6 +165,7 @@ CREATE TABLE `wall_post_imgs` (
 -- 資料表結構 `wall_post_likes`
 --
 
+DROP TABLE IF EXISTS `wall_post_likes`;
 CREATE TABLE `wall_post_likes` (
   `like_id` bigint(20) UNSIGNED NOT NULL,
   `like_post_id` bigint(20) NOT NULL,
@@ -152,6 +180,7 @@ CREATE TABLE `wall_post_likes` (
 -- 資料表結構 `wall_preview_links`
 --
 
+DROP TABLE IF EXISTS `wall_preview_links`;
 CREATE TABLE `wall_preview_links` (
   `link_id` bigint(20) UNSIGNED NOT NULL,
   `link_url` varchar(2083) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -164,14 +193,20 @@ CREATE TABLE `wall_preview_links` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- 已匯出資料表的索引
+-- 資料表的匯出資料 `wall_preview_links`
 --
 
+INSERT INTO `wall_preview_links` (`link_id`, `link_url`, `link_title`, `link_description`, `link_image`, `link_image_width`, `link_image_height`, `link_updated`) VALUES
+(5, 'https://www.moviemovie.com.tw/', '影劇圈圈 | 電影電視劇社群網', '「影劇圈圈」提供電影、電視劇相關新聞資訊，未來也將會建立更多電影、電視劇相關服務，包括電影電視劇討論區社群、電影電視劇資料庫、專屬於台灣觀眾的評價機制 等。', 'https://www.moviemovie.com.tw/img/470x246_moviemovie_logo.jpg', 470, 246, '2018-05-21 06:53:14'),
+(6, 'https://www.moviemovie.com.tw/wall/posts/605', '馬克恰恰 - 無限手套說明書~~感覺很威!!!!XDD｜影劇動態牆 | 影劇圈圈', '馬克恰恰 - 無限手套說明書~~感覺很威!!!!XDD', 'https://scontent.ftpe7-2.fna.fbcdn.net/v/t1.0-9/32643279_1915325941851643_7543758838768336896_o.jpg?_nc_fx=ftpe7-1&_nc_cat=0&oh=71480229aa9f5bd1f8afb3c7d8df4cef&oe=5B8E25A8', 1280, 905, '2018-05-17 08:25:58'),
+(7, 'https://doc.react-china.org', 'React 中文文档 - 用于构建用户界面的 JavaScript 库', 'A JavaScript library for building user interfaces', '', 0, 0, '2018-05-21 06:56:03'),
+(8, 'https://doc.react-china.org/', 'React 中文文档 - 用于构建用户界面的 JavaScript 库', 'A JavaScript library for building user interfaces', '', 0, 0, '2018-05-21 07:02:43'),
+(9, 'https://www.youtube.com/watch?v=i0p1bmr0EmE', 'TWICE \"What is Love?\" M/V', 'TWICE(트와이스) \"What is Love?\" M/V Spotify https://goo.gl/jVLYYY iTunes & Apple Music https://goo.gl/DKyKZf Google Music https://goo.gl/DxAtPd TWICE Official Yo...', 'https://i.ytimg.com/vi/i0p1bmr0EmE/hqdefault.jpg', 480, 360, '2018-05-23 04:29:17'),
+(10, 'https://www.youtube.com/watch?v=d9IxdwEFk1c', '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON)', '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON) *English subtitles are now available. :D (Please click on \'CC\' button or activate \'Interactive Transcript\' funct...', 'https://i.ytimg.com/vi/d9IxdwEFk1c/maxresdefault.jpg', 1280, 720, '2018-05-23 04:28:39');
+
 --
--- 資料表索引 `migrations`
+-- 已匯出資料表的索引
 --
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- 資料表索引 `password_resets`
@@ -191,8 +226,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `wall_posts`
   ADD PRIMARY KEY (`post_id`),
-  ADD KEY `post_author` (`post_author`),
-  ADD KEY `post_status` (`post_status`);
+  ADD KEY `wall_posts_post_author_index` (`post_author`);
 
 --
 -- 資料表索引 `wall_post_comments`
@@ -200,8 +234,7 @@ ALTER TABLE `wall_posts`
 ALTER TABLE `wall_post_comments`
   ADD PRIMARY KEY (`comment_id`),
   ADD KEY `wall_post_comments_comment_post_id_index` (`comment_post_id`),
-  ADD KEY `wall_post_comments_comment_author_index` (`comment_author`),
-  ADD KEY `wall_post_comments_comment_status_index` (`comment_status`);
+  ADD KEY `wall_post_comments_comment_author_index` (`comment_author`);
 
 --
 -- 資料表索引 `wall_post_comment_likes`
@@ -239,28 +272,22 @@ ALTER TABLE `wall_preview_links`
 --
 
 --
--- 使用資料表 AUTO_INCREMENT `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
 -- 使用資料表 AUTO_INCREMENT `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- 使用資料表 AUTO_INCREMENT `wall_posts`
 --
 ALTER TABLE `wall_posts`
-  MODIFY `post_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `post_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- 使用資料表 AUTO_INCREMENT `wall_post_comments`
 --
 ALTER TABLE `wall_post_comments`
-  MODIFY `comment_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `comment_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- 使用資料表 AUTO_INCREMENT `wall_post_comment_likes`

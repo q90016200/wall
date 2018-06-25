@@ -48,14 +48,6 @@ export default class Wall_post_component extends React.Component {
             }
         }
 
-        // if(nextProps.append == "upload_page"){
-        //     return {
-        //         loadPage: nextProps.loadPage,
-        //         loadPost: nextProps.load,
-        //         loadPage: nextProps.loadPage,
-        //     };
-        // }
-
         return null;
     }
 
