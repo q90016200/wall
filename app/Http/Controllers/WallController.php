@@ -236,7 +236,7 @@ class WallController extends Controller
                                     // 相對路徑 轉換成 絕對路徑
                                     $base_url = $urlData["scheme"]."://".$urlData["host"].$urlData["path"];
 
-                                    $src = app(\App\Http\Controllers\FuncController::class)->rel2abs($src,$base_url);
+                                    $src = app(FuncController::class)->rel2abs($src,$base_url);
 
                                     // Log::info("{$img_check_length} src:{$src}");
 
