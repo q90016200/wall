@@ -53,7 +53,7 @@ class Index extends React.Component {
         )
     }
 
-    uploadItems(items,type){
+    uploadItems(items,type = null){
 
     	let ts = this;
     	if(type == "add_before"){
@@ -71,7 +71,11 @@ class Index extends React.Component {
 	    		items: items,
 	    		append:"remove"
 	    	});
-    	}
+    	}else{
+            this.setState({
+                items: items
+            }); 
+        }
     }
 
     uploadPage(page,status){

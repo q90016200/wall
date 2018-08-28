@@ -7,7 +7,8 @@ export default class Wall_post_comment_component extends React.Component {
         this.state = {
             // comments:props.items,
             comments:[],
-            commentRemoveStatus:true
+            commentRemoveStatus:true,
+            index:this.props.index
         }
 
         // console.log(Object.keys(this.state.comments).length);
@@ -152,9 +153,15 @@ export default class Wall_post_comment_component extends React.Component {
         let prevComments = this.state.comments;
         let newComments = prevComments.concat(comment);
 
+        let count = newComments.length;
+
+        // 回傳給post_component 
+        this.props.onPublish(this.state.index,count);
+
         this.setState({
             comments:newComments
         });
+
     }
 
 }

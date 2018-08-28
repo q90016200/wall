@@ -29,6 +29,7 @@ export default class Wall_post_component extends React.Component {
 
         this.handleScroll = this.handleScroll.bind(this);
         this.postRemove = this.postRemove.bind(this);
+        this.commentPublish = this.commentPublish.bind(this);
 
     }
 
@@ -78,7 +79,7 @@ export default class Wall_post_component extends React.Component {
                             <Wall_post_link_preview item={item.preview} />
                         }
                         
-                        <Wall_post_comment_component post_id={item.post_id} comment_count={item.comment_count} />
+                        <Wall_post_comment_component post_id={item.post_id} comment_count={item.comment_count} onPublish={this.commentPublish} index={index} />
 
                     </div>
                 ))}
@@ -196,6 +197,18 @@ export default class Wall_post_component extends React.Component {
 
             swal("","刪除貼文成功！","success");
         });
+    }
+
+    // 更新留言數
+    commentPublish(index,count){
+        console.log("comment:"+index);
+        console.log("commentCount:"+count);
+
+        var posts = this.state.items;
+        posts[index].comment_count = count ;
+
+        this.props.onUpdate(posts);
+
     }
 
 

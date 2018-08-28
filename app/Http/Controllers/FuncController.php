@@ -6,10 +6,10 @@ use Log;
 class FuncController extends Controller{
     
 	public function __construct() {
-
+        $this->a = "test";
     }
 
-    // 取得今天剩下時間
+    // 取得今天剩下分鐘
     public function get_today_lastMin(){
         $now_time = strtotime(date("Y-m-d H:i:s"));
         $tomorrow = strtotime(date("Y-m-d",strtotime('+1 day')));
