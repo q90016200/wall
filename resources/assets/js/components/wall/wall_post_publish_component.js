@@ -19,7 +19,8 @@ export default class Wall_post_publish_component extends React.Component {
             photo_src:null,
             photo_input_val:'',
             photo_file:'',
-            publish_status:true
+            publish_status:true,
+            dragStatus: false
         };
 
         this.handlePublishTextAreaChange = this.handlePublishTextAreaChange.bind(this);
@@ -29,6 +30,10 @@ export default class Wall_post_publish_component extends React.Component {
         this.handlePublishFileChange = this.handlePublishFileChange.bind(this);
         this.publishClick = this.publishClick.bind(this);
         this.checkLogin = this.checkLogin.bind(this);
+
+        this.onDragEnter = this.onDragEnter.bind(this);
+        this.onDragLeave = this.onDragLeave.bind(this);
+        this.onDrop = this.onDrop.bind(this);
     }
 
     componentDidMount(){
@@ -37,10 +42,15 @@ export default class Wall_post_publish_component extends React.Component {
 
     // 檢查登入
     checkLogin(event){
+
         if(this.props.username == "guest"){
             event.preventDefault();
+
             swal("","未登入","warning");
+            return false;
         }
+
+        return true;
     }
 
     // 紀錄發佈的文字
@@ -112,55 +122,22 @@ export default class Wall_post_publish_component extends React.Component {
         // console.log(event.target.value);
         // console.log(event.target.files[0]);
 
-        let class_this = this;
-        let files = event.target.files;
+        var class_this = this;
+        var files = event.target.files;
+        var file = files[0];
 
-        //檢查檔案格式
-        let uptypes = [
-            "image/jpg",
-            "image/jpeg",
-            "image/pjpeg",
-            "image/png"
-        ];
-
-        let fileType = files[0].type;
-
-        if (uptypes.indexOf(fileType) == -1) {
-            this.setState({
-                photo_file:""
-            });
-            return swal("","很抱歉，圖片類型錯誤", "warning");
-        }
-
-        // 檢查檔案大小
-        if (files[0].size > 10 * 1024 * 1024) {
-            this.setState({
-                photo_file:""
-            });
-            return swal("","很抱歉，上傳的圖片大小不可超過 10 MB", "warning");
-        }
-
+        var cf = this.checkFile(file);
         
-        this.setState({
-            photo_file:files[0]
-        })
+        if(cf){
 
-        // 使用HTML5 File API, 來即時預覽image
-
-        let reader = new FileReader();
-
-        reader.onload = function (e) {
-            // console.log(e);
-            // console.log(e.target.result);
-            class_this.setState({
-                photo_src:e.target.result,
-                photo_status:true,
-                url_perview_status:false,
-                url_perview_get_status:false
+            this.setState({
+                photo_file:file
             });
-        }
 
-        reader.readAsDataURL(files[0]);
+            // 預覽 image
+
+            this.previewImage(file);
+        }
         
     }
 
@@ -233,8 +210,6 @@ export default class Wall_post_publish_component extends React.Component {
 
                 class_this.props.onUpdate(data.posts_data,"add_before");
 
-
-                
             });
 
 
@@ -245,14 +220,22 @@ export default class Wall_post_publish_component extends React.Component {
 
 
     render(){
-        let url_perview_div = null;
-        let photo_div = null;
+        var url_perview_div = null;
+        var photo_div = null;
         if (this.state.url_perview_status){
             url_perview_div = <Wall_post_publish_share img={this.state.url_perview_img} title={this.state.url_perview_title}  description={this.state.url_perview_description} url={this.state.url_perview_url} onCloseClick={this.handlePublishShareCancel}  />;  
         }
 
         if (this.state.photo_status){
             photo_div = <Wall_post_publish_img img={this.state.photo_src} onCloseClick={this.handlePublishUploadIMGCancel} />  
+        }
+        
+        var dragClass = "";
+
+        if (this.state.dragStatus){
+            dragClass = " border border-danger";
+        } else {
+            dragClass = "";
         }
 
         return(
@@ -273,8 +256,8 @@ export default class Wall_post_publish_component extends React.Component {
                 </div>
 
                 <form>
-                    <div className="form-group">
-                        <textarea className="form-control" id="publish_textarea" value={this.state.textarea_value} onChange={this.handlePublishTextAreaChange} rows="3" placeholder="分享新消息" />
+                    <div className="form-group" >
+                        <textarea className={'form-control'+dragClass} id="publish_textarea" value={this.state.textarea_value} rows="3" placeholder="分享新消息" onChange={this.handlePublishTextAreaChange} onDragEnter={this.onDragEnter} onDragLeave={this.onDragLeave} onDrop={this.onDrop}/>
                     </div>
                 </form>
 
@@ -291,6 +274,105 @@ export default class Wall_post_publish_component extends React.Component {
         );
     }
     
+    onDragEnter(event){
+        this.setState({
+            dragStatus: true
+        });
+
+    }
+
+    onDragLeave(event){
+        this.setState({
+            dragStatus: false
+        });
+
+    }
+
+    onDrop(event){
+
+        event.preventDefault();
+
+        var cl = this.checkLogin(event);
+
+        if(cl){
+            //擷取拖曳的檔案
+            var files  = event.dataTransfer.files ; 
+            var file = files[0];
+
+            var cf = this.checkFile(file);
+
+            if(cf){
+
+                this.setState({
+                    photo_file:file
+                });
+
+                // 預覽 image
+
+                this.previewImage(file);
+            }
+
+        }
+
+        this.setState({
+            dragStatus: false
+        });
+
+    }
+
+    checkFile(file){
+
+        //檢查檔案格式
+        var uptypes = [
+            "image/jpg",
+            "image/jpeg",
+            "image/pjpeg",
+            "image/png"
+        ];
+
+        var fileType = file.type;
+
+        if (uptypes.indexOf(fileType) == -1) {
+            this.setState({
+                photo_file:""
+            });
+
+            swal("","很抱歉，圖片類型錯誤", "warning");
+
+            return false;
+        }
+
+        // 檢查檔案大小
+        if (file.size > 10 * 1024 * 1024) {
+            this.setState({
+                photo_file:""
+            });
+
+            swal("","很抱歉，上傳的圖片大小不可超過 10 MB", "warning");
+            return false;
+        }
+
+        return true;
+    }
+
+    previewImage(file){
+        // 使用HTML5 File API, 來即時預覽image
+        var ts = this;
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            // console.log(e);
+            // console.log(e.target.result);
+            ts.setState({
+                photo_src:e.target.result,
+                photo_status:true,
+                url_perview_status:false,
+                url_perview_get_status:false
+            });
+        }
+
+        reader.readAsDataURL(file);
+    }
 
 }
 
