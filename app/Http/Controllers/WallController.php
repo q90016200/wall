@@ -9,6 +9,9 @@ use Auth;
 
 use App\Models\WallComment;
 
+use App\Http\Controllers\UserController ;
+
+
 class WallController extends Controller
 {   
     function __construct(){
@@ -25,7 +28,9 @@ class WallController extends Controller
         // dd($user) ;
 
         $data = array();
-        $data["user"] = app(UserController::class)->get_user_info();
+        $UserController = new UserController();
+        $data["user"] = $UserController->get_user_info();
+        // $data["user"] = app(UserController::class)->get_user_info();
 
 
         // dd($data);

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 use App\Models\WallComment;
-use DB;
 
 class WallCommentController extends Controller
 {

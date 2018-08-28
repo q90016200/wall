@@ -29,7 +29,7 @@ export default class Wall_post_component extends React.Component {
 
         this.handleScroll = this.handleScroll.bind(this);
         this.postRemove = this.postRemove.bind(this);
-        this.commentPublish = this.commentPublish.bind(this);
+        this.commentCountUpdate = this.commentCountUpdate.bind(this);
 
     }
 
@@ -79,7 +79,7 @@ export default class Wall_post_component extends React.Component {
                             <Wall_post_link_preview item={item.preview} />
                         }
                         
-                        <Wall_post_comment_component post_id={item.post_id} comment_count={item.comment_count} onPublish={this.commentPublish} index={index} />
+                        <Wall_post_comment_component post_id={item.post_id} comment_count={item.comment_count} onUpdateCommentCount={this.commentCountUpdate} index={index} />
 
                     </div>
                 ))}
@@ -173,34 +173,44 @@ export default class Wall_post_component extends React.Component {
     postRemove(event,post_id){
         let ts = this;
 
-        axios.delete(`/wall/posts/${post_id}`).then((response)=>{
 
-            // 要回到父層才能變更items
-            let prevPosts = ts.state.items;
-            let newPosts = new Array();
+        swal({
+            title: "確定刪除此貼文?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete)=>{
+            if(willDelete){
+                axios.delete(`/wall/posts/${post_id}`).then((response)=>{
 
-            for (var i = 0; i < prevPosts.length; i++) {
-                if(prevPosts[i].post_id != post_id){
-                    newPosts.push(prevPosts[i]);
-                }
-            }
+                    // 要回到父層才能變更items
+                    let prevPosts = ts.state.items;
+                    let newPosts = new Array();
+
+                    for (var i = 0; i < prevPosts.length; i++) {
+                        if(prevPosts[i].post_id != post_id){
+                            newPosts.push(prevPosts[i]);
+                        }
+                    }
 
 
-            if(typeof ts.props.onUpdate == "undefined"){
-                ts.setState({
-                    items:newPosts
+                    if(typeof ts.props.onUpdate == "undefined"){
+                        ts.setState({
+                            items:newPosts
+                        });
+                    }else{
+                        ts.props.onUpdate(newPosts,"remove");
+                    }
+
+                    swal("","刪除貼文成功！","success");
                 });
-            }else{
-                ts.props.onUpdate(newPosts,"remove");
             }
-
-
-            swal("","刪除貼文成功！","success");
         });
+
     }
 
     // 更新留言數
-    commentPublish(index,count){
+    commentCountUpdate(index,count){
         console.log("comment:"+index);
         console.log("commentCount:"+count);
 
@@ -247,7 +257,7 @@ class Wall_post_head extends React.Component {
                 <div className="col-auto mr-auto">
                     <div>{this.props.name}</div>
                     <div>
-                        <Link to={`/posts/${this.props.post_id}`}>
+                        <Link to={`/wall/posts/${this.props.post_id}`}>
                             {moment(this.props.time).fromNow()}
                         </Link>
                     </div>
@@ -390,7 +400,8 @@ function export_html(content) {
 
 // find url in string
 var wrapPostContentURLs = function (text ,new_window) {
-    let url_pattern = /((https?|telnet|ftp):[\/\/[\.\-\_\/a-zA-Z0-9\~\?\%\#\=\@\:\&\;\*\\\-]+?)(?=[.:?\\-]*(?:[^\/\/[\.\-\_\/a-zA-Z0-9\~\?\%\#\=\@\:\&\;\*\\\-]|$))/;
+    // let url_pattern = /((https?|telnet|ftp):[\/\/[\.\-\_\/a-zA-Z0-9\~\?\%\#\=\@\:\&\;\*\\\-]+?)(?=[.:?\\-]*(?:[^\/\/[\.\-\_\/a-zA-Z0-9\~\?\%\#\=\@\:\&\;\*\\\-]|$))/;
+    let url_pattern = /(https?\:\/\/+)([^\/\s]*)([a-z0-9\.\/\?\=\_\-\&\~\%\#]*)/igm;
     let target = (new_window === true || new_window == null) ? '_blank' : '';
 
     return text.replace(url_pattern, function (url) {

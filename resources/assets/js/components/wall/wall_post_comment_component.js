@@ -124,6 +124,9 @@ export default class Wall_post_comment_component extends React.Component {
                                 }
                             }
 
+                            // 回傳給post_component 更新留言數
+                            ts.props.onUpdateCommentCount(ts.state.index,newComments.length);
+
                             swal("刪除留言成功", {
                                 icon: "success",
                             }).then(()=>{
@@ -155,8 +158,8 @@ export default class Wall_post_comment_component extends React.Component {
 
         let count = newComments.length;
 
-        // 回傳給post_component 
-        this.props.onPublish(this.state.index,count);
+        // 回傳給post_component 更新留言數
+        this.props.onUpdateCommentCount(this.state.index,count);
 
         this.setState({
             comments:newComments

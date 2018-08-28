@@ -7,6 +7,8 @@ use Auth,DB,Log;
 
 use App\Models\WallPost;
 
+use App\Http\Controllers\UserController;
+
 class WallPostController extends Controller
 {   
 
@@ -131,8 +133,21 @@ class WallPostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   
+
+        $data = array();
+
+        $UserController = new UserController();
+
+        $data["user"] = $UserController->get_user_info();
+
+        $view = view("wall.wall_index")->with("data",$data);
+
+
+        return $view;
+
+
+        return $id;
     }
 
     /**

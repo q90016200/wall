@@ -349,7 +349,8 @@ function wall_publish_find_url(str){
     str = str.replace(/\r\n|\n/g," ");
 
     // 找網址
-    var urlPattern = /([a-z]+\:\/+)([^\/\s]*)([a-z0-9\-@\^=%&;\/~\+]*)[\?]?([^ \#]*)#?([^ \#]*)/ig; 
+    // var urlPattern = /([a-z]+\:\/+)([^\/\s]*)([a-z0-9\-@\^=%&;\/~\+]*)[\?]?([^ \#]*)#?([^ \#]*)/ig; 
+    var urlPattern = /(https?\:\/\/+)([^\/\s]*)([a-z0-9\.\/\?\=\_\-\&\~\%\#]*)/igm;
 
     var ref = str.match(urlPattern);
 

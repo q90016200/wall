@@ -43,7 +43,7 @@ class Index extends React.Component {
                         </div>
                     )} /> 
 
-                    <Route path="/posts/:id" render={({match}) => ( 
+                    <Route path="/wall/posts/:id" render={({match}) => ( 
                     	<Wall_post_component items={[]} post_id={match.params.id} />
                     )} /> 
                 </div>
