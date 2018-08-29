@@ -330,6 +330,10 @@ export default class Wall_post_publish_component extends React.Component {
             "image/png"
         ];
 
+        if(typeof(file.type) == "undefined"){
+            return false;
+        }
+
         var fileType = file.type;
 
         if (uptypes.indexOf(fileType) == -1) {

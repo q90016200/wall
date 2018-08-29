@@ -276,16 +276,34 @@ class Wall_post_head extends React.Component {
             </div>
         )
     }
+
     // 複製連結功能
     copyLink(e,post_id){
-        console.log(`post_id:${post_id}`);
+        // console.log(`post_id:${post_id}`);
         // console.log(e.target);
+
+        var target = e.target;
+
+        var ts = this;
 
         this.setState({
             isCopy:true
         });
 
-        this.copyLinkSpan.current.textContent ="test copy 測試複製!";
+        setTimeout(function(){
+            return ts.copyLink2(target,post_id);
+        },100);
+
+    }
+
+    copyLink2(target,post_id){
+
+        var copyText = window.location.protocol + "//" + window.location.host + "/wall/posts/" + post_id;
+
+        // console.log("copy:");
+        // console.log(copyText);
+
+        this.copyLinkSpan.current.textContent = copyText;
 
         // console.log(this.copyLinkSpan.current.textContent);
 
@@ -307,12 +325,14 @@ class Wall_post_head extends React.Component {
 
         // This is just personal preference.
         // I prefer to not show the the whole text area selected.
-        e.target.focus();
+        target.focus();
+
+
+        swal("複製網址成功");
 
         this.setState({
             isCopy:false
         });
-
     }
 
   

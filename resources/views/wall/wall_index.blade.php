@@ -16,7 +16,9 @@
     <link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
 
     <div class="bg-info p-3 my-3 rounded ">
-        <h2 >wall</h2>
+        <a href="/">
+            <h2>wall</h2>
+        </a>
     </div>
 
     <div id="spa">
