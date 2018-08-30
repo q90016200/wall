@@ -79,7 +79,7 @@ export default class Wall_post_component extends React.Component {
                             <Wall_post_link_preview item={item.preview} />
                         }
                         
-                        <Wall_post_comment_component post_id={item.post_id} comment_count={item.comment_count} onUpdateCommentCount={this.commentCountUpdate} index={index} />
+                        <Wall_post_comment_component post_id={item.post_id} comment_count={item.comment_count} onUpdateCommentCount={this.commentCountUpdate} index={index} checkLogin={this.props.checkLogin} />
 
                     </div>
                 ))}
@@ -171,41 +171,48 @@ export default class Wall_post_component extends React.Component {
 
     // 刪除貼文
     postRemove(event,post_id){
-        let ts = this;
+        var ts = this;
+
+        var cl = this.props.checkLogin(event);
+
+        if(cl){
+            swal({
+                title: "確定刪除此貼文?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true
+            }).then((willDelete)=>{
+                if(willDelete){
+                    axios.delete(`/wall/posts/${post_id}`).then((response)=>{
+                        if(response.error == false){
+                            // 要回到父層才能變更items
+                            let prevPosts = ts.state.items;
+                            let newPosts = new Array();
+
+                            for (var i = 0; i < prevPosts.length; i++) {
+                                if(prevPosts[i].post_id != post_id){
+                                    newPosts.push(prevPosts[i]);
+                                }
+                            }
 
 
-        swal({
-            title: "確定刪除此貼文?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true
-        }).then((willDelete)=>{
-            if(willDelete){
-                axios.delete(`/wall/posts/${post_id}`).then((response)=>{
+                            if(typeof ts.props.onUpdate == "undefined"){
+                                ts.setState({
+                                    items:newPosts
+                                });
+                            }else{
+                                ts.props.onUpdate(newPosts,"remove");
+                            }
 
-                    // 要回到父層才能變更items
-                    let prevPosts = ts.state.items;
-                    let newPosts = new Array();
-
-                    for (var i = 0; i < prevPosts.length; i++) {
-                        if(prevPosts[i].post_id != post_id){
-                            newPosts.push(prevPosts[i]);
+                            swal("","刪除貼文成功！","success");
                         }
-                    }
+                        
+                    });
+                }
+            });
+        }
 
-
-                    if(typeof ts.props.onUpdate == "undefined"){
-                        ts.setState({
-                            items:newPosts
-                        });
-                    }else{
-                        ts.props.onUpdate(newPosts,"remove");
-                    }
-
-                    swal("","刪除貼文成功！","success");
-                });
-            }
-        });
+        
 
     }
 
@@ -228,7 +235,6 @@ export default class Wall_post_component extends React.Component {
 Wall_post_component.defaultProps = {
     append: null,
 }
-
 
 class Wall_post_head extends React.Component {
     constructor(props){
@@ -327,8 +333,7 @@ class Wall_post_head extends React.Component {
         // I prefer to not show the the whole text area selected.
         target.focus();
 
-
-        swal("複製網址成功");
+        swal("","複製網址成功","success");
 
         this.setState({
             isCopy:false

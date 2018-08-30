@@ -71,7 +71,7 @@ export default class Wall_post_comment_component extends React.Component {
                 {/* 留言區塊 END */}
 
                 {/* 發布留言區塊 */}
-                <Wall_post_comment_publish_component post_id={this.props.post_id} onPublish={this.commentPublish} />
+                <Wall_post_comment_publish_component post_id={this.props.post_id} onPublish={this.commentPublish} checkLogin={this.props.checkLogin} />
             
             </div>
         )
@@ -194,7 +194,6 @@ class Wall_post_comment_publish_component extends React.Component {
                     </div>
                 </div>
             </div>
-            
         )
     }
 
@@ -211,33 +210,42 @@ class Wall_post_comment_publish_component extends React.Component {
     // 發布留言
     commentPublish(event){
 
-        let ts = this;
+        var ts = this;
 
-        if(this.state.publishStatus && this.state.commentInputVal.length > 0){
+        // 先檢查登入
+        var cl = this.props.checkLogin(event);
 
-            ts.setState({
-                publishStatus:false
-            });
-
-            axios.post(`/wall/posts/${ts.props.post_id}/comments`,{
-                post_id:this.props.post_id,
-                content:this.state.commentInputVal
-            }).then(function(response){
+        if(cl){
+            if(this.state.publishStatus && this.state.commentInputVal.length > 0){
 
                 ts.setState({
-                    publishStatus:true,
-                    commentInputVal:''
+                    publishStatus:false
                 });
-                
-                let data = response.data;
 
-                if(data.error == false){
-                    ts.props.onPublish(event,data.comments);
-                }
+                axios.post(`/wall/posts/${ts.props.post_id}/comments`,{
+                    post_id:this.props.post_id,
+                    content:this.state.commentInputVal
+                }).then(function(response){
 
-            });
+                    ts.setState({
+                        publishStatus:true,
+                        commentInputVal:''
+                    });
+                    
+                    let data = response.data;
 
+                    if(data.error == false){
+                        ts.props.onPublish(event,data.comments);
+                    }
+
+                });
+
+            } else if(this.state.commentInputVal.length == 0) {
+                swal("","請輸入留言","warning");
+            }
         }
+
+        
 
 
     }

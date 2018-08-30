@@ -37,6 +37,7 @@ export default class Wall_post_publish_component extends React.Component {
     }
 
     componentDidMount(){
+        // 使用 js package autosize 讓 textarea 可以自動變大
         autosize(document.getElementById("publish_textarea"));
     }
 

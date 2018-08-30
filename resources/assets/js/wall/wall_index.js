@@ -39,12 +39,12 @@ class Index extends React.Component {
                     <Route exact path="/" render={() => (
                         <div>
                             <Wall_post_publish_component username={user.name} onUpdate={this.uploadItems} />
-                            <Wall_post_component items={this.state.items} append={this.state.append} load={this.state.indexLoad} loadTime={this.state.indexLoadTime} page={this.state.indexPage} onUpdate={this.uploadItems} onUploadPage={this.uploadPage} />
+                            <Wall_post_component user={user} items={this.state.items} append={this.state.append} load={this.state.indexLoad} loadTime={this.state.indexLoadTime} page={this.state.indexPage} onUpdate={this.uploadItems} onUploadPage={this.uploadPage} checkLogin={this.checkLogin} />
                         </div>
                     )} /> 
 
                     <Route path="/wall/posts/:id" render={({match}) => ( 
-                    	<Wall_post_component items={[]} post_id={match.params.id} />
+                    	<Wall_post_component user={user} items={[]} post_id={match.params.id} />
                     )} /> 
                 </div>
 
@@ -86,6 +86,17 @@ class Index extends React.Component {
         });
     }
 
+    checkLogin(event){
+        if(user.uid == 0 ){
+            event.preventDefault();
+
+            swal("","未登入","warning");
+
+            return false;
+        }else{
+            return true;
+        }
+    }
 
 }
 

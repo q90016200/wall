@@ -13,7 +13,7 @@ class UserController extends Controller
 
         $user = array(
             'uid' => 0,
-            'name'=>'guest'
+            'name' =>'guest'
         );
 
         if($uid == 0){

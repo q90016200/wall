@@ -25,6 +25,8 @@ class WallController extends Controller
 
         // $user = Auth::user();
 
+
+
         // dd($user) ;
 
         $data = array();
