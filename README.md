@@ -20,7 +20,7 @@ axios
 https://github.com/axios/axios
   
 autosize  
-https://github.com/jackmoore/autosize . 
+https://github.com/jackmoore/autosize 
   
-moment . 
+moment  
 http://momentjs.cn/docs/#/displaying/
