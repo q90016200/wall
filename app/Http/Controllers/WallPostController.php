@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth,DB,Log;
+use Notification;
 
 use App\Models\WallPost;
+use App\User ;
 
 use App\Http\Controllers\UserController;
+
+use App\Notifications\InvoicePaid ;
 
 class WallPostController extends Controller
 {   
@@ -135,6 +139,8 @@ class WallPostController extends Controller
     public function show($id)
     {   
 
+        // return $id;
+
         $data = array();
 
         $UserController = new UserController();
@@ -143,11 +149,29 @@ class WallPostController extends Controller
 
         $view = view("wall.wall_index")->with("data",$data);
 
+        /* test laravel notif send */
+        // $invoice = [
+        //     "type" => "database",
+        //     "content" => '測試用文字'
+        // ];
+
+        // $u = User::where('id', 4)->first(); 
+
+        // // $u->notify(new InvoicePaid($invoice));
+        // Notification::send($u, new InvoicePaid($invoice));
+
+        /* test laravel notif markread */
+        // $u = User::where('id', 4)->first(); 
+        // $un = $u->unreadNotifications()->where("id",'c1c5a395-2889-40c3-bc12-8a87d674162a');
+        // $un->update(['read_at' => now()]);
+
+        // $u = User::where('id', 4)->first(); 
+        // $un = $u->unreadNotifications()->take(1)->get();
+        // dd($un[0]["data"]);
+
 
         return $view;
 
-
-        return $id;
     }
 
     /**
