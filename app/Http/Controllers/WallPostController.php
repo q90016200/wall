@@ -106,9 +106,13 @@ class WallPostController extends Controller
                 $_piud = array();
                 $_piud["post_image_count"] = 1;
                 
-                DB::table("wall_posts")
-                    ->where("post_id",$post_id)
-                    ->update($_piud);
+                // DB::table("wall_posts")
+                //     ->where("post_id",$post_id)
+                //     ->update($_piud);
+
+                WallPost::where("post_id",$post_id)->update($_piud);
+
+
             }
 
             $data["posts_data"] = $this->getPostById($post_id);

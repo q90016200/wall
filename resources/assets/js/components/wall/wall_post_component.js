@@ -184,7 +184,7 @@ export default class Wall_post_component extends React.Component {
             }).then((willDelete)=>{
                 if(willDelete){
                     axios.delete(`/wall/posts/${post_id}`).then((response)=>{
-                        if(response.error == false){
+                        if(response.data.error == false){
                             // 要回到父層才能變更items
                             let prevPosts = ts.state.items;
                             let newPosts = new Array();
