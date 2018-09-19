@@ -14,4 +14,8 @@ class WallPost extends Model
 
 	protected $dates = ['deleted_at'];
 
+	// post owner 
+	public function user(){
+		return $this->belongsTo('App\User','post_author');
+	}
 }

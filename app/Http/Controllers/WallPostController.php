@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth,DB,Log;
 
 use App\Models\WallPost;
+use App\User;
 
 use App\Http\Controllers\UserController;
 
@@ -146,6 +147,21 @@ class WallPostController extends Controller
         $data["user"] = $UserController->get_user_info();
 
         $view = view("wall.wall_index")->with("data",$data);
+
+        // 一對一
+        // $wp =  WallPost::where("post_author",'3')->first()->user->toArray();
+
+        // dd($wp);
+
+        // $wp = WallPost::where("post_author",'4')->join('users',"wall_posts.post_author","=","users.id")->get();
+
+        // dd($wp->toArray());
+
+        // 一對多
+        // $user = Auth::user();
+        // $user = $user->post->toArray();
+
+        // dd($user);
 
 
         return $view;
