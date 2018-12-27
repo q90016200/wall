@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- 主機: localhost
--- 產生時間： 2018 年 06 月 25 日 04:59
--- 伺服器版本: 5.7.22-0ubuntu18.04.1
--- PHP 版本： 7.2.4-1+ubuntu18.04.1+deb.sury.org+1
+-- 產生時間： 2018 年 12 月 27 日 05:18
+-- 伺服器版本: 5.5.60-MariaDB
+-- PHP 版本： 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,10 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫： `homestead`
+-- 資料庫： `wall`
 --
-CREATE DATABASE IF NOT EXISTS `homestead` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
-USE `homestead`;
+CREATE DATABASE IF NOT EXISTS `wall` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `wall`;
 
 -- --------------------------------------------------------
 
@@ -59,7 +59,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(4, 'q90016200', 'q90016200@gmail.com', '$2y$10$UlHtfxDg0OnubCDhDH8Y5.AQpWhaYnaH7xfRU7fwgz9aJ9KWYisU.', '6DYjr2kXqj22HLKp1CxrudcGAq1zP0Uc6zpXQbJmeM58oSRsqOYXlG16wkiV', '2018-05-28 13:00:23', '2018-05-28 13:00:23');
+(1, 'q90016200', 'q90016200@gmail.com', '$2y$10$4dk97931T2SZb69tTCpG2e8bFS8a61gbDSO6/P9sbbdMs5Q5TOx3W', NULL, '2018-12-27 13:14:12', '2018-12-27 13:14:12');
 
 -- --------------------------------------------------------
 
@@ -97,7 +97,8 @@ INSERT INTO `wall_posts` (`post_id`, `post_author`, `post_content`, `post_commen
 (8, 4, '7', 0, 0, 0, NULL, NULL, '2018-06-20 17:01:25', '2018-06-20 17:01:25', NULL),
 (9, 4, '8', 0, 0, 0, NULL, NULL, '2018-06-20 17:01:28', '2018-06-20 17:01:28', NULL),
 (10, 4, '9', 0, 0, 0, NULL, NULL, '2018-06-20 17:01:30', '2018-06-20 17:01:30', NULL),
-(11, 4, '10', 0, 0, 0, NULL, NULL, '2018-06-20 17:01:31', '2018-06-20 17:01:31', NULL);
+(11, 4, '10', 0, 0, 0, NULL, NULL, '2018-06-20 17:01:31', '2018-06-20 17:01:31', NULL),
+(12, 1, '213', 0, 0, 0, NULL, NULL, '2018-12-27 13:14:20', '2018-12-27 13:14:24', '2018-12-27 13:14:24');
 
 -- --------------------------------------------------------
 
@@ -202,7 +203,8 @@ INSERT INTO `wall_preview_links` (`link_id`, `link_url`, `link_title`, `link_des
 (7, 'https://doc.react-china.org', 'React 中文文档 - 用于构建用户界面的 JavaScript 库', 'A JavaScript library for building user interfaces', '', 0, 0, '2018-05-21 06:56:03'),
 (8, 'https://doc.react-china.org/', 'React 中文文档 - 用于构建用户界面的 JavaScript 库', 'A JavaScript library for building user interfaces', '', 0, 0, '2018-05-21 07:02:43'),
 (9, 'https://www.youtube.com/watch?v=i0p1bmr0EmE', 'TWICE \"What is Love?\" M/V', 'TWICE(트와이스) \"What is Love?\" M/V Spotify https://goo.gl/jVLYYY iTunes & Apple Music https://goo.gl/DKyKZf Google Music https://goo.gl/DxAtPd TWICE Official Yo...', 'https://i.ytimg.com/vi/i0p1bmr0EmE/hqdefault.jpg', 480, 360, '2018-05-23 04:29:17'),
-(10, 'https://www.youtube.com/watch?v=d9IxdwEFk1c', '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON)', '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON) *English subtitles are now available. :D (Please click on \'CC\' button or activate \'Interactive Transcript\' funct...', 'https://i.ytimg.com/vi/d9IxdwEFk1c/maxresdefault.jpg', 1280, 720, '2018-05-23 04:28:39');
+(10, 'https://www.youtube.com/watch?v=d9IxdwEFk1c', '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON)', '[MV] IU(아이유) _ Palette(팔레트) (Feat. G-DRAGON) *English subtitles are now available. :D (Please click on \'CC\' button or activate \'Interactive Transcript\' funct...', 'https://i.ytimg.com/vi/d9IxdwEFk1c/maxresdefault.jpg', 1280, 720, '2018-05-23 04:28:39'),
+(11, 'https://www.gamer.com.tw/', '巴哈姆特電玩資訊站', '華人最大動漫及遊戲社群網站，提供 ACG 每日最新新聞、熱門排行榜，以及豐富的討論交流空間，還有精采的個人影音實況、部落格文章。', 'https://i2.bahamut.com.tw/bahaLOGO_1200x630.jpg', 1200, 630, '2018-12-27 13:17:38');
 
 --
 -- 已匯出資料表的索引
@@ -212,60 +214,58 @@ INSERT INTO `wall_preview_links` (`link_id`, `link_url`, `link_title`, `link_des
 -- 資料表索引 `password_resets`
 --
 ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
+  ADD KEY `password_resets_email_index` (`email`(191));
 
 --
 -- 資料表索引 `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- 資料表索引 `wall_posts`
 --
 ALTER TABLE `wall_posts`
   ADD PRIMARY KEY (`post_id`),
-  ADD KEY `wall_posts_post_author_index` (`post_author`);
+  ADD KEY `post_author` (`post_author`);
 
 --
 -- 資料表索引 `wall_post_comments`
 --
 ALTER TABLE `wall_post_comments`
   ADD PRIMARY KEY (`comment_id`),
-  ADD KEY `wall_post_comments_comment_post_id_index` (`comment_post_id`),
-  ADD KEY `wall_post_comments_comment_author_index` (`comment_author`);
+  ADD KEY `comment_post_id` (`comment_post_id`),
+  ADD KEY `comment_author` (`comment_author`);
 
 --
 -- 資料表索引 `wall_post_comment_likes`
 --
 ALTER TABLE `wall_post_comment_likes`
   ADD PRIMARY KEY (`like_id`),
-  ADD KEY `like_uid` (`like_uid`),
-  ADD KEY `like_status` (`like_status`),
-  ADD KEY `like_comment_id` (`like_comment_id`);
+  ADD KEY `like_comment_id` (`like_comment_id`),
+  ADD KEY `like_uid` (`like_uid`);
 
 --
 -- 資料表索引 `wall_post_imgs`
 --
 ALTER TABLE `wall_post_imgs`
   ADD PRIMARY KEY (`img_id`),
-  ADD KEY `post_id` (`img_post_id`);
+  ADD KEY `img_post_id` (`img_post_id`);
 
 --
 -- 資料表索引 `wall_post_likes`
 --
 ALTER TABLE `wall_post_likes`
   ADD PRIMARY KEY (`like_id`),
-  ADD KEY `like_post_id` (`like_post_id`,`like_status`) USING BTREE,
-  ADD KEY `like_uid` (`like_uid`);
+  ADD KEY `like_post_id` (`like_post_id`),
+  ADD KEY `like_uid` (`like_uid`),
+  ADD KEY `like_status` (`like_status`);
 
 --
 -- 資料表索引 `wall_preview_links`
 --
 ALTER TABLE `wall_preview_links`
-  ADD PRIMARY KEY (`link_id`),
-  ADD KEY `link_url` (`link_url`(191));
+  ADD PRIMARY KEY (`link_id`);
 
 --
 -- 在匯出的資料表使用 AUTO_INCREMENT
@@ -275,25 +275,13 @@ ALTER TABLE `wall_preview_links`
 -- 使用資料表 AUTO_INCREMENT `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- 使用資料表 AUTO_INCREMENT `wall_posts`
 --
 ALTER TABLE `wall_posts`
-  MODIFY `post_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- 使用資料表 AUTO_INCREMENT `wall_post_comments`
---
-ALTER TABLE `wall_post_comments`
-  MODIFY `comment_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- 使用資料表 AUTO_INCREMENT `wall_post_comment_likes`
---
-ALTER TABLE `wall_post_comment_likes`
-  MODIFY `like_id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `post_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- 使用資料表 AUTO_INCREMENT `wall_post_imgs`
@@ -311,7 +299,7 @@ ALTER TABLE `wall_post_likes`
 -- 使用資料表 AUTO_INCREMENT `wall_preview_links`
 --
 ALTER TABLE `wall_preview_links`
-  MODIFY `link_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `link_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
