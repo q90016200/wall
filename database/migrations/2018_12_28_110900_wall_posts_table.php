@@ -76,5 +76,7 @@ class WallPostsTable extends Migration
     {
         Schema::dropIfExists('wall_posts');
         Schema::dropIfExists('wall_preview_links');
+        Schema::dropIfExists('wall_post_imgs');
+        Schema::dropIfExists('wall_post_likes');
     }
 }
