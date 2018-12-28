@@ -13,6 +13,9 @@ class CreateWallPostCommentTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('wall_post_comments');
+        Schema::dropIfExists('wall_post_comment_likes');
+        
         Schema::create('wall_post_comments', function (Blueprint $table) {
             $table->bigIncrements('comment_id');
             $table->unsignedBigInteger('comment_post_id')->index();
@@ -23,7 +26,18 @@ class CreateWallPostCommentTable extends Migration
             //相當於為軟刪除添加一個可空的 deleted_at 字段
             $table->softDeletes(); 
         });
-    }
+
+        Schema::create('wall_post_comment_likes', function (Blueprint $table) {
+            $table->bigIncrements('like_id');
+            $table->unsignedBigInteger('like_comment_id')->index();
+            $table->unsignedBigInteger('like_uid')->index();
+            $table->boolean('like_status');
+            $table->timestamp('like_date');
+        });
+
+
+
+    }   
 
     /**
      * Reverse the migrations.
@@ -32,6 +46,7 @@ class CreateWallPostCommentTable extends Migration
      */
     public function down()
     {
-        // Schema::dropIfExists('wall_post_comments');
+        Schema::dropIfExists('wall_post_comments');
+        Schema::dropIfExists('wall_post_comment_likes');
     }
 }
