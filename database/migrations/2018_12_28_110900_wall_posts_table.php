@@ -16,7 +16,7 @@ class WallPostsTable extends Migration
 
         Schema::dropIfExists('wall_posts');
         Schema::dropIfExists('wall_preview_links');
-        Schema::dropIfExists('wall_posts_imgs');
+        Schema::dropIfExists('wall_post_imgs');
         Schema::dropIfExists('wall_post_likes');
 
         Schema::create('wall_posts', function (Blueprint $table) {
@@ -50,13 +50,13 @@ class WallPostsTable extends Migration
             
         });
 
-        Schema::create('wall_posts_imgs', function (Blueprint $table) {
+        Schema::create('wall_post_imgs', function (Blueprint $table) {
             $table->bigIncrements('img_id');
             $table->unsignedBigInteger('img_post_id')->index();
             $table->text('img_path');
         });
 
-        Schema::create('wall_posts_likes', function (Blueprint $table) {
+        Schema::create('wall_post_likes', function (Blueprint $table) {
             $table->bigIncrements('like_id');
             $table->unsignedBigInteger('like_post_id')->index();
             $table->unsignedBigInteger('like_uid')->index();
