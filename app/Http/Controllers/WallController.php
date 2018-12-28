@@ -11,6 +11,9 @@ use App\Models\WallComment;
 
 use App\Http\Controllers\UserController ;
 
+use Notification;
+use App\Notifications\Comment;
+
 
 class WallController extends Controller
 {   
@@ -25,9 +28,8 @@ class WallController extends Controller
 
         // $user = Auth::user();
 
+        // $user = \App\User::where("id",'1')->get();
 
-
-        // dd($user) ;
 
         $data = array();
         $UserController = new UserController();

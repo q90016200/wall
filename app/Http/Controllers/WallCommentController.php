@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-
 use App\Models\WallComment;
+
+use Notification;
+use App\Notifications\Comment;
 
 class WallCommentController extends Controller
 {
@@ -18,7 +20,6 @@ class WallCommentController extends Controller
         $uid = $user["uid"];
 
         if($uid != 0 ){
-
         	$WallComment = new WallComment();
 	    	$WallComment->comment_post_id = $request->post_id;
 	    	$WallComment->comment_content = $request->content;
@@ -27,8 +28,19 @@ class WallCommentController extends Controller
 
 	    	$data["comments"] = $this->getCommentById($WallComment->comment_id);
 
-	    	// 更新post count
-	    	$this->update_post_comment_count($request->post_id);
+	    	# 更新 post count
+			$this->updatePostCommentCount($request->post_id);
+			
+			# 發送通知
+			// $u = \App\User::where("id",$uid)->first();
+
+			// $notif_data = array(
+				
+			// );
+
+			// Notification::send($u, new Comment($notif_data));
+
+			
 
 	    	$data["error"] = false;
         }
@@ -36,7 +48,6 @@ class WallCommentController extends Controller
         // dd($data);
 
     	return response()->json($data);
-
 
     }
 
@@ -57,7 +68,7 @@ class WallCommentController extends Controller
         		->where("comment_author",$uid)->delete();
 
         	// 更新post count
-	    	$this->update_post_comment_count($post_id);
+	    	$this->updatePostCommentCount($post_id);
 
 
        		$data["error"] = false;
@@ -68,7 +79,7 @@ class WallCommentController extends Controller
 
 
     // 更新 post 內的 comment數
-    public function update_post_comment_count($post_id = 0){
+    public function updatePostCommentCount($post_id = 0){
 
         if($post_id == 0){
             return false;
@@ -115,7 +126,7 @@ class WallCommentController extends Controller
 
 
         		foreach ($comments as $k => $v) {
-        			$cd[$k] = $this->export_comment($v);
+        			$cd[$k] = $this->exportComment($v);
         		}
 
         		$cd = array_reverse($cd);
@@ -130,7 +141,10 @@ class WallCommentController extends Controller
 
     }
 
-    private function export_comment($v){
+	/**
+	 * 輸出 comment 格式
+	 */
+    private function exportComment($v){
     	$data["comment_id"] = $v->comment_id;
     	$data["content"] = $v->comment_content;
     	$data["created_at"] = $v->created_at;
@@ -159,7 +173,7 @@ class WallCommentController extends Controller
             $comment = WallComment::where('comment_id', '=', $commnet_id)
                 ->get();
 
-            array_push($data, $this->export_comment($comment[0]));
+            array_push($data, $this->exportComment($comment[0]));
 
     	}
     	
